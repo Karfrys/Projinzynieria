@@ -100,9 +100,6 @@ namespace ProjInzynieraOprog
 
             }
 
-            //KOMENTARZ LALALLALALALALLALLALALALALLA
-
-
 
 
         }
