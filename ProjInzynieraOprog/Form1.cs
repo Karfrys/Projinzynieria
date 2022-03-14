@@ -7,10 +7,12 @@ namespace ProjInzynieraOprog
     public partial class Form1 : Form
     {
         static int tileSize = 35;
-        static int mapsize = 15;
-        static int coef = tileSize * mapsize;
+        static int mapSizeX = 29;
+        static int mapSizeY = 20;
+        static int coefX = tileSize * mapSizeX;
+        static int coefY = tileSize * mapSizeY;
 
-        Bitmap bm = new Bitmap(coef, coef);
+        Bitmap bm = new Bitmap(coefX, coefY);
         List<tile> listoftiles = new List<tile>();
 
 
@@ -19,14 +21,14 @@ namespace ProjInzynieraOprog
         private void DrawMap()
         {
 
-            pictureBox1.Size = new Size(coef, coef);
+            pictureBox1.Size = new Size(coefX, coefY);
             using (Graphics g = Graphics.FromImage(bm))
             using (SolidBrush kolorPola = new SolidBrush(Color.Gray))
             //using (SolidBrush whiteBrush = new SolidBrush(Color.Green))
             {
-                for (int i = 0; i < mapsize; i++)
+                for (int i = 0; i < mapSizeX; i++)
                 {
-                    for (int j = 0; j < mapsize; j++)
+                    for (int j = 0; j < mapSizeY; j++)
                     {
                         tile b = new tile();
                         b.Id = new Point(i * tileSize, j * tileSize);
@@ -39,9 +41,9 @@ namespace ProjInzynieraOprog
                 int xWidth = 0;
                 int yHeight = 0;
                 var shape = new PointF[4];
-                for (int y = 0; y < mapsize; y++)
+                for (int y = 0; y < mapSizeY; y++)
                 {
-                    for (int i = 0; i < mapsize; i++)
+                    for (int i = 0; i < mapSizeX; i++)
                     {
                         shape[0] = new PointF(xWidth, yHeight);
                         xWidth = xWidth + tileSize;
