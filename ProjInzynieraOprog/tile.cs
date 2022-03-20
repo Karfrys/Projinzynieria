@@ -6,11 +6,19 @@ namespace ProjInzynieraOprog
     internal class tile
     {
         Point id;
-        bool color;
+        private int point_gain = 0;
 
 
-        public Point Id { get => id; set => id = value; }
-        public bool Color { get => color; set => color = value; }
+        public Point Id
+        {
+            get => id; 
+            set => id = value;
+        }
 
+        public int PointGain
+        {
+            get => point_gain;
+            set => point_gain = value;
+        }
     }
 }
