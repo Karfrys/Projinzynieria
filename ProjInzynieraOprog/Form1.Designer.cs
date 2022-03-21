@@ -35,6 +35,10 @@
             this.button_attack = new System.Windows.Forms.Button();
             this.richTextBox_PointGain = new System.Windows.Forms.RichTextBox();
             this.label_PointGain = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -109,12 +113,55 @@
             this.label_PointGain.TabIndex = 7;
             this.label_PointGain.Text = "Point gain";
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(889, 471);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(101, 35);
+            this.button1.TabIndex = 8;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.Checked = true;
+            this.radioButton1.Location = new System.Drawing.Point(910, 512);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(80, 22);
+            this.radioButton1.TabIndex = 9;
+            this.radioButton1.TabStop = true;
+            this.radioButton1.Text = "Big Map";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.Location = new System.Drawing.Point(910, 540);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(110, 19);
+            this.radioButton2.TabIndex = 10;
+            this.radioButton2.Text = "Medium Map";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.Location = new System.Drawing.Point(910, 565);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(86, 21);
+            this.radioButton3.TabIndex = 11;
+            this.radioButton3.Text = "Small Map";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1099, 625);
+            this.Controls.Add(this.radioButton3);
+            this.Controls.Add(this.radioButton2);
+            this.Controls.Add(this.radioButton1);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label_PointGain);
             this.Controls.Add(this.richTextBox_PointGain);
             this.Controls.Add(this.button_attack);
@@ -128,6 +175,12 @@
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton3;
+
+        private System.Windows.Forms.Button button1;
 
         private System.Windows.Forms.RichTextBox richTextBox_PointGain;
         private System.Windows.Forms.Label label_PointGain;

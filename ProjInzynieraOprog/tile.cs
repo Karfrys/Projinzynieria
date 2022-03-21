@@ -6,7 +6,7 @@ namespace ProjInzynieraOprog
     internal class tile
     {
         Point id;
-        private int point_gain = 0;
+        string point_gain ;
 
 
         public Point Id
@@ -15,7 +15,7 @@ namespace ProjInzynieraOprog
             set => id = value;
         }
 
-        public int PointGain
+        public string PointGain
         {
             get => point_gain;
             set => point_gain = value;
