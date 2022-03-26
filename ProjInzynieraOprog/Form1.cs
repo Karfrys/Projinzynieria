@@ -22,7 +22,8 @@ namespace ProjInzynieraOprog
 
         private void DrawMap()
         {
-            string[] lines=GetMapSize();
+            string[,] tiles = GetMapSize();
+            //tiles = GetMapSize();
             pictureBox1.Refresh();
             pictureBox1.Size = new Size(mapsize*tileSize, mapsize*tileSize);
             using (Graphics g = Graphics.FromImage(bm))
@@ -56,14 +57,14 @@ namespace ProjInzynieraOprog
                     xWidth = 0;
                     yHeight = yHeight + tileSize;
                 }
-                int iterator=0;
-                
+
                 for (int i = 0; i < mapsize; i++)
                 {
                     for (int j = 0; j < mapsize; j++)
                     {
-                        List_of_tiles[i, j].PointGain  = lines[iterator];
-                        iterator++;
+                        List_of_tiles[i, j].PointGain  = int.Parse(tiles[i,j].Substring(0,2));
+                        List_of_tiles[i, j].Type  = int.Parse(tiles[i,j].Substring(3,1));
+                        List_of_tiles[i, j].Ownership  = int.Parse(tiles[i,j].Substring(5,1));
                     }
                 }
                 pictureBox1.Image = bm;
@@ -89,6 +90,9 @@ namespace ProjInzynieraOprog
 
         public Form1()
         {
+            CreateMaps(15,1);
+            CreateMaps(10,2);
+            CreateMaps(5,3);
             InitializeComponent();
             GoFullscreen(true);
             DrawMap();
@@ -131,38 +135,107 @@ namespace ProjInzynieraOprog
             }
         }
 
-          string[] GetMapSize()
+        void CreateMaps(int size,int map)
+        {
+            string name = "map" + map.ToString() + ".txt";
+            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", name);
+            StreamWriter sw;
+            if (!File.Exists(path))
+            {
+                sw = File.CreateText(path);
+            }
+            sw = new StreamWriter(path, false);
+            Random r = new Random();
+            for (int i = 0; i < size; i++)
+            {
+                string line;
+                int pg; //randomowy point gain dla pol
+                int type; //0-zwykle, 1-gory, 2-woda 
+                int own; //ownership 
+                StringBuilder sb = new StringBuilder();
+                for (int j = 0; j < size; j++)
+                {
+                    pg = r.Next(10, 30);
+                    type = r.Next(0, 2);
+                    if (i < 2 && j < 2)
+                    {
+                        own = 1;
+                    }
+                    else if (i > size - 3 && j > size - 3)
+                    {
+                        own = 1;
+                    }
+                    else
+                    {
+                        own = 0;
+                    }
+                    sb.Append(pg.ToString()+";"+type.ToString()+";"+own.ToString()+"!");
+                }
+                line = sb.ToString();
+                sw.WriteLine(line);
+            }
+            sw.Close();
+        }
+
+          string [,] GetMapSize()
           {
-             
-              string[] elo = new string[] { };
+              string[,] elo = new string[15,15];
 
-             if (radioButton1.Checked)
-            {
-                string fileName = "map1.txt";
-                string path = Path.Combine(Environment.CurrentDirectory, @"Data\", fileName);
-                mapsize = 15;
-                string[] lines = File.ReadAllLines(path, Encoding.UTF8);
-                return lines;
-
-            }
-            else if (radioButton2.Checked)
-            {
-                string fileName = "map2.txt";
-                string path = Path.Combine(Environment.CurrentDirectory, @"Data\", fileName);
-                mapsize = 10;
-                string[] lines = File.ReadAllLines(path, Encoding.UTF8);
-                return lines;
-            }
-            else if (radioButton3.Checked)
-            {
-                string fileName = "map3.txt";
-                string path = Path.Combine(Environment.CurrentDirectory, @"Data\", fileName);
-                mapsize = 5;
-                string[] lines = File.ReadAllLines(path, Encoding.UTF8);
-                return lines;
-            }
+              if (radioButton1.Checked)
+              {
+                  string[,] Tiles = new string[15,15]; 
+                  string fileName = "map1.txt"; 
+                  string path = Path.Combine(Environment.CurrentDirectory, @"Data\", fileName); 
+                  mapsize = 15; 
+                  string[] lines = File.ReadAllLines(path, Encoding.UTF8); 
+                  for (int i = 0; i < 15; i++) 
+                  { 
+                      for (int j = 0; j < 15; j++) 
+                      { 
+                          int iterator = 0; 
+                          Tiles [i, j] = lines[i].Substring(iterator, iterator + 6); 
+                          iterator += 7;
+                      }
+                  } 
+                  return Tiles;
+              }
+             else if (radioButton2.Checked)
+             {
+                 string fileName = "map2.txt";
+                 string[,] Tiles = new string[10,10]; 
+                 string path = Path.Combine(Environment.CurrentDirectory, @"Data\", fileName); 
+                 mapsize = 10; 
+                 string[] lines = File.ReadAllLines(path, Encoding.UTF8); 
+                 for (int i = 0; i < 10; i++) 
+                 { 
+                     for (int j = 0; j < 10; j++) 
+                     { 
+                         int iterator = 0; 
+                         Tiles [i, j] = lines[i].Substring(iterator, iterator + 6); 
+                         iterator += 7;
+                     }
+                 } 
+                 return Tiles;
+             }
+             else if (radioButton3.Checked)
+             {
+                 string fileName = "map3.txt";
+                 string[,] Tiles = new string[5,5]; 
+                 string path = Path.Combine(Environment.CurrentDirectory, @"Data\", fileName); 
+                 mapsize = 5; 
+                 string[] lines = File.ReadAllLines(path, Encoding.UTF8); 
+                 for (int i = 0; i < 5; i++) 
+                 { 
+                     for (int j = 0; j < 5; j++) 
+                     { 
+                         int iterator = 0; 
+                         Tiles [i, j] = lines[i].Substring(iterator, iterator + 6); 
+                         iterator += 7;
+                     }
+                 } 
+                 return Tiles;
+             }
              return elo;
-
           }
 
 
