@@ -66,29 +66,30 @@ namespace ProjInzynieraOprog
                         if (List_of_tiles[i, j].Type == 2)
                         {
                             List_of_tiles[i, j].PointGain = 0;
-                            string fileName = "WATER.bmp";
+                            string fileName = "WATER.png";
                             string path = Path.Combine(Environment.CurrentDirectory, @"Resources\", fileName);
                             Image waterimg = new Bitmap(path);
-                            g.DrawImage(waterimg, i * tileSize + 5, j * tileSize + 5, tileSize - 10, tileSize - 10);
+                            g.DrawImage(waterimg, i * tileSize + 1, j * tileSize + 1, tileSize - 1, tileSize - 1);
 
                         }
 
 
                         if (List_of_tiles[i, j].Type == 1)
                         {
-                            string fileName = "VILLAGE.bmp";
+                            string fileName = "FOREST.png";
                             string path = Path.Combine(Environment.CurrentDirectory, @"Resources\", fileName);
-                            Image villageimg = new Bitmap(path);
-                            g.DrawImage(villageimg, i * tileSize + 5, j * tileSize + 5, tileSize - 10, tileSize - 10);
+                            Image villageimg = Image.FromFile(path);
+                            g.DrawImage(villageimg, i * tileSize + 1, j * tileSize + 1, tileSize-1 , tileSize-1 );
                         }
 
 
                         if (List_of_tiles[i, j].Type == 0)
                         {
-                            string fileName = "WHEAT.bmp";
+                            string fileName = "BUMP.png";
                             string path = Path.Combine(Environment.CurrentDirectory, @"Resources\", fileName);
-                            Image wheatimg = new Bitmap(path);
-                            g.DrawImage(wheatimg, i * tileSize + 5, j * tileSize + 5, tileSize - 10, tileSize - 10);
+                            Image wheatimg = Image.FromFile(path);
+
+                            g.DrawImage(wheatimg, i * tileSize + 1, j * tileSize + 1, tileSize - 1, tileSize - 1);
                         }
                     }
 
@@ -178,9 +179,9 @@ namespace ProjInzynieraOprog
             sw = new StreamWriter(path, false);
             Random r = new Random();
             string line;
-            int pg; //randomowy point gain dla pol
-            int type; //0-pole , 1-wioska, 2-woda 
-            int own; //ownership 
+            int pg; //assigning random pointgain for each tile// 
+            int type; //0-clearing , 1-forest, 2-water //
+            int own; //ownership //
             for (int i = 0; i < size; i++)
             {
               
