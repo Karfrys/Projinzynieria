@@ -117,8 +117,6 @@ namespace ProjInzynieraOprog
                 }
 
                 firstRun = false;
-               // int iterator=0;
-               List_of_tiles[1, 1].SoldiersOnTile = 20;
                 pictureBox1.Image = bm;
             }
         }
@@ -154,7 +152,7 @@ namespace ProjInzynieraOprog
 
         private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
         {
-            {
+            
                 int x = e.X / tileSize;
                 int y = e.Y / tileSize;
                 int clickX = e.X;
@@ -165,11 +163,10 @@ namespace ProjInzynieraOprog
                 selectedProvince.Y = y;
                 richTextBox_coordinates.Text = List_of_tiles[x,y].Id.ToString();
                 richTextBox_PointGain.Text = List_of_tiles[x,y].PointGain.ToString();
-                
                 soldierTrackBar.Maximum = List_of_tiles[x, y].SoldiersOnTile;
                 soldierTrackBar.Minimum = 1;
                 tempAttackerId = List_of_tiles[x, y].Id;
-
+                textBox2.Text = List_of_tiles[x, y].SoldiersOnTile.ToString();
                 //disabling attack control buttons if player dont clink on tile he owns or neigbouring tiles are non existent
               
                 
@@ -219,7 +216,7 @@ namespace ProjInzynieraOprog
                     }
                }
 
-            }
+            
         }
 
 
@@ -305,10 +302,10 @@ namespace ProjInzynieraOprog
                 for (int i = 0; i < 15; i++) 
                   {
                     iterator = 0;
-                    for (int j = 0; j < 15; j++) 
-                      {
+                    for (int j = 0; j < 15; j++)
+                    {
 
-
+                        
                         Tiles[i, j] = lines[i].Substring(iterator, 6);
                         iterator += 7;
                        

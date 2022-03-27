@@ -34,7 +34,6 @@
             this.richTextBox_coordinates = new System.Windows.Forms.RichTextBox();
             this.label_Coordinates = new System.Windows.Forms.Label();
             this.button_exit = new System.Windows.Forms.Button();
-            this.button_attack = new System.Windows.Forms.Button();
             this.richTextBox_PointGain = new System.Windows.Forms.RichTextBox();
             this.label_PointGain = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -53,6 +52,9 @@
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.recrutingTrackBar = new System.Windows.Forms.TrackBar();
             this.button2 = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.newTurnButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.soldierTrackBar)).BeginInit();
@@ -97,17 +99,6 @@
             this.button_exit.UseVisualStyleBackColor = true;
             this.button_exit.Click += new System.EventHandler(this.button_exit_Click);
             // 
-            // button_attack
-            // 
-            this.button_attack.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.button_attack.Location = new System.Drawing.Point(1044, 131);
-            this.button_attack.Name = "button_attack";
-            this.button_attack.Size = new System.Drawing.Size(75, 23);
-            this.button_attack.TabIndex = 5;
-            this.button_attack.Text = "Attack";
-            this.button_attack.UseVisualStyleBackColor = true;
-            this.button_attack.Click += new System.EventHandler(this.button_attack_Click);
-            // 
             // richTextBox_PointGain
             // 
             this.richTextBox_PointGain.Enabled = false;
@@ -131,7 +122,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(101, 35);
             this.button1.TabIndex = 8;
-            this.button1.Text = "button1";
+            this.button1.Text = "Generate new map";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -168,7 +159,7 @@
             // 
             this.newTurnButton.Image = ((System.Drawing.Image) (resources.GetObject("newTurnButton.Image")));
             this.newTurnButton.InitialImage = ((System.Drawing.Image) (resources.GetObject("newTurnButton.InitialImage")));
-            this.newTurnButton.Location = new System.Drawing.Point(758, 398);
+            this.newTurnButton.Location = new System.Drawing.Point(853, 398);
             this.newTurnButton.Margin = new System.Windows.Forms.Padding(2);
             this.newTurnButton.Name = "newTurnButton";
             this.newTurnButton.Size = new System.Drawing.Size(205, 68);
@@ -178,7 +169,7 @@
             // 
             // soldierTrackBar
             // 
-            this.soldierTrackBar.Location = new System.Drawing.Point(797, 273);
+            this.soldierTrackBar.Location = new System.Drawing.Point(880, 317);
             this.soldierTrackBar.Margin = new System.Windows.Forms.Padding(2);
             this.soldierTrackBar.Name = "soldierTrackBar";
             this.soldierTrackBar.Size = new System.Drawing.Size(116, 45);
@@ -186,7 +177,7 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(830, 374);
+            this.textBox1.Location = new System.Drawing.Point(899, 248);
             this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(65, 20);
@@ -199,52 +190,52 @@
             // 
             // buttonN
             // 
-            this.buttonN.Location = new System.Drawing.Point(834, 304);
+            this.buttonN.Location = new System.Drawing.Point(899, 281);
             this.buttonN.Margin = new System.Windows.Forms.Padding(2);
             this.buttonN.Name = "buttonN";
             this.buttonN.Size = new System.Drawing.Size(79, 23);
             this.buttonN.TabIndex = 16;
-            this.buttonN.Text = "buttonN\r\n";
+            this.buttonN.Text = "Attack N";
             this.buttonN.UseVisualStyleBackColor = true;
             this.buttonN.Click += new System.EventHandler(this.buttonN_Click);
             // 
             // buttonE
             // 
-            this.buttonE.Location = new System.Drawing.Point(910, 322);
+            this.buttonE.Location = new System.Drawing.Point(998, 317);
             this.buttonE.Margin = new System.Windows.Forms.Padding(2);
             this.buttonE.Name = "buttonE";
             this.buttonE.Size = new System.Drawing.Size(89, 25);
             this.buttonE.TabIndex = 17;
-            this.buttonE.Text = "buttonE";
+            this.buttonE.Text = "Attack E";
             this.buttonE.UseVisualStyleBackColor = true;
             this.buttonE.Click += new System.EventHandler(this.buttonE_Click);
             // 
             // buttonW
             // 
-            this.buttonW.Location = new System.Drawing.Point(769, 322);
+            this.buttonW.Location = new System.Drawing.Point(797, 317);
             this.buttonW.Margin = new System.Windows.Forms.Padding(2);
             this.buttonW.Name = "buttonW";
-            this.buttonW.Size = new System.Drawing.Size(64, 25);
+            this.buttonW.Size = new System.Drawing.Size(79, 25);
             this.buttonW.TabIndex = 18;
-            this.buttonW.Text = "buttonW\r\n";
+            this.buttonW.Text = "Attack W";
             this.buttonW.UseVisualStyleBackColor = true;
             this.buttonW.Click += new System.EventHandler(this.buttonW_Click);
             // 
             // buttonS
             // 
-            this.buttonS.Location = new System.Drawing.Point(837, 346);
+            this.buttonS.Location = new System.Drawing.Point(899, 346);
             this.buttonS.Margin = new System.Windows.Forms.Padding(2);
             this.buttonS.Name = "buttonS";
             this.buttonS.Size = new System.Drawing.Size(76, 24);
             this.buttonS.TabIndex = 19;
-            this.buttonS.Text = "buttonS";
+            this.buttonS.Text = "Attack S";
             this.buttonS.UseVisualStyleBackColor = true;
             this.buttonS.Click += new System.EventHandler(this.buttonS_Click);
             // 
             // richTextBox1
             // 
             this.richTextBox1.Enabled = false;
-            this.richTextBox1.Location = new System.Drawing.Point(742, 12);
+            this.richTextBox1.Location = new System.Drawing.Point(936, 12);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(108, 28);
             this.richTextBox1.TabIndex = 20;
@@ -263,16 +254,43 @@
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(88, 27);
             this.button2.TabIndex = 22;
-            this.button2.Text = "button2";
+            this.button2.Text = "Recruit";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
+            // textBox2
+            // 
+            this.textBox2.Enabled = false;
+            this.textBox2.Location = new System.Drawing.Point(937, 138);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(110, 20);
+            this.textBox2.TabIndex = 23;
+            // 
+            // label1
+            // 
+            this.label1.Location = new System.Drawing.Point(825, 13);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(105, 40);
+            this.label1.TabIndex = 25;
+            this.label1.Text = "Overall player points";
+            // 
+            // label2
+            // 
+            this.label2.Location = new System.Drawing.Point(825, 138);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(110, 30);
+            this.label2.TabIndex = 26;
+            this.label2.Text = "Soldiers on tile";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (128)))), ((int) (((byte) (64)))), ((int) (((byte) (0)))));
+            this.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (158)))), ((int) (((byte) (103)))), ((int) (((byte) (12)))));
             this.ClientSize = new System.Drawing.Size(1188, 716);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.textBox2);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.recrutingTrackBar);
             this.Controls.Add(this.richTextBox1);
@@ -289,7 +307,6 @@
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label_PointGain);
             this.Controls.Add(this.richTextBox_PointGain);
-            this.Controls.Add(this.button_attack);
             this.Controls.Add(this.button_exit);
             this.Controls.Add(this.label_Coordinates);
             this.Controls.Add(this.richTextBox_coordinates);
@@ -304,6 +321,12 @@
             this.ResumeLayout(false);
             this.PerformLayout();
         }
+
+        private System.Windows.Forms.Label label2;
+
+        private System.Windows.Forms.Label label1;
+
+        private System.Windows.Forms.TextBox textBox2;
 
         private System.Windows.Forms.TrackBar recrutingTrackBar;
         private System.Windows.Forms.Button button2;
@@ -332,8 +355,6 @@
 
         private System.Windows.Forms.RichTextBox richTextBox_PointGain;
         private System.Windows.Forms.Label label_PointGain;
-
-        private System.Windows.Forms.Button button_attack;
 
         private System.Windows.Forms.Button button_exit;
 
