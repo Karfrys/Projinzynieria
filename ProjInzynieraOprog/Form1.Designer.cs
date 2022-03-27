@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.richTextBox_coordinates = new System.Windows.Forms.RichTextBox();
             this.label_Coordinates = new System.Windows.Forms.Label();
@@ -39,7 +41,17 @@
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.newTurnButton = new System.Windows.Forms.PictureBox();
+            this.soldierTrackBar = new System.Windows.Forms.TrackBar();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.buttonN = new System.Windows.Forms.Button();
+            this.buttonE = new System.Windows.Forms.Button();
+            this.buttonW = new System.Windows.Forms.Button();
+            this.buttonS = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.newTurnButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.soldierTrackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -86,7 +98,7 @@
             // button_attack
             // 
             this.button_attack.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.button_attack.Location = new System.Drawing.Point(900, 204);
+            this.button_attack.Location = new System.Drawing.Point(830, 146);
             this.button_attack.Name = "button_attack";
             this.button_attack.Size = new System.Drawing.Size(75, 23);
             this.button_attack.TabIndex = 5;
@@ -152,12 +164,92 @@
             this.radioButton3.Text = "Small Map";
             this.radioButton3.UseVisualStyleBackColor = true;
             // 
+            // newTurnButton
+            // 
+            this.newTurnButton.Image = ((System.Drawing.Image) (resources.GetObject("newTurnButton.Image")));
+            this.newTurnButton.InitialImage = ((System.Drawing.Image) (resources.GetObject("newTurnButton.InitialImage")));
+            this.newTurnButton.Location = new System.Drawing.Point(815, 386);
+            this.newTurnButton.Name = "newTurnButton";
+            this.newTurnButton.Size = new System.Drawing.Size(205, 67);
+            this.newTurnButton.TabIndex = 12;
+            this.newTurnButton.TabStop = false;
+            this.newTurnButton.Click += new System.EventHandler(this.pictureBox2_Click);
+            // 
+            // soldierTrackBar
+            // 
+            this.soldierTrackBar.Location = new System.Drawing.Point(815, 295);
+            this.soldierTrackBar.Name = "soldierTrackBar";
+            this.soldierTrackBar.Size = new System.Drawing.Size(232, 45);
+            this.soldierTrackBar.TabIndex = 13;
+            soldierTrackBar.ValueChanged += 
+                new System.EventHandler(soldierTrackBar_ValueChanged);
+            this.Controls.Add(this.soldierTrackBar);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(863, 277);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(126, 20);
+            this.textBox1.TabIndex = 14;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // buttonN
+            // 
+            this.buttonN.Location = new System.Drawing.Point(910, 197);
+            this.buttonN.Name = "buttonN";
+            this.buttonN.Size = new System.Drawing.Size(24, 21);
+            this.buttonN.TabIndex = 16;
+            this.buttonN.Text = "buttonN\r\n";
+            this.buttonN.UseVisualStyleBackColor = true;
+            this.buttonN.Click += new System.EventHandler(this.buttonN_Click);
+            // 
+            // buttonE
+            // 
+            this.buttonE.Location = new System.Drawing.Point(936, 224);
+            this.buttonE.Name = "buttonE";
+            this.buttonE.Size = new System.Drawing.Size(25, 22);
+            this.buttonE.TabIndex = 17;
+            this.buttonE.Text = "buttonE";
+            this.buttonE.UseVisualStyleBackColor = true;
+            this.buttonE.Click += new System.EventHandler(this.buttonE_Click);
+            // 
+            // buttonW
+            // 
+            this.buttonW.Location = new System.Drawing.Point(889, 223);
+            this.buttonW.Name = "buttonW";
+            this.buttonW.Size = new System.Drawing.Size(22, 23);
+            this.buttonW.TabIndex = 18;
+            this.buttonW.Text = "buttonW\r\n";
+            this.buttonW.UseVisualStyleBackColor = true;
+            this.buttonW.Click += new System.EventHandler(this.buttonW_Click);
+            // 
+            // buttonS
+            // 
+            this.buttonS.Location = new System.Drawing.Point(910, 252);
+            this.buttonS.Name = "buttonS";
+            this.buttonS.Size = new System.Drawing.Size(24, 19);
+            this.buttonS.TabIndex = 19;
+            this.buttonS.Text = "buttonS";
+            this.buttonS.UseVisualStyleBackColor = true;
+            this.buttonS.Click += new System.EventHandler(this.buttonS_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1099, 625);
+            this.Controls.Add(this.buttonS);
+            this.Controls.Add(this.buttonW);
+            this.Controls.Add(this.buttonE);
+            this.Controls.Add(this.buttonN);
+            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.soldierTrackBar);
+            this.Controls.Add(this.newTurnButton);
             this.Controls.Add(this.radioButton3);
             this.Controls.Add(this.radioButton2);
             this.Controls.Add(this.radioButton1);
@@ -173,8 +265,23 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.newTurnButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.soldierTrackBar)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
         }
+
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.Button buttonN;
+        private System.Windows.Forms.Button buttonE;
+        private System.Windows.Forms.Button buttonW;
+        private System.Windows.Forms.Button buttonS;
+
+        private System.Windows.Forms.TextBox textBox1;
+
+        private System.Windows.Forms.TrackBar soldierTrackBar;
+
+        private System.Windows.Forms.PictureBox newTurnButton;
 
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.RadioButton radioButton2;
