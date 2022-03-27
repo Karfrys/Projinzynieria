@@ -31,10 +31,18 @@ namespace ProjInzynieraOprog
             set => id = value;
         }
 
-        public string PointGain
+        public int PointGain
         {
-            get => point_gain;
-            set => point_gain = value;
+            get => pointGain;
+            set => pointGain = value;
         }
+
+        public int Type
+        {
+            get => type;
+            set => type = value;
+        }
+
+        
     }
 }

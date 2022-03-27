@@ -52,44 +52,45 @@
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.newTurnButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.soldierTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
             // 
             this.pictureBox1.BackColor = System.Drawing.SystemColors.Control;
-            this.pictureBox1.Location = new System.Drawing.Point(36, 22);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.pictureBox1.Location = new System.Drawing.Point(72, 42);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(707, 577);
+            this.pictureBox1.Size = new System.Drawing.Size(1414, 1110);
             this.pictureBox1.TabIndex = 0;
             this.pictureBox1.TabStop = false;
             this.pictureBox1.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseUp);
             // 
             // richTextBox_coordinates
             // 
-            this.richTextBox_coordinates.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox_coordinates.Enabled = false;
-            this.richTextBox_coordinates.Location = new System.Drawing.Point(936, 50);
+            this.richTextBox_coordinates.Location = new System.Drawing.Point(1872, 96);
+            this.richTextBox_coordinates.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.richTextBox_coordinates.Name = "richTextBox_coordinates";
-            this.richTextBox_coordinates.Size = new System.Drawing.Size(111, 21);
+            this.richTextBox_coordinates.Size = new System.Drawing.Size(218, 37);
             this.richTextBox_coordinates.TabIndex = 2;
             this.richTextBox_coordinates.Text = "";
             // 
             // label_Coordinates
             // 
-            this.label_Coordinates.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label_Coordinates.Location = new System.Drawing.Point(830, 53);
+            this.label_Coordinates.Location = new System.Drawing.Point(1660, 102);
+            this.label_Coordinates.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label_Coordinates.Name = "label_Coordinates";
-            this.label_Coordinates.Size = new System.Drawing.Size(100, 23);
+            this.label_Coordinates.Size = new System.Drawing.Size(200, 44);
             this.label_Coordinates.TabIndex = 3;
             this.label_Coordinates.Text = "Coordinates";
             // 
             // button_exit
             // 
-            this.button_exit.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_exit.Location = new System.Drawing.Point(1012, 590);
+            this.button_exit.Location = new System.Drawing.Point(2024, 1135);
+            this.button_exit.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button_exit.Name = "button_exit";
-            this.button_exit.Size = new System.Drawing.Size(75, 23);
+            this.button_exit.Size = new System.Drawing.Size(150, 50);
             this.button_exit.TabIndex = 4;
             this.button_exit.Text = "exit";
             this.button_exit.UseVisualStyleBackColor = true;
@@ -97,10 +98,12 @@
             // 
             // button_attack
             // 
+            this.button_attack.Location = new System.Drawing.Point(1800, 392);
+            this.button_attack.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button_attack.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.button_attack.Location = new System.Drawing.Point(830, 146);
             this.button_attack.Name = "button_attack";
-            this.button_attack.Size = new System.Drawing.Size(75, 23);
+            this.button_attack.Size = new System.Drawing.Size(150, 44);
             this.button_attack.TabIndex = 5;
             this.button_attack.Text = "Attack";
             this.button_attack.UseVisualStyleBackColor = true;
@@ -108,28 +111,29 @@
             // 
             // richTextBox_PointGain
             // 
-            this.richTextBox_PointGain.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.richTextBox_PointGain.Enabled = false;
-            this.richTextBox_PointGain.Location = new System.Drawing.Point(936, 93);
+            this.richTextBox_PointGain.Location = new System.Drawing.Point(1872, 179);
+            this.richTextBox_PointGain.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.richTextBox_PointGain.Name = "richTextBox_PointGain";
-            this.richTextBox_PointGain.Size = new System.Drawing.Size(111, 21);
+            this.richTextBox_PointGain.Size = new System.Drawing.Size(218, 37);
             this.richTextBox_PointGain.TabIndex = 6;
             this.richTextBox_PointGain.Text = "";
             // 
             // label_PointGain
             // 
-            this.label_PointGain.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label_PointGain.Location = new System.Drawing.Point(830, 96);
+            this.label_PointGain.Location = new System.Drawing.Point(1660, 185);
+            this.label_PointGain.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label_PointGain.Name = "label_PointGain";
-            this.label_PointGain.Size = new System.Drawing.Size(100, 23);
+            this.label_PointGain.Size = new System.Drawing.Size(200, 44);
             this.label_PointGain.TabIndex = 7;
             this.label_PointGain.Text = "Point gain";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(889, 471);
+            this.button1.Location = new System.Drawing.Point(1778, 906);
+            this.button1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(101, 35);
+            this.button1.Size = new System.Drawing.Size(202, 67);
             this.button1.TabIndex = 8;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
@@ -138,9 +142,10 @@
             // radioButton1
             // 
             this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(910, 512);
+            this.radioButton1.Location = new System.Drawing.Point(1820, 985);
+            this.radioButton1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(80, 22);
+            this.radioButton1.Size = new System.Drawing.Size(160, 42);
             this.radioButton1.TabIndex = 9;
             this.radioButton1.TabStop = true;
             this.radioButton1.Text = "Big Map";
@@ -148,18 +153,20 @@
             // 
             // radioButton2
             // 
-            this.radioButton2.Location = new System.Drawing.Point(910, 540);
+            this.radioButton2.Location = new System.Drawing.Point(1820, 1038);
+            this.radioButton2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(110, 19);
+            this.radioButton2.Size = new System.Drawing.Size(220, 37);
             this.radioButton2.TabIndex = 10;
             this.radioButton2.Text = "Medium Map";
             this.radioButton2.UseVisualStyleBackColor = true;
             // 
             // radioButton3
             // 
-            this.radioButton3.Location = new System.Drawing.Point(910, 565);
+            this.radioButton3.Location = new System.Drawing.Point(1820, 1087);
+            this.radioButton3.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(86, 21);
+            this.radioButton3.Size = new System.Drawing.Size(172, 40);
             this.radioButton3.TabIndex = 11;
             this.radioButton3.Text = "Small Map";
             this.radioButton3.UseVisualStyleBackColor = true;
@@ -239,9 +246,10 @@
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(2198, 1202);
             this.ClientSize = new System.Drawing.Size(1099, 625);
             this.Controls.Add(this.buttonS);
             this.Controls.Add(this.buttonW);
@@ -262,12 +270,14 @@
             this.Controls.Add(this.richTextBox_coordinates);
             this.Controls.Add(this.pictureBox1);
             this.Location = new System.Drawing.Point(15, 15);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize) (this.newTurnButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize) (this.soldierTrackBar)).EndInit();
             this.ResumeLayout(false);
+
             this.PerformLayout();
         }
 
