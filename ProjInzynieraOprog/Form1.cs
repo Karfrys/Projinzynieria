@@ -67,7 +67,7 @@ namespace ProjInzynieraOprog
                         {
                             List_of_tiles[i, j].PointGain = 0;
                             string fileName = "WATER.bmp";
-                            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", fileName);
+                            string path = Path.Combine(Environment.CurrentDirectory, @"Resources\", fileName);
                             Image waterimg = new Bitmap(path);
                             g.DrawImage(waterimg, i * tileSize + 1, j * tileSize + 1, tileSize - 1, tileSize - 1);
 
@@ -77,7 +77,7 @@ namespace ProjInzynieraOprog
                         if (List_of_tiles[i, j].Type == 1)
                         {
                             string fileName = "VILLAGE.bmp";
-                            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", fileName);
+                            string path = Path.Combine(Environment.CurrentDirectory, @"Resources\", fileName);
                             Image villageimg = new Bitmap(path);
                             g.DrawImage(villageimg, i * tileSize + 1, j * tileSize + 1, tileSize - 1, tileSize - 1);
                         }
@@ -86,7 +86,7 @@ namespace ProjInzynieraOprog
                         if (List_of_tiles[i, j].Type == 0)
                         {
                             string fileName = "WHEAT.bmp";
-                            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", fileName);
+                            string path = Path.Combine(Environment.CurrentDirectory, @"Resources\", fileName);
                             Image wheatimg = new Bitmap(path);
                             g.DrawImage(wheatimg, i * tileSize + 1, j * tileSize + 1, tileSize - 1, tileSize - 1);
                         }
@@ -210,7 +210,7 @@ namespace ProjInzynieraOprog
             sw.Close();
         }
 
-          string [,] GetMapSize()
+        string [,] GetMapSize()
           {
               string[,] elo = new string[15,15];
 

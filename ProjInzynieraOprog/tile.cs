@@ -33,10 +33,6 @@ namespace ProjInzynieraOprog
             get => ownership;
             set => ownership = value;
         }
-        public string Tile_type
-        { 
-            get => tile_type; 
-            set => tile_type = value; 
-        }
+        
     }
 }
