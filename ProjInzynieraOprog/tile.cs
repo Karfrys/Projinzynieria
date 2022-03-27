@@ -5,11 +5,28 @@ namespace ProjInzynieraOprog
 {
     internal class tile
     {
-        Point id;
-        private int point_gain = 0;
+        int id;
 
 
-        public Point Id
+        int pointGain ;
+        private int playerControllerId;
+        private int soldiersOnTile=0;
+        private int type;
+
+        public int SoldiersOnTile
+        {
+            get => soldiersOnTile;
+            set => soldiersOnTile = value;
+        }
+
+        public int PlayerControllerId
+        {
+            get => playerControllerId;
+            set => playerControllerId = value;
+        }
+
+
+        public int Id
         {
             get => id; 
             set => id = value;
@@ -17,8 +34,16 @@ namespace ProjInzynieraOprog
 
         public int PointGain
         {
-            get => point_gain;
-            set => point_gain = value;
+            get => pointGain;
+            set => pointGain = value;
         }
+
+        public int Type
+        {
+            get => type;
+            set => type = value;
+        }
+
+        
     }
 }
