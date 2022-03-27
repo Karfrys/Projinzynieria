@@ -13,46 +13,52 @@ namespace ProjInzynieraOprog
         private  player _playerHuman = new player(1);
         readonly player _playerAi = new player(2);
         private static int mapsize = 15;
-        SolidBrush allyColor = new SolidBrush(Color.Blue);
-        SolidBrush enemyColor = new SolidBrush(Color.Red);
+        SolidBrush allyColor = new SolidBrush(Color.LightSeaGreen);
+        SolidBrush enemyColor = new SolidBrush(Color.LightCoral);
         SolidBrush neutralColor = new SolidBrush(Color.Gray);
         private int tempDefenderId;
         private int tempAttackerId;
-       //static int coef = mapsize * tileSize;
         private int tileXposition;
         private int tileYposition;
-
         Bitmap bm = new Bitmap(675, 675);
         //List<tile> listoftiles = new List<tile>();
          tile [,] List_of_tiles = new tile [mapsize,mapsize];
         List <battle> battlesToDetermine = new List<battle>();
+        private bool firstRun = true;
+        Point selectedProvince;
 
         private void DrawMap()
         {
+            richTextBox1.Text = _playerHuman.PointsBalance.ToString();
             int iter=0;
-            string[] lines=GetMapSize();
+            //string[] lines=GetMapSize();
             string[,] tiles = GetMapSize();
             pictureBox1.Refresh();
             pictureBox1.Size = new Size(mapsize*tileSize, mapsize*tileSize);
             using (Graphics g = Graphics.FromImage(bm))
-            //using (SolidBrush kolorPola = new SolidBrush(Color.Gray))
-            //using (SolidBrush whiteBrush = new SolidBrush(Color.Green))
             {
                 int xWidth = 0;
                 int yHeight = 0;
                 var shape = new PointF[4];
+                
                 for (int i = 0; i < mapsize; i++)
                 {
                     for (int j = 0; j < mapsize; j++)
                     {
-                        tile b = new tile();
-                       // b.Id = new Point(i * tileSize, j * tileSize);
-                       b.Id = iter;
-                       iter++;
-                        //listoftiles.Add(b);
-                        List_of_tiles[i, j] = b;
-                        //List_of_tiles[i, j].PointGain = 15;
-
+                        if (firstRun == true)
+                        {
+                            tile b = new tile();
+                            // b.Id = new Point(i * tileSize, j * tileSize);
+                            b.Id = iter;
+                            iter++;
+                            //listoftiles.Add(b);
+                            List_of_tiles[i, j] = b;
+                            //List_of_tiles[i, j].PointGain = 15;
+                        
+                            List_of_tiles[i, j].PointGain  = int.Parse(tiles[i,j].Substring(0,2));
+                            List_of_tiles[i, j].Type  = int.Parse(tiles[i,j].Substring(3,1));
+                            List_of_tiles[i, j].PlayerControllerId  = int.Parse(tiles[i,j].Substring(5,1));
+                        }
                         if (List_of_tiles[i, j].PlayerControllerId == 1)
                         {
                             g.FillRectangle(allyColor, i * tileSize+1, j * tileSize+1, tileSize-1, tileSize-1);
@@ -65,32 +71,7 @@ namespace ProjInzynieraOprog
                         {
                             g.FillRectangle(neutralColor, i * tileSize+1, j * tileSize+1, tileSize-1, tileSize-1);
                         }
-                        shape[0] = new PointF(xWidth, yHeight);
-                        xWidth = xWidth + tileSize;
-                        shape[1] = new PointF(xWidth, yHeight);
-                        yHeight = yHeight + tileSize;
-                        shape[2] = new PointF(xWidth, yHeight);
-                        xWidth = xWidth - tileSize;
-                        shape[3] = new PointF(xWidth, yHeight);
-                        g.DrawPolygon(Pens.Black, shape);
-                        yHeight = yHeight - tileSize;
-                        xWidth = xWidth + tileSize;
-                    }
-                    xWidth = 0;
-                    yHeight = yHeight + tileSize;
-                }
-
-
-                int iterator=0;
-                
-                for (int i = 0; i < mapsize; i++)
-                {
-                    for (int j = 0; j < mapsize; j++)
-                    {
-                        List_of_tiles[i, j].PointGain  = int.Parse(tiles[i,j].Substring(0,2));
-                        List_of_tiles[i, j].Type  = int.Parse(tiles[i,j].Substring(3,1));
-                        List_of_tiles[i, j].Ownership  = int.Parse(tiles[i,j].Substring(5,1));
-
+                        
                         if (List_of_tiles[i, j].Type == 2)
                         {
                             List_of_tiles[i, j].PointGain = 0;
@@ -118,13 +99,25 @@ namespace ProjInzynieraOprog
                             Image wheatimg = new Bitmap(path);
                             g.DrawImage(wheatimg, i * tileSize + 5, j * tileSize + 5, tileSize - 10, tileSize - 10);
                         }
+                        
+                        shape[0] = new PointF(xWidth, yHeight);
+                        xWidth = xWidth + tileSize;
+                        shape[1] = new PointF(xWidth, yHeight);
+                        yHeight = yHeight + tileSize;
+                        shape[2] = new PointF(xWidth, yHeight);
+                        xWidth = xWidth - tileSize;
+                        shape[3] = new PointF(xWidth, yHeight);
+                        g.DrawPolygon(Pens.Black, shape);
+                        yHeight = yHeight - tileSize;
+                        xWidth = xWidth + tileSize;
                     }
-
+                    xWidth = 0;
+                    yHeight = yHeight + tileSize;
                 }
 
-
-
-
+                firstRun = false;
+               // int iterator=0;
+               List_of_tiles[1, 1].SoldiersOnTile = 20;
                 pictureBox1.Image = bm;
             }
         }
@@ -167,7 +160,8 @@ namespace ProjInzynieraOprog
                 int clickY = e.Y;
                 tileXposition = x * tileSize;
                 tileYposition = y * tileSize;
-
+                selectedProvince.X = x;
+                selectedProvince.Y = y;
                 richTextBox_coordinates.Text = List_of_tiles[x,y].Id.ToString();
                 richTextBox_PointGain.Text = List_of_tiles[x,y].PointGain.ToString();
                 
@@ -367,24 +361,25 @@ namespace ProjInzynieraOprog
 
         private void button1_Click(object sender, EventArgs e)
         {
+            firstRun = true;
             DrawMap();
         }
-        
         
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
+            recrutingTrackBar.Maximum = _playerHuman.PointsBalance;
             for (int i = 0; i < mapsize; i++)
             {
                 for (int j = 0; j < mapsize; j++)
                 {
                     if (List_of_tiles[i, j].PlayerControllerId == 1)
                     {
-                        _playerHuman.PointsBalance =+ Convert.ToInt32(List_of_tiles[i, j].PointGain);
+                        _playerHuman.PointsBalance += Convert.ToInt32(List_of_tiles[i, j].PointGain);
                     }
                     else if (List_of_tiles[i, j].PlayerControllerId == 2)
                     {
-                        _playerAi.PointsBalance =+ Convert.ToInt32(List_of_tiles[i, j].PointGain);
+                        _playerAi.PointsBalance += Convert.ToInt32(List_of_tiles[i, j].PointGain);
                     }
 
                 }
@@ -392,41 +387,69 @@ namespace ProjInzynieraOprog
             //basic battle simulation
 
             int defenders;  
+            
             for (int k = 0; k < battlesToDetermine.Count;k++)
             {
-                defenders = get_soldier_num_by_id(k);
-                if (defenders<battlesToDetermine[k].SoldierNum)
+                defenders = get_soldier_num_by_id(battlesToDetermine[k].DefenderProvinceId);
+                if (checkIfFriendly(tempDefenderId) == true)
                 {
-                    battlesToDetermine[k].SoldierNum -= defenders;
-                    for (int i = 0; i < mapsize; i++)
+                    for (int i = 0; i < 0; i++)
                     {
-                        for (int j = 0; j < mapsize; j++)
+                        for (int j = 0; j < 0; j++)
                         {
-                            if (List_of_tiles[i, j].Id == battlesToDetermine[k].DefenderProvinceId)
+                            if (battlesToDetermine[k].AttackerProvinceId == List_of_tiles[i, j].Id)
                             {
-                                List_of_tiles[i, j].SoldiersOnTile = battlesToDetermine[k].SoldierNum;
-                                List_of_tiles[i, j].PlayerControllerId = 1;
+                                for (int x = 0; x < 0; x++)
+                                {
+                                    for (int z = 0; z < 0; z++)
+                                    {
+                                        if (battlesToDetermine[k].DefenderProvinceId == List_of_tiles[x, z].Id)
+                                        {
+                                            List_of_tiles[x, z].SoldiersOnTile += battlesToDetermine[k].SoldierNum;
+                                        }
+                                    }
+                                }
+
+                                List_of_tiles[i, j].SoldiersOnTile -= battlesToDetermine[k].SoldierNum;
                             }
                         }
                     }
-
                 }
                 else
                 {
-                    
-                    for (int i = 0; i < mapsize; i++)
+                    if (defenders<battlesToDetermine[k].SoldierNum)
                     {
-                        for (int j = 0; j < mapsize; j++)
+                        battlesToDetermine[k].SoldierNum -= defenders;
+                        for (int i = 0; i < mapsize; i++)
                         {
-                            if (List_of_tiles[i, j].Id == battlesToDetermine[k].DefenderProvinceId)
+                            for (int j = 0; j < mapsize; j++)
                             {
-                                List_of_tiles[i, j].SoldiersOnTile -= defenders;
+                                if (List_of_tiles[i, j].Id == battlesToDetermine[k].DefenderProvinceId)
+                                {
+                                    List_of_tiles[i, j].SoldiersOnTile = battlesToDetermine[k].SoldierNum;
+                                    List_of_tiles[i, j].PlayerControllerId = 1;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                    
+                        for (int i = 0; i < mapsize; i++)
+                        {
+                            for (int j = 0; j < mapsize; j++)
+                            {
+                                if (List_of_tiles[i, j].Id == battlesToDetermine[k].DefenderProvinceId)
+                                {
+                                    List_of_tiles[i, j].SoldiersOnTile -= defenders;
+                                }
                             }
                         }
                     }
                 }
-            }
-
+                }
+              
+            richTextBox1.Refresh();
             battlesToDetermine.Clear();
             DrawMap();
 
@@ -440,34 +463,35 @@ namespace ProjInzynieraOprog
 
         private void buttonN_Click(object sender, EventArgs e)
         {
-            tempDefenderId = tempAttackerId - mapsize;
+            tempDefenderId = tempAttackerId - 1;
             add_Battle_To_List();
         }
 
         private void buttonW_Click(object sender, EventArgs e)
         {
-            tempDefenderId = tempAttackerId - 1;
+            tempDefenderId = tempAttackerId - mapsize;
             add_Battle_To_List();
         }
 
         private void buttonS_Click(object sender, EventArgs e)
         {
-            tempDefenderId = tempAttackerId + mapsize;
+            tempDefenderId = tempAttackerId + 1;
             add_Battle_To_List();
         }
 
         private void buttonE_Click(object sender, EventArgs e)
         {
-            tempDefenderId = tempAttackerId +1;
+            tempDefenderId = tempAttackerId +mapsize;
             add_Battle_To_List();
         }
 
         private void add_Battle_To_List()
         {
             battle bat = new battle(tempAttackerId,tempDefenderId,soldierTrackBar.Value);
+            soldierTrackBar.Maximum -= soldierTrackBar.Value;
             battlesToDetermine.Add(bat);
         }
-
+        
         int get_soldier_num_by_id(int defid)
         {
             int solCount;
@@ -482,13 +506,37 @@ namespace ProjInzynieraOprog
                     }
                 }
             }
-
             return 0;
         }
+//check if attacked tile is friendly
+        bool checkIfFriendly(int id)
+        {
+            for (int i = 0; i < mapsize; i++)
+            {
+                for (int j = 0; j < mapsize; j++)
+                {
+                    if (id == List_of_tiles[i, j].Id)
+                    {
+                        if (List_of_tiles[i, j].PlayerControllerId == 1)
+                        {
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
 
-        
+            return false;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            List_of_tiles[selectedProvince.X, selectedProvince.Y].SoldiersOnTile += recrutingTrackBar.Value;
+                    _playerHuman.PointsBalance -= recrutingTrackBar.Value;
+                    recrutingTrackBar.Maximum -= recrutingTrackBar.Value;
+        }
     }
-
-   
-
 }

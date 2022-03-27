@@ -5,7 +5,7 @@ namespace ProjInzynieraOprog
     public class player
     {
         private SolidBrush PlayerColor;
-        private int pointsBalance;
+        private int pointsBalance=0;
         private int PlayerId;
 
         public player(int playerId)

@@ -8,9 +8,10 @@ namespace ProjInzynieraOprog
         int id;
 
 
-        string point_gain ;
+        int pointGain ;
         private int playerControllerId;
-        private int soldiersOnTile;
+        private int soldiersOnTile=0;
+        private int type;
 
         public int SoldiersOnTile
         {
