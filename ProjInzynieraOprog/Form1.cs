@@ -69,7 +69,7 @@ namespace ProjInzynieraOprog
                             string fileName = "WATER.bmp";
                             string path = Path.Combine(Environment.CurrentDirectory, @"Resources\", fileName);
                             Image waterimg = new Bitmap(path);
-                            g.DrawImage(waterimg, i * tileSize + 1, j * tileSize + 1, tileSize - 1, tileSize - 1);
+                            g.DrawImage(waterimg, i * tileSize + 5, j * tileSize + 5, tileSize - 10, tileSize - 10);
 
                         }
 
@@ -79,7 +79,7 @@ namespace ProjInzynieraOprog
                             string fileName = "VILLAGE.bmp";
                             string path = Path.Combine(Environment.CurrentDirectory, @"Resources\", fileName);
                             Image villageimg = new Bitmap(path);
-                            g.DrawImage(villageimg, i * tileSize + 1, j * tileSize + 1, tileSize - 1, tileSize - 1);
+                            g.DrawImage(villageimg, i * tileSize + 5, j * tileSize + 5, tileSize - 10, tileSize - 10);
                         }
 
 
@@ -88,7 +88,7 @@ namespace ProjInzynieraOprog
                             string fileName = "WHEAT.bmp";
                             string path = Path.Combine(Environment.CurrentDirectory, @"Resources\", fileName);
                             Image wheatimg = new Bitmap(path);
-                            g.DrawImage(wheatimg, i * tileSize + 1, j * tileSize + 1, tileSize - 1, tileSize - 1);
+                            g.DrawImage(wheatimg, i * tileSize + 5, j * tileSize + 5, tileSize - 10, tileSize - 10);
                         }
                     }
 
