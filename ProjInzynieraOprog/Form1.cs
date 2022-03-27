@@ -11,24 +11,20 @@ namespace ProjInzynieraOprog
         private static int tileSize = 45;
 
         private static int mapsize = 15;
-       //static int coef = mapsize * tileSize;
         private int tileXposition;
         private int tileYposition;
 
         Bitmap bm = new Bitmap(675, 675);
-        //List<tile> listoftiles = new List<tile>();
          tile [,] List_of_tiles = new tile [mapsize,mapsize];
         
 
         private void DrawMap()
         {
             string[,] tiles = GetMapSize();
-            //tiles = GetMapSize();
             pictureBox1.Refresh();
             pictureBox1.Size = new Size(mapsize*tileSize, mapsize*tileSize);
             using (Graphics g = Graphics.FromImage(bm))
             using (SolidBrush kolorPola = new SolidBrush(Color.Gray))
-            //using (SolidBrush whiteBrush = new SolidBrush(Color.Green))
             {
                 int xWidth = 0;
                 int yHeight = 0;
@@ -39,9 +35,7 @@ namespace ProjInzynieraOprog
                     {
                         tile b = new tile();
                         b.Id = new Point(i * tileSize, j * tileSize);
-                        //listoftiles.Add(b);
                         List_of_tiles[i, j] = b;
-                        //List_of_tiles[i, j].PointGain = 15;
                         g.FillRectangle(kolorPola, i * tileSize+1, j * tileSize+1, tileSize-1, tileSize-1);
                         shape[0] = new PointF(xWidth, yHeight);
                         xWidth = xWidth + tileSize;
@@ -58,6 +52,9 @@ namespace ProjInzynieraOprog
                     yHeight = yHeight + tileSize;
                 }
 
+
+                int iterator=0;
+                
                 for (int i = 0; i < mapsize; i++)
                 {
                     for (int j = 0; j < mapsize; j++)
@@ -65,13 +62,47 @@ namespace ProjInzynieraOprog
                         List_of_tiles[i, j].PointGain  = int.Parse(tiles[i,j].Substring(0,2));
                         List_of_tiles[i, j].Type  = int.Parse(tiles[i,j].Substring(3,1));
                         List_of_tiles[i, j].Ownership  = int.Parse(tiles[i,j].Substring(5,1));
+
+                        if (List_of_tiles[i, j].Type == 2)
+                        {
+                            List_of_tiles[i, j].PointGain = 0;
+                            string fileName = "WATER.bmp";
+                            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", fileName);
+                            Image waterimg = new Bitmap(path);
+                            g.DrawImage(waterimg, i * tileSize + 1, j * tileSize + 1, tileSize - 1, tileSize - 1);
+
+                        }
+
+
+                        if (List_of_tiles[i, j].Type == 1)
+                        {
+                            string fileName = "VILLAGE.bmp";
+                            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", fileName);
+                            Image villageimg = new Bitmap(path);
+                            g.DrawImage(villageimg, i * tileSize + 1, j * tileSize + 1, tileSize - 1, tileSize - 1);
+                        }
+
+
+                        if (List_of_tiles[i, j].Type == 0)
+                        {
+                            string fileName = "WHEAT.bmp";
+                            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", fileName);
+                            Image wheatimg = new Bitmap(path);
+                            g.DrawImage(wheatimg, i * tileSize + 1, j * tileSize + 1, tileSize - 1, tileSize - 1);
+                        }
                     }
+
                 }
+
+
+
+
                 pictureBox1.Image = bm;
             }
         }
 
-        
+       
+
         private void GoFullscreen(bool fullscreen)
         {
             if (fullscreen)
@@ -146,30 +177,32 @@ namespace ProjInzynieraOprog
             }
             sw = new StreamWriter(path, false);
             Random r = new Random();
+            string line;
+            int pg; //randomowy point gain dla pol
+            int type; //0-pole , 1-wioska, 2-woda 
+            int own; //ownership 
             for (int i = 0; i < size; i++)
             {
-                string line;
-                int pg; //randomowy point gain dla pol
-                int type; //0-zwykle, 1-gory, 2-woda 
-                int own; //ownership 
+              
+                
                 StringBuilder sb = new StringBuilder();
                 for (int j = 0; j < size; j++)
                 {
                     pg = r.Next(10, 30);
-                    type = r.Next(0, 2);
+                    type = r.Next(0, 3);
                     if (i < 2 && j < 2)
                     {
                         own = 1;
                     }
                     else if (i > size - 3 && j > size - 3)
                     {
-                        own = 1;
+                        own = 2;
                     }
                     else
                     {
                         own = 0;
                     }
-                    sb.Append(pg.ToString()+";"+type.ToString()+";"+own.ToString()+"!");
+                    sb.Append(pg.ToString()+"|"+type.ToString()+"|"+own.ToString()+"#");
                 }
                 line = sb.ToString();
                 sw.WriteLine(line);
@@ -181,21 +214,31 @@ namespace ProjInzynieraOprog
           {
               string[,] elo = new string[15,15];
 
-              if (radioButton1.Checked)
+            int iterator = 0;
+            if (radioButton1.Checked)
               {
                   string[,] Tiles = new string[15,15]; 
                   string fileName = "map1.txt"; 
                   string path = Path.Combine(Environment.CurrentDirectory, @"Data\", fileName); 
                   mapsize = 15; 
-                  string[] lines = File.ReadAllLines(path, Encoding.UTF8); 
-                  for (int i = 0; i < 15; i++) 
-                  { 
-                      for (int j = 0; j < 15; j++) 
-                      { 
-                          int iterator = 0; 
-                          Tiles [i, j] = lines[i].Substring(iterator, iterator + 6); 
-                          iterator += 7;
+                  string[] lines = File.ReadAllLines(path, Encoding.UTF8);
+
+
+               
+              
+                for (int i = 0; i < 15; i++) 
+                  {
+                    iterator = 0;
+                    for (int j = 0; j < 15; j++) 
+                      {
+
+
+                        Tiles[i, j] = lines[i].Substring(iterator, 6);
+                        iterator += 7;
+                       
                       }
+
+                  
                   } 
                   return Tiles;
               }
@@ -207,11 +250,12 @@ namespace ProjInzynieraOprog
                  mapsize = 10; 
                  string[] lines = File.ReadAllLines(path, Encoding.UTF8); 
                  for (int i = 0; i < 10; i++) 
-                 { 
+                 {
+                    iterator = 0;
                      for (int j = 0; j < 10; j++) 
                      { 
-                         int iterator = 0; 
-                         Tiles [i, j] = lines[i].Substring(iterator, iterator + 6); 
+                        
+                         Tiles [i, j] = lines[i].Substring(iterator,6); 
                          iterator += 7;
                      }
                  } 
@@ -225,11 +269,12 @@ namespace ProjInzynieraOprog
                  mapsize = 5; 
                  string[] lines = File.ReadAllLines(path, Encoding.UTF8); 
                  for (int i = 0; i < 5; i++) 
-                 { 
+                 {
+                    iterator = 0;
                      for (int j = 0; j < 5; j++) 
                      { 
-                         int iterator = 0; 
-                         Tiles [i, j] = lines[i].Substring(iterator, iterator + 6); 
+                         
+                         Tiles [i, j] = lines[i].Substring(iterator,  6); 
                          iterator += 7;
                      }
                  } 
