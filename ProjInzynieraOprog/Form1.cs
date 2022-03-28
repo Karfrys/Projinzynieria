@@ -21,8 +21,7 @@ namespace ProjInzynieraOprog
         private int tileXposition;
         private int tileYposition;
         Bitmap bm = new Bitmap(675, 675);
-        //List<tile> listoftiles = new List<tile>();
-         tile [,] List_of_tiles = new tile [mapsize,mapsize];
+        tile [,] List_of_tiles = new tile [mapsize,mapsize];
         List <battle> battlesToDetermine = new List<battle>();
         private bool firstRun = true;
         Point selectedProvince;
@@ -506,7 +505,7 @@ namespace ProjInzynieraOprog
             }
             return 0;
         }
-//check if attacked tile is friendly
+        //check if attacked tile is friendly
         bool checkIfFriendly(int id)
         {
             for (int i = 0; i < mapsize; i++)
@@ -536,5 +535,7 @@ namespace ProjInzynieraOprog
                     _playerHuman.PointsBalance -= recrutingTrackBar.Value;
                     recrutingTrackBar.Maximum -= recrutingTrackBar.Value;
         }
+
+        
     }
 }
