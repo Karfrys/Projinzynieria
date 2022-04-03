@@ -25,6 +25,7 @@ namespace ProjInzynieraOprog
         List <battle> battlesToDetermine = new List<battle>();
         private bool firstRun = true;
         Point selectedProvince;
+        private OpenFileDialog ofd;
 
         private void DrawMap()
         {
@@ -255,8 +256,6 @@ namespace ProjInzynieraOprog
             int own; //ownership //
             for (int i = 0; i < size; i++)
             {
-              
-                
                 StringBuilder sb = new StringBuilder();
                 for (int j = 0; j < size; j++)
                 {
@@ -284,77 +283,49 @@ namespace ProjInzynieraOprog
 
         string [,] GetMapSize()
           {
-              string[,] elo = new string[15,15];
-
-            int iterator = 0;
-            if (radioButton1.Checked)
-              {
-                  string[,] Tiles = new string[15,15]; 
-                  string fileName = "map1.txt"; 
-                  string path = Path.Combine(Environment.CurrentDirectory, @"Data\", fileName); 
-                  mapsize = 15; 
-                  string[] lines = File.ReadAllLines(path, Encoding.UTF8);
-
-
-               
+              int iterator = 0;
+              string fileName = "map1.txt";
+              mapsize = 15;
               
-                for (int i = 0; i < 15; i++) 
-                  {
-                    iterator = 0;
-                    for (int j = 0; j < 15; j++)
-                    {
-
-                        
-                        Tiles[i, j] = lines[i].Substring(iterator, 6);
-                        iterator += 7;
-                       
-                      }
-
-                  
-                  } 
-                  return Tiles;
+              if (radioButton1.Checked)
+              {
+                  fileName = "map1.txt";
               }
-             else if (radioButton2.Checked)
-             {
-                 string fileName = "map2.txt";
-                 string[,] Tiles = new string[10,10]; 
-                 string path = Path.Combine(Environment.CurrentDirectory, @"Data\", fileName); 
-                 mapsize = 10; 
-                 string[] lines = File.ReadAllLines(path, Encoding.UTF8); 
-                 for (int i = 0; i < 10; i++) 
-                 {
-                    iterator = 0;
-                     for (int j = 0; j < 10; j++) 
-                     { 
-                        
-                         Tiles [i, j] = lines[i].Substring(iterator,6); 
-                         iterator += 7;
-                     }
-                 } 
-                 return Tiles;
-             }
-             else if (radioButton3.Checked)
-             {
-                 string fileName = "map3.txt";
-                 string[,] Tiles = new string[5,5]; 
-                 string path = Path.Combine(Environment.CurrentDirectory, @"Data\", fileName); 
-                 mapsize = 5; 
-                 string[] lines = File.ReadAllLines(path, Encoding.UTF8); 
-                 for (int i = 0; i < 5; i++) 
-                 {
-                    iterator = 0;
-                     for (int j = 0; j < 5; j++) 
-                     { 
-                         
-                         Tiles [i, j] = lines[i].Substring(iterator,  6); 
-                         iterator += 7;
-                     }
-                 } 
-                 return Tiles;
-             }
-             return elo;
-          }
+              else if (radioButton2.Checked)
+              {
+                  fileName = "map2.txt";
+              }
+              else if (radioButton3.Checked)
+              {
+                  fileName = "map3.txt";
+              }
+              else if (radio_fromFile.Checked)
+              {
+                  ofd = new OpenFileDialog();
+                  ofd.InitialDirectory = Path.Combine(Environment.CurrentDirectory, @"Data\");
+                  if (ofd.ShowDialog() == DialogResult.OK)
+                  {
+                      fileName = ofd.FileName;
+                  }
+              }
+              string[,] Tiles = new string[mapsize, mapsize];
 
+              string path = Path.Combine(Environment.CurrentDirectory, @"Data\", fileName);
+              string[] lines = File.ReadAllLines(path, Encoding.UTF8);
+              mapsize = lines.Length;
+
+              for (int i = 0; i < mapsize; i++) 
+              {
+                  iterator = 0;
+                  for (int j = 0; j < mapsize; j++)
+                  {
+                      Tiles[i, j] = lines[i].Substring(iterator, 6);
+                      iterator += 7;
+                       
+                  }
+              } 
+              return Tiles;
+          }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -536,6 +507,105 @@ namespace ProjInzynieraOprog
                     recrutingTrackBar.Maximum -= recrutingTrackBar.Value;
         }
 
-        
+        void populate_listboxSave()
+        {
+            listBox_Save.Items.Clear();
+            DirectoryInfo dir = new DirectoryInfo(Path.Combine(Environment.CurrentDirectory, @"Data\"));
+            FileInfo[] Files = dir.GetFiles();
+            foreach (FileInfo file in Files)
+            {
+                listBox_Save.Items.Add(file.Name);
+            }
+        }
+
+        private void button_options_Click(object sender, EventArgs e)
+        {
+            buttonE.Visible = false;
+            buttonN.Visible = false;
+            buttonW.Visible = false;
+            buttonS.Visible = false;
+            newTurnButton.Visible = false;
+            button2.Visible = false;
+            recrutingTrackBar.Visible = false;
+            soldierTrackBar.Visible = false;
+            textBox1.Visible = false;
+            button_SaveGame.Visible = true;
+            button_back.Visible = true;
+            button1.Visible = true;
+            radioButton1.Visible = true;
+            radioButton2.Visible = true;
+            radioButton3.Visible = true;
+            radio_fromFile.Visible = true;
+            listBox_Save.Visible = true;
+            textBox_SaveFileName.Visible = true;
+            button_NewSave.Visible = true;
+            
+            populate_listboxSave(); 
+        }
+
+        private void button_back_Click(object sender, EventArgs e)
+        {
+            buttonE.Visible = true;
+            buttonN.Visible = true;
+            buttonW.Visible = true;
+            buttonS.Visible = true;
+            newTurnButton.Visible = true;
+            button2.Visible = true;
+            recrutingTrackBar.Visible = true;
+            soldierTrackBar.Visible = true;
+            textBox1.Visible = true;
+            button_back.Visible = false;
+            button1.Visible = false;
+            radioButton1.Visible = false;
+            radioButton2.Visible = false;
+            radioButton3.Visible = false;
+            radio_fromFile.Visible = false;
+            button_SaveGame.Visible = false;
+            listBox_Save.Visible = false;
+            textBox_SaveFileName.Visible = false;
+            button_NewSave.Visible = false;
+        }
+
+        void write_save_file(string path)
+        {
+            StreamWriter sw;
+            string line;
+            
+            sw = new StreamWriter(path, false);
+            for (int x = 0; x < mapsize; x++)
+            {
+                StringBuilder sb = new StringBuilder();
+                for (int y = 0; y < mapsize; y++)
+                {
+                    if (List_of_tiles[x, y].PointGain == 0)
+                    {
+                        List_of_tiles[x, y].PointGain = 99;
+                    }
+                    sb.Append(List_of_tiles[x,y].PointGain.ToString()+"|"+List_of_tiles[x,y].Type.ToString()+"|"+List_of_tiles[x,y].PlayerControllerId.ToString()+"#");
+                }
+                line = sb.ToString();
+                sw.WriteLine(line);
+            }
+            sw.Close();
+        }
+
+        private void button_SaveGame_Click(object sender, EventArgs e)
+        {
+            if (listBox_Save.SelectedItem != null)
+            {
+                string path = Path.Combine(Environment.CurrentDirectory, @"Data\", listBox_Save.SelectedItem.ToString());
+                write_save_file(path);
+                listBox_Save.SelectedItem = null;
+            }
+        }
+
+        private void button_NewSave_Click(object sender, EventArgs e)
+        {
+            listBox_Save.Items.Clear();
+            string fileName = textBox_SaveFileName.Text+".txt";
+            string path = Path.Combine(Environment.CurrentDirectory, @"Data\",fileName);
+            write_save_file(path);
+            populate_listboxSave();
+        }
     }
 }
