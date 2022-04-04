@@ -9,7 +9,7 @@ namespace ProjInzynieraOprog
 {
     public partial class Form1 : Form
     {
-        private static int tileSize = 45;
+        private static int tileSize = 55;
         private  player _playerHuman = new player(1);
         readonly player _playerAi = new player(2);
         private static int mapsize = 15;
@@ -20,105 +20,69 @@ namespace ProjInzynieraOprog
         private int tempAttackerId;
         private int tileXposition;
         private int tileYposition;
-        Bitmap bm = new Bitmap(675, 675);
+        static Bitmap bm = new Bitmap(tileSize * mapsize, tileSize * mapsize);
         tile [,] List_of_tiles = new tile [mapsize,mapsize];
         List <battle> battlesToDetermine = new List<battle>();
         private bool firstRun = true;
         Point selectedProvince;
         private OpenFileDialog ofd;
+        Graphics g = Graphics.FromImage(bm);
+        private int temppointsbalance;
 
         private void DrawMap()
         {
-            richTextBox1.Text = _playerHuman.PointsBalance.ToString();
-            int iter=0;
-            //string[] lines=GetMapSize();
+            int iter = 0;
             string[,] tiles = GetMapSize();
             pictureBox1.Refresh();
-            pictureBox1.Size = new Size(mapsize*tileSize, mapsize*tileSize);
-            using (Graphics g = Graphics.FromImage(bm))
+            pictureBox1.Size = new Size(mapsize * tileSize, mapsize * tileSize);
+            for (int i = 0; i < mapsize; i++)
             {
-                int xWidth = 0;
-                int yHeight = 0;
-                var shape = new PointF[4];
-                
-                for (int i = 0; i < mapsize; i++)
+                for (int j = 0; j < mapsize; j++)
                 {
-                    for (int j = 0; j < mapsize; j++)
+                    if (firstRun == true)
                     {
-                        if (firstRun == true)
-                        {
-                            tile b = new tile();
-                            // b.Id = new Point(i * tileSize, j * tileSize);
-                            b.Id = iter;
-                            iter++;
-                            //listoftiles.Add(b);
-                            List_of_tiles[i, j] = b;
-                            //List_of_tiles[i, j].PointGain = 15;
-                        
-                            List_of_tiles[i, j].PointGain  = int.Parse(tiles[i,j].Substring(0,2));
-                            List_of_tiles[i, j].Type  = int.Parse(tiles[i,j].Substring(3,1));
-                            List_of_tiles[i, j].PlayerControllerId  = int.Parse(tiles[i,j].Substring(5,1));
-                        }
-                        if (List_of_tiles[i, j].PlayerControllerId == 1)
-                        {
-                            g.FillRectangle(allyColor, i * tileSize+1, j * tileSize+1, tileSize-1, tileSize-1);
-                        }
-                        else if (List_of_tiles[i, j].PlayerControllerId == 2)
-                        {
-                            g.FillRectangle(enemyColor, i * tileSize+1, j * tileSize+1, tileSize-1, tileSize-1);
-                        }
-                        else
-                        {
-                            g.FillRectangle(neutralColor, i * tileSize+1, j * tileSize+1, tileSize-1, tileSize-1);
-                        }
-                        
-                        if (List_of_tiles[i, j].Type == 2)
-                        {
-                            List_of_tiles[i, j].PointGain = 0;
-                            string fileName = "WATER.png";
-                            string path = Path.Combine(Environment.CurrentDirectory, @"Resources\", fileName);
-                            Image waterimg = new Bitmap(path);
-                            g.DrawImage(waterimg, i * tileSize + 1, j * tileSize + 1, tileSize - 1, tileSize - 1);
-
-                        }
-
-
-                        if (List_of_tiles[i, j].Type == 1)
-                        {
-                            string fileName = "FOREST.png";
-                            string path = Path.Combine(Environment.CurrentDirectory, @"Resources\", fileName);
-                            Image villageimg = Image.FromFile(path);
-                            g.DrawImage(villageimg, i * tileSize + 1, j * tileSize + 1, tileSize-1 , tileSize-1 );
-                        }
-
-
-                        if (List_of_tiles[i, j].Type == 0)
-                        {
-                            string fileName = "BUMP.png";
-                            string path = Path.Combine(Environment.CurrentDirectory, @"Resources\", fileName);
-                            Image wheatimg = Image.FromFile(path);
-
-                            g.DrawImage(wheatimg, i * tileSize + 1, j * tileSize + 1, tileSize - 1, tileSize - 1);
-                        }
-                        
-                        shape[0] = new PointF(xWidth, yHeight);
-                        xWidth = xWidth + tileSize;
-                        shape[1] = new PointF(xWidth, yHeight);
-                        yHeight = yHeight + tileSize;
-                        shape[2] = new PointF(xWidth, yHeight);
-                        xWidth = xWidth - tileSize;
-                        shape[3] = new PointF(xWidth, yHeight);
-                        g.DrawPolygon(Pens.Black, shape);
-                        yHeight = yHeight - tileSize;
-                        xWidth = xWidth + tileSize;
+                        tile b = new tile();
+                        b.Id = iter;
+                        iter++;
+                        List_of_tiles[i, j] = b;
+                        List_of_tiles[i, j].PointGain = int.Parse(tiles[i, j].Substring(0, 2));
+                        List_of_tiles[i, j].Type = int.Parse(tiles[i, j].Substring(3, 1));
+                        List_of_tiles[i, j].PlayerControllerId = int.Parse(tiles[i, j].Substring(5, 1));
                     }
-                    xWidth = 0;
-                    yHeight = yHeight + tileSize;
-                }
 
-                firstRun = false;
-                pictureBox1.Image = bm;
+                    if (List_of_tiles[i, j].PlayerControllerId == 1)
+                    {
+                        g.FillRectangle(allyColor, i * tileSize + 1, j * tileSize + 1, tileSize - 1, tileSize - 1);
+                    }
+                    else if (List_of_tiles[i, j].PlayerControllerId == 2)
+                    {
+                        g.FillRectangle(enemyColor, i * tileSize + 1, j * tileSize + 1, tileSize - 1, tileSize - 1);
+                    }
+                    else
+                    {
+                        g.FillRectangle(neutralColor, i * tileSize + 1, j * tileSize + 1, tileSize - 1, tileSize - 1);
+                    }
+
+                    if (List_of_tiles[i, j].Type == 2)
+                    {
+                        Draw_Lake(i, j);
+                    }
+
+                    if (List_of_tiles[i, j].Type == 1)
+                    {
+                        Draw_Forest(i, j);
+                    }
+
+                    if (List_of_tiles[i, j].Type == 0)
+                    {
+                        Draw_Wheat(i, j);
+                    }
+
+                    g.DrawRectangle(Pens.Black, tileSize * i, tileSize * j, tileSize, tileSize);
+                }
             }
+            firstRun = false;
+            pictureBox1.Image = bm;
         }
 
         
@@ -146,77 +110,136 @@ namespace ProjInzynieraOprog
             InitializeComponent();
             GoFullscreen(true);
             DrawMap();
+            this.BackgroundImage = load_resource_image("bg_texture.jpg");
+            panel1.BackColor = Color.Transparent;
         }
 
 
 
-        private void pictureBox1_MouseUp(object sender, MouseEventArgs e)
+        private void pictureBox1_MouseDown(object sender, MouseEventArgs e)
         {
+            check_if_soldiers_sufficient();
+
+            int x = e.X / tileSize;
+            int y = e.Y / tileSize;
+            int clickX = e.X;
+            int clickY = e.Y;
+            tileXposition = x * tileSize;
+            tileYposition = y * tileSize;
             
-                int x = e.X / tileSize;
-                int y = e.Y / tileSize;
-                int clickX = e.X;
-                int clickY = e.Y;
-                tileXposition = x * tileSize;
-                tileYposition = y * tileSize;
-                selectedProvince.X = x;
-                selectedProvince.Y = y;
-                richTextBox_coordinates.Text = List_of_tiles[x,y].Id.ToString();
-                richTextBox_PointGain.Text = List_of_tiles[x,y].PointGain.ToString();
-                soldierTrackBar.Maximum = List_of_tiles[x, y].SoldiersOnTile;
-                soldierTrackBar.Minimum = 1;
-                tempAttackerId = List_of_tiles[x, y].Id;
-                textBox2.Text = List_of_tiles[x, y].SoldiersOnTile.ToString();
-                //disabling attack control buttons if player dont clink on tile he owns or neigbouring tiles are non existent
-              
-                
-                if (List_of_tiles[x, y].PlayerControllerId != 1)
-               {
-                    buttonS.Enabled = false;
-                    buttonE.Enabled = false;
+            SolidBrush lol = new SolidBrush(Color.DarkSlateBlue);
+            textBox1.Text = List_of_tiles[x,y].SoldiersOnTile.ToString();
+            textBox2.Text = List_of_tiles[x, y].PointGain.ToString();
+            temppointsbalance=_playerHuman.PointsBalance;
+            DrawMap();
+            Draw_Frame(x, y);
+
+            if (List_of_tiles[x, y].PlayerControllerId == 1)
+            {
+                Enable_if_Friendly();
+                soldierTrackBar.Maximum=List_of_tiles[x, y].SoldiersOnTile;
+            }
+            else
+            {
+                soldierTrackBar.Maximum = 0;
+                Disable_if_enemy();
+            }
+
+            selectedProvince.X = x;
+            selectedProvince.Y = y;
+           // richTextBox_coordinates.Text = List_of_tiles[x, y].Id.ToString();
+           // richTextBox_PointGain.Text = List_of_tiles[x, y].PointGain.ToString();
+           
+            tempAttackerId = List_of_tiles[x, y].Id;
+            //textBox2.Text = List_of_tiles[x, y].SoldiersOnTile.ToString();
+          
+            if(pictureBox2.Image != null)
+            {
+                pictureBox2.Image.Dispose();
+            }
+            switch (List_of_tiles[x,y].Type)
+            {
+                case 0:
+                    pictureBox2.Image=load_resource_image("plains-background.png");
+                    break;
+                case 1:
+                    pictureBox2.Image=load_resource_image("forest-background.png");
+                    break;
+                case 2:
+                    pictureBox2.Image=load_resource_image("lake-background.png");
+                    break;
+            }
+            
+            
+
+            //disabling attack control buttons if player dont clink on tile he owns or neigbouring tiles are non existent
+
+            if (List_of_tiles[x, y].PlayerControllerId != 1)
+            {
+                buttonS.Enabled = false;
+                buttonE.Enabled = false;
+                buttonW.Enabled = false;
+                buttonN.Enabled = false;
+            }
+            else
+            {
+                if (clickX < tileSize)
+                {
                     buttonW.Enabled = false;
+                }
+                else
+                {
+                    /*
+                    Point one = new Point(tileXposition+1,tileYposition);
+                    Point two = new Point(tileXposition+1,tileYposition+tileSize);
+                    Point three = new Point(tileXposition-(tileSize/3),tileYposition+(tileSize/2));
+                    Point[] Triangle = {one,two,three};
+                    g.FillPolygon(lol,Triangle);*/
+                    buttonW.Enabled = true;
+                }
+
+                if (clickY < tileSize)
+                {
                     buttonN.Enabled = false;
                 }
                 else
-               {
-                    if (clickX < tileSize)
-                    {
-                        buttonW.Enabled = false;
-                    }
-                    else
-                    {
-                        buttonW.Enabled = true;
-                    }
-                    
-                    if (clickY < tileSize)
-                    {
-                        buttonN.Enabled = false;
-                    }
-                    else
-                    {
-                        buttonN.Enabled = true;
-                    }
+                {
+                    /* Point one = new Point(tileXposition,tileYposition-1);
+                     Point two = new Point(tileXposition+tileSize,tileYposition-1);
+                     Point three = new Point(tileXposition+(tileSize/2),tileYposition-(tileSize/3));
+                     Point[] Triangle = {one,two,three};
+                     g.FillPolygon(lol,Triangle);*/
+                    buttonN.Enabled = true;
+                }
 
-                    if (clickX + tileSize > tileSize * mapsize)
-                    {
-                        buttonE.Enabled = false;
-                    }
-                    else
-                    {
-                        buttonE.Enabled = true;
-                    }
+                if (clickX + tileSize > tileSize * mapsize)
+                {
+                    buttonE.Enabled = false;
+                }
+                else
+                {
+                    /* Point one = new Point(tileXposition+1+tileSize,tileYposition);
+                     Point two = new Point(tileXposition+1+tileSize,tileYposition+tileSize);
+                     Point three = new Point(tileXposition+(tileSize/3)+tileSize,tileYposition+(tileSize/2));
+                     Point[] Triangle = {one,two,three};
+                     g.FillPolygon(lol,Triangle);*/
+                    buttonE.Enabled = true;
+                }
 
-                    if (clickY + tileSize > tileSize * mapsize)
-                    {
-                        buttonS.Enabled = false;
-                    }
-                    else
-                    {
-                        buttonS.Enabled = true;
-                    }
-               }
-
-            
+                if (clickY + tileSize > tileSize * mapsize)
+                {
+                    buttonS.Enabled = false;
+                }
+                else
+                {
+                    /* Point one = new Point(tileXposition,tileYposition+2+tileSize);
+                     Point two = new Point(tileXposition+tileSize,tileYposition+2+tileSize);
+                     Point three = new Point(tileXposition+(tileSize/2),tileYposition+(tileSize/3)+tileSize);
+                     Point[] Triangle = {one,two,three};
+                     g.FillPolygon(lol,Triangle);*/
+                    buttonS.Enabled = true;
+                }
+            }
         }
 
 
@@ -229,25 +252,11 @@ namespace ProjInzynieraOprog
             }
         }
 
-        private void button_attack_Click(object sender, EventArgs e)
-        {
-            SolidBrush EnemyColor = new SolidBrush(Color.Red);
-            using (var g = Graphics.FromImage(pictureBox1.Image))
-            {
-                g.FillRectangle(EnemyColor, tileXposition + 1, tileYposition + 1, tileSize - 1, tileSize - 1);
-                pictureBox1.Refresh();
-            }
-        }
-
         void CreateMaps(int size,int map)
         {
             string name = "map" + map.ToString() + ".txt";
             string path = Path.Combine(Environment.CurrentDirectory, @"Data\", name);
             StreamWriter sw;
-            if (!File.Exists(path))
-            {
-                sw = File.CreateText(path);
-            }
             sw = new StreamWriter(path, false);
             Random r = new Random();
             string line;
@@ -286,27 +295,9 @@ namespace ProjInzynieraOprog
               int iterator = 0;
               string fileName = "map1.txt";
               mapsize = 15;
-              
-              if (radioButton1.Checked)
+              if (listBox_Save.SelectedItem != null)
               {
-                  fileName = "map1.txt";
-              }
-              else if (radioButton2.Checked)
-              {
-                  fileName = "map2.txt";
-              }
-              else if (radioButton3.Checked)
-              {
-                  fileName = "map3.txt";
-              }
-              else if (radio_fromFile.Checked)
-              {
-                  ofd = new OpenFileDialog();
-                  ofd.InitialDirectory = Path.Combine(Environment.CurrentDirectory, @"Data\");
-                  if (ofd.ShowDialog() == DialogResult.OK)
-                  {
-                      fileName = ofd.FileName;
-                  }
+                  fileName = listBox_Save.SelectedItem.ToString();
               }
               string[,] Tiles = new string[mapsize, mapsize];
 
@@ -336,7 +327,6 @@ namespace ProjInzynieraOprog
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            recrutingTrackBar.Maximum = _playerHuman.PointsBalance;
             for (int i = 0; i < mapsize; i++)
             {
                 for (int j = 0; j < mapsize; j++)
@@ -349,7 +339,6 @@ namespace ProjInzynieraOprog
                     {
                         _playerAi.PointsBalance += Convert.ToInt32(List_of_tiles[i, j].PointGain);
                     }
-
                 }
             }
             //basic battle simulation
@@ -416,8 +405,7 @@ namespace ProjInzynieraOprog
                     }
                 }
                 }
-              
-            richTextBox1.Refresh();
+            
             battlesToDetermine.Clear();
             DrawMap();
 
@@ -433,30 +421,33 @@ namespace ProjInzynieraOprog
         {
             tempDefenderId = tempAttackerId - 1;
             add_Battle_To_List();
+            soldierTrackBar.Maximum -= soldierTrackBar.Value;
         }
 
         private void buttonW_Click(object sender, EventArgs e)
         {
             tempDefenderId = tempAttackerId - mapsize;
             add_Battle_To_List();
+            soldierTrackBar.Maximum -= soldierTrackBar.Value;
         }
 
         private void buttonS_Click(object sender, EventArgs e)
         {
             tempDefenderId = tempAttackerId + 1;
             add_Battle_To_List();
+            soldierTrackBar.Maximum -= soldierTrackBar.Value;
         }
 
         private void buttonE_Click(object sender, EventArgs e)
         {
             tempDefenderId = tempAttackerId +mapsize;
             add_Battle_To_List();
+            soldierTrackBar.Maximum -= soldierTrackBar.Value;
         }
 
         private void add_Battle_To_List()
         {
             battle bat = new battle(tempAttackerId,tempDefenderId,soldierTrackBar.Value);
-            soldierTrackBar.Maximum -= soldierTrackBar.Value;
             battlesToDetermine.Add(bat);
         }
         
@@ -500,13 +491,6 @@ namespace ProjInzynieraOprog
             return false;
         }
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            List_of_tiles[selectedProvince.X, selectedProvince.Y].SoldiersOnTile += recrutingTrackBar.Value;
-                    _playerHuman.PointsBalance -= recrutingTrackBar.Value;
-                    recrutingTrackBar.Maximum -= recrutingTrackBar.Value;
-        }
-
         void populate_listboxSave()
         {
             listBox_Save.Items.Clear();
@@ -526,16 +510,11 @@ namespace ProjInzynieraOprog
             buttonS.Visible = false;
             newTurnButton.Visible = false;
             button2.Visible = false;
-            recrutingTrackBar.Visible = false;
             soldierTrackBar.Visible = false;
             textBox1.Visible = false;
             button_SaveGame.Visible = true;
             button_back.Visible = true;
             button1.Visible = true;
-            radioButton1.Visible = true;
-            radioButton2.Visible = true;
-            radioButton3.Visible = true;
-            radio_fromFile.Visible = true;
             listBox_Save.Visible = true;
             textBox_SaveFileName.Visible = true;
             button_NewSave.Visible = true;
@@ -551,15 +530,10 @@ namespace ProjInzynieraOprog
             buttonS.Visible = true;
             newTurnButton.Visible = true;
             button2.Visible = true;
-            recrutingTrackBar.Visible = true;
             soldierTrackBar.Visible = true;
             textBox1.Visible = true;
             button_back.Visible = false;
             button1.Visible = false;
-            radioButton1.Visible = false;
-            radioButton2.Visible = false;
-            radioButton3.Visible = false;
-            radio_fromFile.Visible = false;
             button_SaveGame.Visible = false;
             listBox_Save.Visible = false;
             textBox_SaveFileName.Visible = false;
@@ -606,6 +580,183 @@ namespace ProjInzynieraOprog
             string path = Path.Combine(Environment.CurrentDirectory, @"Data\",fileName);
             write_save_file(path);
             populate_listboxSave();
+        }
+        void check_if_soldiers_sufficient()
+        {
+            if (temppointsbalance > 999)
+            {
+                buttonx1000.Enabled = true;
+                buttonx100.Enabled = true;
+                buttonx10.Enabled = true;
+                buttonx1.Enabled = true;          }
+            else if(temppointsbalance>99)
+            {
+                buttonx1000.Enabled = false;
+                buttonx100.Enabled = true;
+                buttonx10.Enabled = true;
+                buttonx1.Enabled = true;
+            }
+            else if (temppointsbalance > 9)
+            {
+                buttonx1000.Enabled = false;
+                buttonx100.Enabled = false;
+                buttonx10.Enabled = true;
+                buttonx1.Enabled = true;
+            }
+            else if (temppointsbalance > 0)
+            {
+                buttonx1000.Enabled = false;
+                buttonx100.Enabled = false;
+                buttonx10.Enabled = false;
+                buttonx1.Enabled = true;
+            }
+            else
+            {
+                buttonx1000.Enabled = false;
+                buttonx100.Enabled = false;
+                buttonx10.Enabled = false;
+                buttonx1.Enabled = false;
+            }
+        }
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            int selectedRecruiting = Convert.ToInt32(textBox3.Text);
+            List_of_tiles[selectedProvince.X,selectedProvince.Y].SoldiersOnTile+=selectedRecruiting;
+            _playerHuman.PointsBalance -= selectedRecruiting;
+            textBox3.Text = "0";
+            soldierTrackBar.Maximum = List_of_tiles[selectedProvince.X, selectedProvince.Y].SoldiersOnTile;
+            textBox1.Refresh();
+        }
+        private void buttonx1_Click(object sender, EventArgs e)
+        {
+            if(textBox3.Text!="")
+            {
+                int textToInt = Convert.ToInt32(textBox3.Text);
+                temppointsbalance -= textToInt;
+                textToInt += 1;
+                textBox3.Text = textToInt.ToString();
+            }
+            else
+            {
+                int textToInt = 0;
+                temppointsbalance -= textToInt;
+                textToInt += 1;
+                textBox3.Text = textToInt.ToString();
+            }
+            check_if_soldiers_sufficient();
+        }
+        private void buttonx10_Click(object sender, EventArgs e)
+        {
+            if(textBox3.Text!="")
+            {
+                int textToInt = Convert.ToInt32(textBox3.Text);
+                temppointsbalance -= textToInt;
+                textToInt += 10;
+                textBox3.Text = textToInt.ToString();
+            }
+            else
+            {
+                int textToInt = 0;
+                temppointsbalance -= textToInt;
+                textToInt += 10;
+                textBox3.Text = textToInt.ToString();
+            }
+            check_if_soldiers_sufficient();
+        }
+        private void buttonx100_Click(object sender, EventArgs e)
+        {
+            if(textBox3.Text!="")
+            {
+                int textToInt = Convert.ToInt32(textBox3.Text);
+                temppointsbalance -= textToInt;
+                textToInt += 10;
+                textBox3.Text = textToInt.ToString();
+            }
+            else
+            {
+                int textToInt = 0;
+                temppointsbalance -= textToInt;
+                textToInt += 100;
+                textBox3.Text = textToInt.ToString();
+            }
+
+            check_if_soldiers_sufficient();
+        }
+        private void buttonx1000_Click(object sender, EventArgs e)
+        {
+            if(textBox3.Text!="")
+            {
+                int textToInt = Convert.ToInt32(textBox3.Text);
+                temppointsbalance -= textToInt;
+                textToInt += 10;
+                textBox3.Text = textToInt.ToString();
+            }
+            else
+            {
+                int textToInt = 0;
+                temppointsbalance -= textToInt;
+                textToInt += 1000;
+                textBox3.Text = textToInt.ToString();
+            }
+            check_if_soldiers_sufficient();
+        }
+        void Draw_Frame(int x, int y)
+        {
+            g.DrawRectangle(Pens.MediumVioletRed, tileSize * x, tileSize * y, tileSize, tileSize);
+            g.DrawRectangle(Pens.MediumVioletRed, tileSize * x + 1, tileSize * y + 1, tileSize - 2, tileSize - 2);
+            g.DrawRectangle(Pens.MediumVioletRed, tileSize * x + 2, tileSize * y + 2, tileSize - 4, tileSize - 4);
+        }
+
+        Image load_resource_image(string filename)
+        {
+            string path = Path.Combine(Environment.CurrentDirectory, @"Resources", filename);
+            return  Image.FromFile(path);
+        }
+        
+        private void Disable_if_enemy()
+        {
+            buttonE.Visible = false;
+            buttonN.Visible = false;
+            buttonS.Visible = false;
+            buttonW.Visible = false;
+            button2.Visible = false;
+            soldierTrackBar.Visible = false;
+        }
+
+        void Enable_if_Friendly()
+        {
+            buttonE.Visible = true;
+            buttonN.Visible = true;
+            buttonS.Visible = true;
+            buttonW.Visible = true;
+            button2.Visible = true;
+            soldierTrackBar.Visible = true;
+        }
+        
+        private void Draw_Wheat(int x, int y)
+        {
+            string fileName = "BUMP.png";
+            string path = Path.Combine(Environment.CurrentDirectory, @"Resources", fileName);
+            Image wheatimg = Image.FromFile(path);
+
+            g.DrawImage(wheatimg, x * tileSize + 1, y * tileSize + 1, tileSize - 1, tileSize - 1);
+        }
+
+        void Draw_Forest(int x, int y)
+        {
+            string fileName = "FOREST.png";
+            string path = Path.Combine(Environment.CurrentDirectory, @"Resources", fileName);
+            Image villageimg = Image.FromFile(path);
+            g.DrawImage(villageimg, x * tileSize + 1, y * tileSize + 1, tileSize - 1, tileSize - 1);
+        }
+
+        void Draw_Lake(int x, int y)
+        {
+            List_of_tiles[x, y].PointGain = 0;
+            string fileName = "WATER.png";
+            string path = Path.Combine(Environment.CurrentDirectory, @"Resources", fileName);
+            Image waterimg = new Bitmap(path);
+            g.DrawImage(waterimg, x * tileSize + 1, y * tileSize + 1, tileSize - 1, tileSize - 1);
         }
     }
 }
