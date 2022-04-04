@@ -66,7 +66,7 @@
             // 
             this.pictureBox1.BackColor = System.Drawing.SystemColors.Control;
             this.pictureBox1.Location = new System.Drawing.Point(70, 73);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(1414, 1110);
             this.pictureBox1.TabIndex = 0;
@@ -77,7 +77,7 @@
             // 
             this.richTextBox_coordinates.Enabled = false;
             this.richTextBox_coordinates.Location = new System.Drawing.Point(1872, 96);
-            this.richTextBox_coordinates.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.richTextBox_coordinates.Margin = new System.Windows.Forms.Padding(6);
             this.richTextBox_coordinates.Name = "richTextBox_coordinates";
             this.richTextBox_coordinates.Size = new System.Drawing.Size(218, 37);
             this.richTextBox_coordinates.TabIndex = 2;
@@ -95,7 +95,7 @@
             // button_exit
             // 
             this.button_exit.Location = new System.Drawing.Point(2024, 1135);
-            this.button_exit.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.button_exit.Margin = new System.Windows.Forms.Padding(6);
             this.button_exit.Name = "button_exit";
             this.button_exit.Size = new System.Drawing.Size(150, 50);
             this.button_exit.TabIndex = 4;
@@ -107,7 +107,7 @@
             // 
             this.richTextBox_PointGain.Enabled = false;
             this.richTextBox_PointGain.Location = new System.Drawing.Point(1872, 179);
-            this.richTextBox_PointGain.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.richTextBox_PointGain.Margin = new System.Windows.Forms.Padding(6);
             this.richTextBox_PointGain.Name = "richTextBox_PointGain";
             this.richTextBox_PointGain.Size = new System.Drawing.Size(218, 37);
             this.richTextBox_PointGain.TabIndex = 6;
@@ -125,7 +125,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(1778, 906);
-            this.button1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.button1.Margin = new System.Windows.Forms.Padding(6);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(202, 67);
             this.button1.TabIndex = 8;
@@ -137,7 +137,7 @@
             // 
             this.radioButton1.Checked = true;
             this.radioButton1.Location = new System.Drawing.Point(1820, 985);
-            this.radioButton1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.radioButton1.Margin = new System.Windows.Forms.Padding(6);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(160, 42);
             this.radioButton1.TabIndex = 9;
@@ -148,7 +148,7 @@
             // radioButton2
             // 
             this.radioButton2.Location = new System.Drawing.Point(1820, 1038);
-            this.radioButton2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.radioButton2.Margin = new System.Windows.Forms.Padding(6);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(220, 37);
             this.radioButton2.TabIndex = 10;
@@ -158,7 +158,7 @@
             // radioButton3
             // 
             this.radioButton3.Location = new System.Drawing.Point(1820, 1087);
-            this.radioButton3.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.radioButton3.Margin = new System.Windows.Forms.Padding(6);
             this.radioButton3.Name = "radioButton3";
             this.radioButton3.Size = new System.Drawing.Size(172, 40);
             this.radioButton3.TabIndex = 11;
@@ -170,7 +170,7 @@
             this.newTurnButton.Image = ((System.Drawing.Image)(resources.GetObject("newTurnButton.Image")));
             this.newTurnButton.InitialImage = ((System.Drawing.Image)(resources.GetObject("newTurnButton.InitialImage")));
             this.newTurnButton.Location = new System.Drawing.Point(1706, 765);
-            this.newTurnButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.newTurnButton.Margin = new System.Windows.Forms.Padding(4);
             this.newTurnButton.Name = "newTurnButton";
             this.newTurnButton.Size = new System.Drawing.Size(410, 131);
             this.newTurnButton.TabIndex = 12;
@@ -180,7 +180,7 @@
             // soldierTrackBar
             // 
             this.soldierTrackBar.Location = new System.Drawing.Point(1760, 610);
-            this.soldierTrackBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.soldierTrackBar.Margin = new System.Windows.Forms.Padding(4);
             this.soldierTrackBar.Name = "soldierTrackBar";
             this.soldierTrackBar.Size = new System.Drawing.Size(232, 90);
             this.soldierTrackBar.TabIndex = 13;
@@ -188,7 +188,7 @@
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(1798, 477);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(126, 31);
             this.textBox1.TabIndex = 14;
@@ -202,7 +202,7 @@
             // buttonN
             // 
             this.buttonN.Location = new System.Drawing.Point(1798, 540);
-            this.buttonN.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonN.Margin = new System.Windows.Forms.Padding(4);
             this.buttonN.Name = "buttonN";
             this.buttonN.Size = new System.Drawing.Size(158, 44);
             this.buttonN.TabIndex = 16;
@@ -213,7 +213,7 @@
             // buttonE
             // 
             this.buttonE.Location = new System.Drawing.Point(1996, 610);
-            this.buttonE.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonE.Margin = new System.Windows.Forms.Padding(4);
             this.buttonE.Name = "buttonE";
             this.buttonE.Size = new System.Drawing.Size(178, 48);
             this.buttonE.TabIndex = 17;
@@ -224,7 +224,7 @@
             // buttonW
             // 
             this.buttonW.Location = new System.Drawing.Point(1594, 610);
-            this.buttonW.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonW.Margin = new System.Windows.Forms.Padding(4);
             this.buttonW.Name = "buttonW";
             this.buttonW.Size = new System.Drawing.Size(158, 48);
             this.buttonW.TabIndex = 18;
@@ -235,7 +235,7 @@
             // buttonS
             // 
             this.buttonS.Location = new System.Drawing.Point(1798, 665);
-            this.buttonS.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonS.Margin = new System.Windows.Forms.Padding(4);
             this.buttonS.Name = "buttonS";
             this.buttonS.Size = new System.Drawing.Size(152, 46);
             this.buttonS.TabIndex = 19;
@@ -247,7 +247,7 @@
             // 
             this.richTextBox1.Enabled = false;
             this.richTextBox1.Location = new System.Drawing.Point(1872, 23);
-            this.richTextBox1.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.richTextBox1.Margin = new System.Windows.Forms.Padding(6);
             this.richTextBox1.Name = "richTextBox1";
             this.richTextBox1.Size = new System.Drawing.Size(212, 50);
             this.richTextBox1.TabIndex = 20;
@@ -256,7 +256,7 @@
             // recrutingTrackBar
             // 
             this.recrutingTrackBar.Location = new System.Drawing.Point(1594, 1231);
-            this.recrutingTrackBar.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.recrutingTrackBar.Margin = new System.Windows.Forms.Padding(6);
             this.recrutingTrackBar.Name = "recrutingTrackBar";
             this.recrutingTrackBar.Size = new System.Drawing.Size(184, 90);
             this.recrutingTrackBar.TabIndex = 21;
@@ -264,7 +264,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(1594, 1167);
-            this.button2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.button2.Margin = new System.Windows.Forms.Padding(6);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(176, 52);
             this.button2.TabIndex = 22;
@@ -276,7 +276,7 @@
             // 
             this.textBox2.Enabled = false;
             this.textBox2.Location = new System.Drawing.Point(1874, 265);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(6);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(216, 31);
             this.textBox2.TabIndex = 23;
@@ -299,23 +299,12 @@
             this.label2.TabIndex = 26;
             this.label2.Text = "Soldiers on tile";
             // 
-            // buttonDarii
-            // 
-            this.buttonDarii.Location = new System.Drawing.Point(1629, 376);
-            this.buttonDarii.Name = "buttonDarii";
-            this.buttonDarii.Size = new System.Drawing.Size(209, 41);
-            this.buttonDarii.TabIndex = 27;
-            this.buttonDarii.Text = "HEJ";
-            this.buttonDarii.UseVisualStyleBackColor = true;
-            this.buttonDarii.Click += new System.EventHandler(this.buttonDarii_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(158)))), ((int)(((byte)(103)))), ((int)(((byte)(12)))));
             this.ClientSize = new System.Drawing.Size(2376, 1377);
-            this.Controls.Add(this.buttonDarii);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.textBox2);
@@ -340,7 +329,7 @@
             this.Controls.Add(this.richTextBox_coordinates);
             this.Controls.Add(this.pictureBox1);
             this.Location = new System.Drawing.Point(15, 15);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.newTurnButton)).EndInit();
@@ -395,7 +384,6 @@
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox1;
-       
     }
 }
 
