@@ -18,8 +18,6 @@ namespace ProjInzynieraOprog
         SolidBrush neutralColor = new SolidBrush(Color.Gray);
         private int tempDefenderId;
         private int tempAttackerId;
-        private int tileXposition;
-        private int tileYposition;
         static Bitmap bm = new Bitmap(tileSize * mapsize, tileSize * mapsize);
         tile [,] List_of_tiles = new tile [mapsize,mapsize];
         List <battle> battlesToDetermine = new List<battle>();
@@ -53,6 +51,7 @@ namespace ProjInzynieraOprog
                     if (List_of_tiles[i, j].PlayerControllerId == 1)
                     {
                         g.FillRectangle(allyColor, i * tileSize + 1, j * tileSize + 1, tileSize - 1, tileSize - 1);
+                        
                     }
                     else if (List_of_tiles[i, j].PlayerControllerId == 2)
                     {
@@ -77,7 +76,7 @@ namespace ProjInzynieraOprog
                     {
                         Draw_Wheat(i, j);
                     }
-
+                    soldiers_on_tile(i,j);
                     g.DrawRectangle(Pens.Black, tileSize * i, tileSize * j, tileSize, tileSize);
                 }
             }
@@ -124,8 +123,8 @@ namespace ProjInzynieraOprog
             int y = e.Y / tileSize;
             int clickX = e.X;
             int clickY = e.Y;
-            tileXposition = x * tileSize;
-            tileYposition = y * tileSize;
+            //tileXposition = x * tileSize;
+           // tileYposition = y * tileSize;
             
             SolidBrush lol = new SolidBrush(Color.DarkSlateBlue);
             textBox1.Text = List_of_tiles[x,y].SoldiersOnTile.ToString();
@@ -386,6 +385,10 @@ namespace ProjInzynieraOprog
                                     List_of_tiles[i, j].SoldiersOnTile = battlesToDetermine[k].SoldierNum;
                                     List_of_tiles[i, j].PlayerControllerId = 1;
                                 }
+                                if(List_of_tiles[i,j].Id == battlesToDetermine[k].AttackerProvinceId)
+                                {
+                                    List_of_tiles[i, j].SoldiersOnTile -= battlesToDetermine[k].SoldierNum;
+                                }
                             }
                         }
                     }
@@ -396,9 +399,13 @@ namespace ProjInzynieraOprog
                         {
                             for (int j = 0; j < mapsize; j++)
                             {
-                                if (List_of_tiles[i, j].Id == battlesToDetermine[k].DefenderProvinceId)
+                                if (List_of_tiles[i, j].Id == battlesToDetermine[k].AttackerProvinceId)
                                 {
                                     List_of_tiles[i, j].SoldiersOnTile -= defenders;
+                                }
+                                if(List_of_tiles[i,j].Id == battlesToDetermine[k].DefenderProvinceId)
+                                {
+                                    List_of_tiles[i, j].SoldiersOnTile -= battlesToDetermine[k].SoldierNum;
                                 }
                             }
                         }
@@ -518,7 +525,12 @@ namespace ProjInzynieraOprog
             listBox_Save.Visible = true;
             textBox_SaveFileName.Visible = true;
             button_NewSave.Visible = true;
-            
+            buttonx1.Visible = false;
+            buttonx10.Visible = false;
+            buttonx100.Visible = false;
+            buttonx1000.Visible = false;
+            textBox3.Visible = false;
+
             populate_listboxSave(); 
         }
 
@@ -538,6 +550,11 @@ namespace ProjInzynieraOprog
             listBox_Save.Visible = false;
             textBox_SaveFileName.Visible = false;
             button_NewSave.Visible = false;
+            buttonx1.Visible = true;
+            buttonx10.Visible = true;
+            buttonx100.Visible = true;
+            buttonx1000.Visible = true;
+            textBox3.Visible = true;
         }
 
         void write_save_file(string path)
@@ -758,5 +775,14 @@ namespace ProjInzynieraOprog
             Image waterimg = new Bitmap(path);
             g.DrawImage(waterimg, x * tileSize + 1, y * tileSize + 1, tileSize - 1, tileSize - 1);
         }
+
+        void soldiers_on_tile(int x, int y)
+        {
+            if (List_of_tiles[x, y].SoldiersOnTile > 0)
+            {
+                g.DrawString(List_of_tiles[x, y].SoldiersOnTile.ToString(), new Font("Arial", 8), Brushes.Black, x * tileSize + 5, y * tileSize + 5);
+            }
+        }
+    
     }
 }
