@@ -34,7 +34,7 @@
             this.button_exit = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.newTurnButton = new System.Windows.Forms.PictureBox();
-            this.soldierTrackBar = new System.Windows.Forms.TrackBar();
+            Form1.soldierTrackBar = new System.Windows.Forms.TrackBar();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.buttonN = new System.Windows.Forms.Button();
             this.buttonE = new System.Windows.Forms.Button();
@@ -47,7 +47,7 @@
             this.button_options = new System.Windows.Forms.Button();
             this.button_back = new System.Windows.Forms.Button();
             this.button_SaveGame = new System.Windows.Forms.Button();
-            this.listBox_Save = new System.Windows.Forms.ListBox();
+            Form1.listBox_Save = new System.Windows.Forms.ListBox();
             this.textBox_SaveFileName = new System.Windows.Forms.TextBox();
             this.button_NewSave = new System.Windows.Forms.Button();
             this.buttonx1 = new System.Windows.Forms.Button();
@@ -59,7 +59,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.newTurnButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize) (this.soldierTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (Form1.soldierTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -119,13 +119,13 @@
             // 
             // soldierTrackBar
             // 
-            this.soldierTrackBar.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.soldierTrackBar.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (128)))), ((int) (((byte) (64)))), ((int) (((byte) (0)))));
-            this.soldierTrackBar.Location = new System.Drawing.Point(421, 526);
-            this.soldierTrackBar.Margin = new System.Windows.Forms.Padding(2);
-            this.soldierTrackBar.Name = "soldierTrackBar";
-            this.soldierTrackBar.Size = new System.Drawing.Size(116, 45);
-            this.soldierTrackBar.TabIndex = 13;
+            Form1.soldierTrackBar.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            Form1.soldierTrackBar.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (128)))), ((int) (((byte) (64)))), ((int) (((byte) (0)))));
+            Form1.soldierTrackBar.Location = new System.Drawing.Point(421, 526);
+            Form1.soldierTrackBar.Margin = new System.Windows.Forms.Padding(2);
+            Form1.soldierTrackBar.Name = "soldierTrackBar";
+            Form1.soldierTrackBar.Size = new System.Drawing.Size(116, 45);
+            Form1.soldierTrackBar.TabIndex = 13;
             // 
             // textBox1
             // 
@@ -291,18 +291,18 @@
             this.button_SaveGame.Visible = false;
             this.button_SaveGame.Click += new System.EventHandler(this.button_SaveGame_Click);
             // 
-            // listBox_Save
+            // listBox_Save             jakby static nie dzialal trzeba zamienic frorm1 na this
             // 
-            this.listBox_Save.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.listBox_Save.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (128)))), ((int) (((byte) (64)))), ((int) (((byte) (0)))));
-            this.listBox_Save.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.listBox_Save.ForeColor = System.Drawing.Color.Yellow;
-            this.listBox_Save.FormattingEnabled = true;
-            this.listBox_Save.Location = new System.Drawing.Point(345, 825);
-            this.listBox_Save.Name = "listBox_Save";
-            this.listBox_Save.Size = new System.Drawing.Size(120, 65);
-            this.listBox_Save.TabIndex = 31;
-            this.listBox_Save.Visible = false;
+            Form1.listBox_Save.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            Form1.listBox_Save.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (128)))), ((int) (((byte) (64)))), ((int) (((byte) (0)))));
+            Form1.listBox_Save.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            Form1.listBox_Save.ForeColor = System.Drawing.Color.Yellow;
+            Form1.listBox_Save.FormattingEnabled = true;
+            Form1.listBox_Save.Location = new System.Drawing.Point(345, 825);
+            Form1.listBox_Save.Name = "listBox_Save";
+            Form1.listBox_Save.Size = new System.Drawing.Size(120, 65);
+            Form1.listBox_Save.TabIndex = 31;
+            Form1.listBox_Save.Visible = false;
             // 
             // textBox_SaveFileName
             // 
@@ -418,7 +418,7 @@
             this.panel1.Controls.Add(this.textBox3);
             this.panel1.Controls.Add(this.textBox_SaveFileName);
             this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Controls.Add(this.listBox_Save);
+            this.panel1.Controls.Add(Form1.listBox_Save);
             this.panel1.Controls.Add(this.buttonx1000);
             this.panel1.Controls.Add(this.button_SaveGame);
             this.panel1.Controls.Add(this.pictureBox2);
@@ -432,7 +432,7 @@
             this.panel1.Controls.Add(this.textBox2);
             this.panel1.Controls.Add(this.buttonx1);
             this.panel1.Controls.Add(this.buttonN);
-            this.panel1.Controls.Add(this.soldierTrackBar);
+            this.panel1.Controls.Add(Form1.soldierTrackBar);
             this.panel1.Controls.Add(this.buttonE);
             this.panel1.Controls.Add(this.buttonW);
             this.panel1.Controls.Add(this.buttonS);
@@ -459,7 +459,7 @@
             this.Name = "Form1";
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize) (this.newTurnButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize) (this.soldierTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (Form1.soldierTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
@@ -481,7 +481,7 @@
 
         private System.Windows.Forms.TextBox textBox_SaveFileName;
 
-        private System.Windows.Forms.ListBox listBox_Save;
+        internal static System.Windows.Forms.ListBox listBox_Save;
 
         private System.Windows.Forms.Button button_SaveGame;
 
@@ -504,7 +504,7 @@
 
         private System.Windows.Forms.TextBox textBox1;
 
-        private System.Windows.Forms.TrackBar soldierTrackBar;
+        internal static System.Windows.Forms.TrackBar soldierTrackBar;
 
         private System.Windows.Forms.PictureBox newTurnButton;
 
@@ -514,7 +514,7 @@
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        internal System.Windows.Forms.PictureBox pictureBox1;
        
     }
 }

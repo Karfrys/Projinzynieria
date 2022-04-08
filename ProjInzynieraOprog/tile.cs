@@ -3,7 +3,7 @@
 
 namespace ProjInzynieraOprog
 {
-    internal class tile
+    internal class Tile
     {
         int id;
 
