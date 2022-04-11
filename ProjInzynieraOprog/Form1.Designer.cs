@@ -34,7 +34,6 @@
             this.button_exit = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.newTurnButton = new System.Windows.Forms.PictureBox();
-            Form1.soldierTrackBar = new System.Windows.Forms.TrackBar();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.buttonN = new System.Windows.Forms.Button();
             this.buttonE = new System.Windows.Forms.Button();
@@ -47,7 +46,6 @@
             this.button_options = new System.Windows.Forms.Button();
             this.button_back = new System.Windows.Forms.Button();
             this.button_SaveGame = new System.Windows.Forms.Button();
-            Form1.listBox_Save = new System.Windows.Forms.ListBox();
             this.textBox_SaveFileName = new System.Windows.Forms.TextBox();
             this.button_NewSave = new System.Windows.Forms.Button();
             this.buttonx1 = new System.Windows.Forms.Button();
@@ -57,11 +55,12 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.soldierTrackBar = new System.Windows.Forms.TrackBar();
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.newTurnButton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize) (Form1.soldierTrackBar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize) (this.soldierTrackBar)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -116,16 +115,6 @@
             this.newTurnButton.TabIndex = 12;
             this.newTurnButton.TabStop = false;
             this.newTurnButton.Click += new System.EventHandler(this.pictureBox2_Click);
-            // 
-            // soldierTrackBar
-            // 
-            Form1.soldierTrackBar.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            Form1.soldierTrackBar.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (128)))), ((int) (((byte) (64)))), ((int) (((byte) (0)))));
-            Form1.soldierTrackBar.Location = new System.Drawing.Point(421, 526);
-            Form1.soldierTrackBar.Margin = new System.Windows.Forms.Padding(2);
-            Form1.soldierTrackBar.Name = "soldierTrackBar";
-            Form1.soldierTrackBar.Size = new System.Drawing.Size(116, 45);
-            Form1.soldierTrackBar.TabIndex = 13;
             // 
             // textBox1
             // 
@@ -291,19 +280,6 @@
             this.button_SaveGame.Visible = false;
             this.button_SaveGame.Click += new System.EventHandler(this.button_SaveGame_Click);
             // 
-            // listBox_Save             jakby static nie dzialal trzeba zamienic frorm1 na this
-            // 
-            Form1.listBox_Save.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            Form1.listBox_Save.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (128)))), ((int) (((byte) (64)))), ((int) (((byte) (0)))));
-            Form1.listBox_Save.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            Form1.listBox_Save.ForeColor = System.Drawing.Color.Yellow;
-            Form1.listBox_Save.FormattingEnabled = true;
-            Form1.listBox_Save.Location = new System.Drawing.Point(345, 825);
-            Form1.listBox_Save.Name = "listBox_Save";
-            Form1.listBox_Save.Size = new System.Drawing.Size(120, 65);
-            Form1.listBox_Save.TabIndex = 31;
-            Form1.listBox_Save.Visible = false;
-            // 
             // textBox_SaveFileName
             // 
             this.textBox_SaveFileName.Anchor = ((System.Windows.Forms.AnchorStyles) ((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
@@ -413,12 +389,12 @@
             // panel1
             // 
             this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panel1.Controls.Add(this.soldierTrackBar);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.button_NewSave);
             this.panel1.Controls.Add(this.textBox3);
             this.panel1.Controls.Add(this.textBox_SaveFileName);
             this.panel1.Controls.Add(this.textBox1);
-            this.panel1.Controls.Add(Form1.listBox_Save);
             this.panel1.Controls.Add(this.buttonx1000);
             this.panel1.Controls.Add(this.button_SaveGame);
             this.panel1.Controls.Add(this.pictureBox2);
@@ -432,16 +408,22 @@
             this.panel1.Controls.Add(this.textBox2);
             this.panel1.Controls.Add(this.buttonx1);
             this.panel1.Controls.Add(this.buttonN);
-            this.panel1.Controls.Add(Form1.soldierTrackBar);
             this.panel1.Controls.Add(this.buttonE);
             this.panel1.Controls.Add(this.buttonW);
             this.panel1.Controls.Add(this.buttonS);
             this.panel1.Controls.Add(this.newTurnButton);
             this.panel1.Controls.Add(this.button2);
-            this.panel1.Location = new System.Drawing.Point(735, 23);
+            this.panel1.Location = new System.Drawing.Point(819, 23);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(881, 1019);
             this.panel1.TabIndex = 40;
+            // 
+            // soldierTrackBar
+            // 
+            this.soldierTrackBar.Location = new System.Drawing.Point(428, 527);
+            this.soldierTrackBar.Name = "soldierTrackBar";
+            this.soldierTrackBar.Size = new System.Drawing.Size(106, 45);
+            this.soldierTrackBar.TabIndex = 40;
             // 
             // Form1
             // 
@@ -450,7 +432,7 @@
             this.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (158)))), ((int) (((byte) (103)))), ((int) (((byte) (12)))));
             this.BackgroundImage = ((System.Drawing.Image) (resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(1298, 1061);
+            this.ClientSize = new System.Drawing.Size(1466, 1061);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox1);
             this.DoubleBuffered = true;
@@ -459,12 +441,14 @@
             this.Name = "Form1";
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize) (this.newTurnButton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize) (Form1.soldierTrackBar)).EndInit();
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize) (this.soldierTrackBar)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.TrackBar soldierTrackBar;
 
         private System.Windows.Forms.Panel panel1;
 
@@ -503,8 +487,6 @@
         private System.Windows.Forms.Button buttonS;
 
         private System.Windows.Forms.TextBox textBox1;
-
-        internal static System.Windows.Forms.TrackBar soldierTrackBar;
 
         private System.Windows.Forms.PictureBox newTurnButton;
 

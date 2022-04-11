@@ -12,6 +12,9 @@ namespace ProjInzynieraOprog
         private int playerControllerId;
         private int soldiersOnTile=0;
         private int type;
+        bool isUpgraded;
+        
+        
 
         public int SoldiersOnTile
         {
@@ -44,6 +47,12 @@ namespace ProjInzynieraOprog
             set => type = value;
         }
 
+        public bool isUpgraded1
+        {
+            get => isUpgraded;
+            set => isUpgraded = value;
+        }
+        
         
     }
 }
