@@ -10,8 +10,23 @@ namespace ProjInzynieraOprog
     internal class Map
     {
         internal static int tileSize = 55;
-        internal player _playerHuman = new player(1);
-        readonly player _playerAi = new player(2);
+         player _playerHuman = new player(1);
+
+         public player PlayerHuman
+         {
+             get => _playerHuman;
+             set => _playerHuman = value;
+         }
+
+         public player PlayerAi
+         {
+             get => _playerAi;
+             set => _playerAi = value;
+         }
+
+         player _playerAi = new player(2);
+         
+         
         private static int mapsize = 15;
         
 
@@ -437,6 +452,7 @@ namespace ProjInzynieraOprog
         public void Uprgade(int clickedX, int clickedY)
         {
             List_of_tiles[clickedX,clickedY].isUpgraded1 = true;
+            List_of_tiles[clickedX, clickedY].PointGain += 30;
         }
         
         struct Provinces
@@ -446,7 +462,7 @@ namespace ProjInzynieraOprog
           public int soldiers;
         }
 
-       public void playerAiController()
+       public void playerAiController(int playerId)
         {
             
             List<Provinces> provinces = new List<Provinces>();
@@ -460,11 +476,11 @@ namespace ProjInzynieraOprog
             {
                 for (int j = 0; j < mapsize; j++)
                 {
-                    if (List_of_tiles[i, j].PlayerControllerId == 2)
+                    if (List_of_tiles[i, j].PlayerControllerId == playerId)
                     {
                         if (i != 0)
                         {
-                            if(List_of_tiles[i-1,j].PlayerControllerId !=2)
+                            if(List_of_tiles[i-1,j].PlayerControllerId !=playerId)
                             {
                                 Provinces p= new Provinces();
                                 p.attacker_id = List_of_tiles[i, j].Id;
@@ -475,7 +491,7 @@ namespace ProjInzynieraOprog
 
                         if (i != mapsize-1)
                         {
-                            if(List_of_tiles[i+1,j].PlayerControllerId !=2)
+                            if(List_of_tiles[i+1,j].PlayerControllerId !=playerId)
                             {
                                 Provinces p= new Provinces();
                                 p.attacker_id = List_of_tiles[i, j].Id;
@@ -488,7 +504,7 @@ namespace ProjInzynieraOprog
                         
                         if (j != 0)
                         {
-                            if(List_of_tiles[i,j-1].PlayerControllerId !=2)
+                            if(List_of_tiles[i,j-1].PlayerControllerId !=playerId)
                             {
                                 Provinces p= new Provinces();
                                 p.attacker_id = List_of_tiles[i, j].Id;
@@ -499,7 +515,7 @@ namespace ProjInzynieraOprog
                         }
                         if (j != mapsize-1)
                         {
-                            if(List_of_tiles[i,j+1].PlayerControllerId !=2)
+                            if(List_of_tiles[i,j+1].PlayerControllerId !=playerId)
                             {
                                 Provinces p= new Provinces();
                                 p.attacker_id = List_of_tiles[i, j].Id;
@@ -522,11 +538,11 @@ namespace ProjInzynieraOprog
             {
                 for (int j = 0; j < mapsize; j++)
                 {
-                    if (List_of_tiles[i, j].PlayerControllerId == 2)
+                    if (List_of_tiles[i, j].PlayerControllerId == playerId)
                     {
                         if (i != 0)
                         {
-                            if(List_of_tiles[i-1,j].PlayerControllerId !=2)
+                            if(List_of_tiles[i-1,j].PlayerControllerId !=playerId)
                             {
                                 _playerAi.PointsBalance -= points;
                                 List_of_tiles[i,j].SoldiersOnTile += points;
@@ -534,7 +550,7 @@ namespace ProjInzynieraOprog
                         }
                         
                         if(i!=mapsize-1)
-                            if(List_of_tiles[i+1,j].PlayerControllerId !=2)
+                            if(List_of_tiles[i+1,j].PlayerControllerId !=playerId)
                             {
                                 _playerAi.PointsBalance -= points;
                                 List_of_tiles[i,j].SoldiersOnTile += points;                            
@@ -542,7 +558,7 @@ namespace ProjInzynieraOprog
                         
                         if (j != 0)
                         {
-                            if(List_of_tiles[i,j-1].PlayerControllerId !=2)
+                            if(List_of_tiles[i,j-1].PlayerControllerId !=playerId)
                             {
                                 _playerAi.PointsBalance -= points;
                                 List_of_tiles[i,j].SoldiersOnTile += points;
@@ -550,7 +566,7 @@ namespace ProjInzynieraOprog
                         }
                         if (j != mapsize-1)
                         {
-                            if(List_of_tiles[i,j+1].PlayerControllerId !=2)
+                            if(List_of_tiles[i,j+1].PlayerControllerId !=playerId)
                             {
                                 _playerAi.PointsBalance -= points;
                                 List_of_tiles[i,j].SoldiersOnTile += points;

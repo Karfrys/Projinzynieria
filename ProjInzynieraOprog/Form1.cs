@@ -16,13 +16,7 @@ namespace ProjInzynieraOprog
         private int clickedY;
         
         
-        void UprgadeTile()
-        {
-            if (_playerHuman.PointsBalance >= 300)
-            {
-                M.Uprgade(clickedX , clickedY);
-            }
-        }
+ 
 
         private void GoFullscreen(bool fullscreen)
         {
@@ -82,7 +76,7 @@ namespace ProjInzynieraOprog
             SolidBrush lol = new SolidBrush(Color.DarkSlateBlue);
             textBox1.Text = M.List_of_tiles[x, y].SoldiersOnTile.ToString();
             textBox2.Text = M.List_of_tiles[x, y].PointGain.ToString();
-            M.temppointsbalance = M._playerHuman.PointsBalance;
+            M.temppointsbalance = M.PlayerHuman.PointsBalance;
             DrawMap_OnPictrurebox();
             M.Draw_Frame(x, y);
             
@@ -102,6 +96,18 @@ namespace ProjInzynieraOprog
 
             M.tempAttackerId = M.List_of_tiles[x, y].Id;
 
+            
+            if(M.List_of_tiles[x,y].PlayerControllerId == M.PlayerHuman.PlayerId1 && M.PlayerHuman.PointsBalance >=300 && M.List_of_tiles[x,y].isUpgraded1==false)
+            {
+                Uprgade.Visible = true;
+            }
+            else
+            {
+                Uprgade.Visible = false;
+            }
+            
+         
+            
             if (pictureBox2.Image != null)
             {
                 pictureBox2.Image.Dispose(); //czy to nam usunęło przycisk next turn?
@@ -189,7 +195,7 @@ namespace ProjInzynieraOprog
 
         private void pictureBox2_Click(object sender, EventArgs e)
         {
-            M.playerAiController();
+            M.playerAiController(M.PlayerAi.PlayerId1);
             M.battle_simulation();
             DrawMap_OnPictrurebox();
         }
@@ -356,7 +362,7 @@ namespace ProjInzynieraOprog
         {
             int selectedRecruiting = Convert.ToInt32(textBox3.Text);
             M.List_of_tiles[M.selectedProvince.X, M.selectedProvince.Y].SoldiersOnTile += selectedRecruiting;
-            M._playerHuman.PointsBalance -= selectedRecruiting;
+            M.PlayerHuman.PointsBalance -= selectedRecruiting;
             textBox3.Text = "0";
             soldierTrackBar.Maximum = M.List_of_tiles[M.selectedProvince.X, M.selectedProvince.Y].SoldiersOnTile;
             textBox1.Refresh();
@@ -484,10 +490,11 @@ namespace ProjInzynieraOprog
         
         //funkcja do ulepszania pól, na click jakiegos buttona;
 
-       
 
-
-
+        private void Uprgade_Click(object sender, EventArgs e)
+        {
+            M.Uprgade( clickedX,  clickedY);
+        }
     }
 
 

@@ -56,6 +56,7 @@
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.soldierTrackBar = new System.Windows.Forms.TrackBar();
+            this.Uprgade = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.newTurnButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.pictureBox2)).BeginInit();
@@ -389,6 +390,7 @@
             // panel1
             // 
             this.panel1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.panel1.Controls.Add(this.Uprgade);
             this.panel1.Controls.Add(this.soldierTrackBar);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.button_NewSave);
@@ -425,6 +427,19 @@
             this.soldierTrackBar.Size = new System.Drawing.Size(106, 45);
             this.soldierTrackBar.TabIndex = 40;
             // 
+            // Uprgade
+            // 
+            this.Uprgade.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (128)))), ((int) (((byte) (64)))), ((int) (((byte) (0)))));
+            this.Uprgade.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.Uprgade.ForeColor = System.Drawing.Color.Yellow;
+            this.Uprgade.Location = new System.Drawing.Point(151, 716);
+            this.Uprgade.Name = "Uprgade";
+            this.Uprgade.Size = new System.Drawing.Size(109, 24);
+            this.Uprgade.TabIndex = 41;
+            this.Uprgade.Text = "Uprgade";
+            this.Uprgade.UseVisualStyleBackColor = false;
+            this.Uprgade.Click += new System.EventHandler(this.Uprgade_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -447,6 +462,8 @@
             ((System.ComponentModel.ISupportInitialize) (this.soldierTrackBar)).EndInit();
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Button Uprgade;
 
         private System.Windows.Forms.TrackBar soldierTrackBar;
 
