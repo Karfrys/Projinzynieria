@@ -9,7 +9,7 @@ namespace ProjInzynieraOprog
 {
     internal class Map
     {
-        internal static int tileSize = 55;
+        internal static int tileSize = 45;
         internal player _playerHuman = new player(1);
         readonly player _playerAi = new player(2);
         private static int mapsize = 15;
@@ -560,6 +560,7 @@ namespace ProjInzynieraOprog
                        
                 }
             }
+
 
            for(int i=0; i<provinces.Count; i++)
             {

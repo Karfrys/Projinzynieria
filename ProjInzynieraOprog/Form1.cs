@@ -50,6 +50,11 @@ namespace ProjInzynieraOprog
             DrawMap_OnPictrurebox();
             this.BackgroundImage = M.load_resource_image("bg_texture.jpg");
             panel1.BackColor = Color.Transparent;
+
+            string fileName = "NEW_TURN.png";
+            string path = Path.Combine(Environment.CurrentDirectory, @"Resources", fileName);
+            Image new_turn = Image.FromFile(path);
+            newTurnButton.Image = new_turn;
         }
 
         private void
@@ -236,17 +241,18 @@ namespace ProjInzynieraOprog
 
         void populate_listboxSave()
         {
-            listBox_Save.Items.Clear();
+            ListBox_SaveNew.Items.Clear();
             DirectoryInfo dir = new DirectoryInfo(Path.Combine(Environment.CurrentDirectory, @"Data\"));
             FileInfo[] Files = dir.GetFiles();
             foreach (FileInfo file in Files)
             {
-                listBox_Save.Items.Add(file.Name);
+                ListBox_SaveNew.Items.Add(file.Name);
             }
         }
 
         private void button_options_Click(object sender, EventArgs e)
         {
+            populate_listboxSave();
             buttonE.Visible = false;
             buttonN.Visible = false;
             buttonW.Visible = false;
@@ -258,7 +264,7 @@ namespace ProjInzynieraOprog
             button_SaveGame.Visible = true;
             button_back.Visible = true;
             button1.Visible = true;
-            listBox_Save.Visible = true;
+            ListBox_SaveNew.Visible = true;
             textBox_SaveFileName.Visible = true;
             button_NewSave.Visible = true;
             buttonx1.Visible = false;
@@ -267,7 +273,7 @@ namespace ProjInzynieraOprog
             buttonx1000.Visible = false;
             textBox3.Visible = false;
 
-            populate_listboxSave();
+            //populate_listboxSave();
         }
 
         private void button_back_Click(object sender, EventArgs e)
@@ -283,7 +289,7 @@ namespace ProjInzynieraOprog
             button_back.Visible = false;
             button1.Visible = false;
             button_SaveGame.Visible = false;
-            listBox_Save.Visible = false;
+            ListBox_SaveNew.Visible = false;
             textBox_SaveFileName.Visible = false;
             button_NewSave.Visible = false;
             buttonx1.Visible = true;
@@ -306,7 +312,7 @@ namespace ProjInzynieraOprog
 
         private void button_NewSave_Click(object sender, EventArgs e)
         {
-            listBox_Save.Items.Clear();
+            ListBox_SaveNew.Items.Clear();
             string fileName = textBox_SaveFileName.Text + ".txt";
             string path = Path.Combine(Environment.CurrentDirectory, @"Data\", fileName);
             M.write_save_file(path);
@@ -446,13 +452,13 @@ namespace ProjInzynieraOprog
         {
             //if (listBox_Save.SelectedItem != null)
             //{
-              //  return Path.Combine(Environment.CurrentDirectory, @"Data\", listBox_Save.SelectedItem.ToString());
-           // }
-           // else
-           // {
+            //    return Path.Combine(Environment.CurrentDirectory, @"Data\", listBox_Save.SelectedItem.ToString());
+            //}
+            //else
+            {
                 string default_path = Path.Combine(Environment.CurrentDirectory, @"Data\", "map1.txt");
                 return default_path;
-           // }
+            }
         }
 
         int Get_SoldierTrackBar()
