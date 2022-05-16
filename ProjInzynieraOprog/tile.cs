@@ -12,6 +12,7 @@ namespace ProjInzynieraOprog
         private int playerControllerId;
         private int soldiersOnTile=0;
         private int type;
+        int foresttype;
         bool isUpgraded;
         
         
@@ -52,7 +53,6 @@ namespace ProjInzynieraOprog
             get => isUpgraded;
             set => isUpgraded = value;
         }
-        
-        
+        public int Foresttype { get => foresttype; set => foresttype = value; }
     }
 }

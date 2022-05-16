@@ -15,7 +15,7 @@ namespace ProjInzynieraOprog
         private static int mapsize = 15;
         
 
-        SolidBrush allyColor = new SolidBrush(Color.LightSeaGreen);
+        SolidBrush allyColor = new SolidBrush(Color.DodgerBlue);
         SolidBrush enemyColor = new SolidBrush(Color.LightCoral);
         SolidBrush neutralColor = new SolidBrush(Color.Gray);
         internal int tempDefenderId;
@@ -28,6 +28,12 @@ namespace ProjInzynieraOprog
         private OpenFileDialog ofd;
         Graphics g = Graphics.FromImage(bm);
         internal int temppointsbalance;
+        List<string> LogString = new List<string>();
+        int turnNumber = 0;
+
+
+
+
 
         public int Temppointsbalance
         {
@@ -58,12 +64,12 @@ namespace ProjInzynieraOprog
             get => tempAttackerId;
             set => tempAttackerId = value;
         }
+        public List<string> LogString1 { get => LogString; set => LogString = value; }
+        public int TurnNumber { get => turnNumber; set => turnNumber = value; }
 
-     
-
-        internal void Draw_Wheat(int x, int y)
+        internal void Draw_Grass(int x, int y)
         {
-            string fileName = "BUMP.png";
+            string fileName = "GRASS_NEW.png";
             string path = Path.Combine(Environment.CurrentDirectory, @"Resources", fileName);
             Image wheatimg = Image.FromFile(path);
 
@@ -72,16 +78,59 @@ namespace ProjInzynieraOprog
 
         internal void Draw_Forest(int x, int y)
         {
-            string fileName = "FOREST.png";
-            string path = Path.Combine(Environment.CurrentDirectory, @"Resources", fileName);
-            Image villageimg = Image.FromFile(path);
-            g.DrawImage(villageimg, x * tileSize + 1, y * tileSize + 1, tileSize - 1, tileSize - 1);
+            Draw_Grass(x, y);
+
+            
+               
+
+                switch (List_of_tiles[x,y].Foresttype)
+                {
+                    case 1:
+
+                        string fileName = "FOREST.png";
+                        string path = Path.Combine(Environment.CurrentDirectory, @"Resources", fileName);
+                        Image forest1 = Image.FromFile(path);
+                        g.DrawImage(forest1, x * tileSize + 1, y * tileSize + 1, tileSize - 1, tileSize - 1);
+
+                        break;
+                    case 2:
+                        string fileName2 = "FOREST2.png";
+                        string path2 = Path.Combine(Environment.CurrentDirectory, @"Resources", fileName2);
+                        Image forest2 = Image.FromFile(path2);
+                        g.DrawImage(forest2, x * tileSize + 1, y * tileSize + 1, tileSize - 1, tileSize - 1);
+                        break;
+                    case 3:
+                        string fileName3 = "FOREST3.png";
+                        string path3 = Path.Combine(Environment.CurrentDirectory, @"Resources", fileName3);
+                        Image forest3 = Image.FromFile(path3);
+                        g.DrawImage(forest3, x * tileSize + 1, y * tileSize + 1, tileSize - 1, tileSize - 1);
+                        break;
+                    case 4:
+                        string fileName4 = "FOREST4.png";
+                        string path4 = Path.Combine(Environment.CurrentDirectory, @"Resources", fileName4);
+                        Image forest4 = Image.FromFile(path4);
+                        g.DrawImage(forest4, x * tileSize + 1, y * tileSize + 1, tileSize - 1, tileSize - 1);
+                        break;
+                    case 5:
+                        string fileName5 = "FOREST5.png";
+                        string path5 = Path.Combine(Environment.CurrentDirectory, @"Resources", fileName5);
+                        Image forest5 = Image.FromFile(path5);
+                        g.DrawImage(forest5, x * tileSize + 1, y * tileSize + 1, tileSize - 1, tileSize - 1);
+                        break;
+
+                
+            }
+            
+
+
+           
         }
 
         internal void Draw_Lake(int x, int y)
         {
+            Draw_Grass(x, y);
             List_of_tiles[x, y].PointGain = 0;
-            string fileName = "WATER.png";
+            string fileName = "LAKE1.png";
             string path = Path.Combine(Environment.CurrentDirectory, @"Resources", fileName);
             Image waterimg = new Bitmap(path);
             g.DrawImage(waterimg, x * tileSize + 1, y * tileSize + 1, tileSize - 1, tileSize - 1);
@@ -146,7 +195,7 @@ namespace ProjInzynieraOprog
             Random r = new Random();
             string line;
             int pg; //assigning random pointgain for each tile// 
-            int type; //0-clearing , 1-forest, 2-water //
+            int type;//0-clearing , 1-forest, 2-water //
             int own; //ownership //
             for (int i = 0; i < size; i++)
             {
@@ -155,6 +204,7 @@ namespace ProjInzynieraOprog
                 {
                     pg = r.Next(10, 30);
                     type = r.Next(0, 3);
+                   
                     if (i < 2 && j < 2)
                     {
                         own = 1;
@@ -175,18 +225,17 @@ namespace ProjInzynieraOprog
             sw.Close();
         }
         
-        internal string [,] GetMapSize()
+        internal string [,] GetMapSize(Form1 form)
         {
             int iterator = 0;
             string path = Path.Combine(Environment.CurrentDirectory, @"Data\", "map1.txt");;
             mapsize = 15;
-            if (Form1.Get_SaveFile() != null)
+            if (form.Get_SaveFile() != null)
             {
-                path = Form1.Get_SaveFile();
+                path = form.Get_SaveFile();
             }
             string[,] Tiles = new string[mapsize, mapsize];
 
-            //string path = Path.Combine(Environment.CurrentDirectory, @"Data\", fileName);
             string[] lines = File.ReadAllLines(path, Encoding.UTF8);
             mapsize = lines.Length;
 
@@ -203,10 +252,10 @@ namespace ProjInzynieraOprog
             return Tiles;
         }
 
-        internal Bitmap DrawMap()
+        internal Bitmap DrawMap(Form1 form)
         {
             int iter = 0;
-            string[,] tiles = GetMapSize();
+            string[,] tiles = GetMapSize(form);
             for (int i = 0; i < mapsize; i++)
             {
                 for (int j = 0; j < mapsize; j++)
@@ -243,12 +292,18 @@ namespace ProjInzynieraOprog
 
                     if (List_of_tiles[i, j].Type == 1)
                     {
+                        if (firstRun) 
+                        {
+                            Random ft = new Random();
+                            List_of_tiles[i,j].Foresttype = ft.Next(1, 5);
+                        }
+
                         Draw_Forest(i, j);
                     }
 
                     if (List_of_tiles[i, j].Type == 0)
                     {
-                        Draw_Wheat(i, j);
+                        Draw_Grass(i, j);
                     }
                     soldiers_on_tile(i,j);
                     g.DrawRectangle(Pens.Black, tileSize * i, tileSize * j, tileSize, tileSize);
@@ -302,11 +357,13 @@ namespace ProjInzynieraOprog
             }
             return 0;
         }
-        
-       
+
+
 
         public void battle_simulation()
         {
+            string adding = null;
+
             for (int i = 0; i < mapsize; i++)
             {
                 for (int j = 0; j < mapsize; j++)
@@ -323,10 +380,9 @@ namespace ProjInzynieraOprog
             }
             //basic battle simulation
 
-          
-            int attackerID=0;
-            int defenderID = 0;
 
+            int attackerID = 0;
+            int defenderID = 0;
 
             for (int k = 0; k < battlesToDetermine.Count; k++)
             {
@@ -380,6 +436,19 @@ namespace ProjInzynieraOprog
                 }
                 else
                 {
+                    if (attackerID == _playerHuman.PlayerId1)
+                    {
+                        adding = "You attacked field " + battlesToDetermine[k].AttackerProvinceId +
+                                          " and lost ";
+                    }
+                    else if (defenderID == _playerHuman.PlayerId1)
+                    {
+                        adding = "You had been attacked at field" + battlesToDetermine[k].DefenderProvinceId +
+                                         " and lost ";
+                    }
+
+
+
                     for (int i = 0; i < mapsize; i++)
                     {
                         for (int j = 0; j < mapsize; j++)
@@ -394,6 +463,18 @@ namespace ProjInzynieraOprog
                                         {
                                             if (List_of_tiles[z, y].Id == battlesToDetermine[k].AttackerProvinceId)
                                             {
+                                                int temp = List_of_tiles[z, y].SoldiersOnTile - battlesToDetermine[k].SoldierNum;
+                                                if (attackerID == _playerHuman.PlayerId1)
+                                                {
+                                                    adding += " all soldiers and LOST the battle";
+                                                    LogString1.Add(adding);
+                                                }
+                                                else if (defenderID == _playerHuman.PlayerId1)
+                                                {
+                                                    adding += temp + " soldiers, you WON the battle";
+                                                    LogString1.Add(adding);
+                                                }
+
                                                 List_of_tiles[z, y].SoldiersOnTile -= battlesToDetermine[k].SoldierNum;
                                                 break;
                                             }
@@ -402,17 +483,31 @@ namespace ProjInzynieraOprog
                                 }
                                 else
                                 {
+                                    //z,y = attacker
                                     for (int z = 0; z < mapsize; z++)
                                     {
                                         for (int y = 0; y < mapsize; y++)
                                         {
                                             if (List_of_tiles[z, y].Id == battlesToDetermine[k].AttackerProvinceId)
                                             {
+                                                int lost_soldiers;
                                                 int temp;
-                                                List_of_tiles[z,y].SoldiersOnTile-=battlesToDetermine[k].SoldierNum;
-                                                temp = battlesToDetermine[k].SoldierNum-List_of_tiles[i,j].SoldiersOnTile;
+                                                List_of_tiles[z, y].SoldiersOnTile -= battlesToDetermine[k].SoldierNum;
+                                                temp = battlesToDetermine[k].SoldierNum - List_of_tiles[i, j].SoldiersOnTile;
+                                                lost_soldiers = battlesToDetermine[k].SoldierNum - temp;
                                                 List_of_tiles[i, j].SoldiersOnTile = temp;
                                                 List_of_tiles[i, j].PlayerControllerId = attackerID;
+
+                                                if (attackerID == _playerHuman.PlayerId1)
+                                                {
+                                                    adding += lost_soldiers + " soldiers and WON the battle";
+                                                    LogString1.Add(adding);
+                                                }
+                                                else if (defenderID == _playerHuman.PlayerId1)
+                                                {
+                                                    adding += " all soldiers, tile has been lost";
+                                                    LogString1.Add(adding);
+                                                }
                                                 break;
                                             }
                                         }
@@ -426,14 +521,19 @@ namespace ProjInzynieraOprog
 
                         }
                     }
+              
+                
                 }
+               
+                
+
             }
-            
+
 
             battlesToDetermine.Clear();
         }
 
-        
+
         public void Uprgade(int clickedX, int clickedY)
         {
             List_of_tiles[clickedX,clickedY].isUpgraded1 = true;

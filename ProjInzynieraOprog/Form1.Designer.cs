@@ -55,12 +55,19 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.ListBox_SaveNew = new System.Windows.Forms.ListBox();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.soldierTrackBar = new System.Windows.Forms.TrackBar();
+            this.ListBox_SaveNew = new System.Windows.Forms.ListBox();
+            this.LogBook = new System.Windows.Forms.RichTextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.AllPointsTextBox = new System.Windows.Forms.TextBox();
+            this.tileIDlabel = new System.Windows.Forms.Label();
+            this.tileIDtextbox = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.newTurnButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.soldierTrackBar)).BeginInit();
             this.SuspendLayout();
             // 
@@ -95,10 +102,10 @@
             this.button1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.ForeColor = System.Drawing.Color.Yellow;
-            this.button1.Location = new System.Drawing.Point(100, 931);
+            this.button1.Location = new System.Drawing.Point(321, 1260);
             this.button1.Margin = new System.Windows.Forms.Padding(6);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(202, 67);
+            this.button1.Size = new System.Drawing.Size(202, 94);
             this.button1.TabIndex = 8;
             this.button1.Text = "Load Game";
             this.button1.UseVisualStyleBackColor = false;
@@ -110,24 +117,26 @@
             this.newTurnButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.newTurnButton.BackColor = System.Drawing.Color.Black;
             this.newTurnButton.InitialImage = null;
-            this.newTurnButton.Location = new System.Drawing.Point(409, 1049);
+            this.newTurnButton.Location = new System.Drawing.Point(161, 452);
             this.newTurnButton.Margin = new System.Windows.Forms.Padding(4);
             this.newTurnButton.Name = "newTurnButton";
             this.newTurnButton.Size = new System.Drawing.Size(410, 131);
             this.newTurnButton.TabIndex = 12;
             this.newTurnButton.TabStop = false;
-            this.newTurnButton.Click += new System.EventHandler(this.pictureBox2_Click);
+            this.newTurnButton.Click += new System.EventHandler(this.newTurnButton_Click);
             // 
             // textBox1
             // 
             this.textBox1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.textBox1.ForeColor = System.Drawing.Color.Yellow;
-            this.textBox1.Location = new System.Drawing.Point(563, 678);
+            this.textBox1.Location = new System.Drawing.Point(271, 23);
             this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(220, 24);
+            this.textBox1.ReadOnly = true;
+            this.textBox1.Size = new System.Drawing.Size(220, 34);
             this.textBox1.TabIndex = 14;
             this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
@@ -137,7 +146,7 @@
             this.buttonN.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.buttonN.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonN.ForeColor = System.Drawing.Color.Yellow;
-            this.buttonN.Location = new System.Drawing.Point(563, 801);
+            this.buttonN.Location = new System.Drawing.Point(299, 206);
             this.buttonN.Margin = new System.Windows.Forms.Padding(4);
             this.buttonN.Name = "buttonN";
             this.buttonN.Size = new System.Drawing.Size(158, 44);
@@ -152,7 +161,7 @@
             this.buttonE.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.buttonE.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonE.ForeColor = System.Drawing.Color.Yellow;
-            this.buttonE.Location = new System.Drawing.Point(761, 871);
+            this.buttonE.Location = new System.Drawing.Point(497, 276);
             this.buttonE.Margin = new System.Windows.Forms.Padding(4);
             this.buttonE.Name = "buttonE";
             this.buttonE.Size = new System.Drawing.Size(178, 48);
@@ -167,7 +176,7 @@
             this.buttonW.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.buttonW.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonW.ForeColor = System.Drawing.Color.Yellow;
-            this.buttonW.Location = new System.Drawing.Point(359, 871);
+            this.buttonW.Location = new System.Drawing.Point(95, 276);
             this.buttonW.Margin = new System.Windows.Forms.Padding(4);
             this.buttonW.Name = "buttonW";
             this.buttonW.Size = new System.Drawing.Size(158, 48);
@@ -182,7 +191,7 @@
             this.buttonS.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.buttonS.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.buttonS.ForeColor = System.Drawing.Color.Yellow;
-            this.buttonS.Location = new System.Drawing.Point(569, 965);
+            this.buttonS.Location = new System.Drawing.Point(305, 370);
             this.buttonS.Margin = new System.Windows.Forms.Padding(4);
             this.buttonS.Name = "buttonS";
             this.buttonS.Size = new System.Drawing.Size(152, 48);
@@ -196,10 +205,10 @@
             this.button2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.ForeColor = System.Drawing.Color.Yellow;
-            this.button2.Location = new System.Drawing.Point(126, 1243);
+            this.button2.Location = new System.Drawing.Point(100, 1260);
             this.button2.Margin = new System.Windows.Forms.Padding(6);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(176, 58);
+            this.button2.Size = new System.Drawing.Size(202, 83);
             this.button2.TabIndex = 22;
             this.button2.Text = "Recruit";
             this.button2.UseVisualStyleBackColor = false;
@@ -210,36 +219,39 @@
             this.textBox2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Enabled = false;
+            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.textBox2.ForeColor = System.Drawing.Color.Yellow;
-            this.textBox2.Location = new System.Drawing.Point(563, 736);
+            this.textBox2.Location = new System.Drawing.Point(271, 81);
             this.textBox2.Margin = new System.Windows.Forms.Padding(6);
             this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(220, 24);
+            this.textBox2.ReadOnly = true;
+            this.textBox2.Size = new System.Drawing.Size(220, 34);
             this.textBox2.TabIndex = 23;
             this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // label1
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.label1.ForeColor = System.Drawing.Color.Yellow;
-            this.label1.Location = new System.Drawing.Point(343, 742);
+            this.label1.Location = new System.Drawing.Point(38, 77);
             this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(210, 38);
             this.label1.TabIndex = 25;
-            this.label1.Text = "point gain";
+            this.label1.Text = "Point gain:";
             // 
             // label2
             // 
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.label2.ForeColor = System.Drawing.Color.Yellow;
-            this.label2.Location = new System.Drawing.Point(343, 684);
+            this.label2.Location = new System.Drawing.Point(38, 23);
             this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(220, 46);
             this.label2.TabIndex = 26;
-            this.label2.Text = "Soldiers on tile";
+            this.label2.Text = "Soldiers on tile:";
             // 
             // button_options
             // 
@@ -277,10 +289,10 @@
             this.button_SaveGame.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.button_SaveGame.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_SaveGame.ForeColor = System.Drawing.Color.Yellow;
-            this.button_SaveGame.Location = new System.Drawing.Point(100, 1059);
+            this.button_SaveGame.Location = new System.Drawing.Point(321, 1366);
             this.button_SaveGame.Margin = new System.Windows.Forms.Padding(6);
             this.button_SaveGame.Name = "button_SaveGame";
-            this.button_SaveGame.Size = new System.Drawing.Size(186, 67);
+            this.button_SaveGame.Size = new System.Drawing.Size(202, 73);
             this.button_SaveGame.TabIndex = 30;
             this.button_SaveGame.Text = "Save Game";
             this.button_SaveGame.UseVisualStyleBackColor = false;
@@ -306,10 +318,10 @@
             this.button_NewSave.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.button_NewSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_NewSave.ForeColor = System.Drawing.Color.Yellow;
-            this.button_NewSave.Location = new System.Drawing.Point(373, 1451);
+            this.button_NewSave.Location = new System.Drawing.Point(321, 1451);
             this.button_NewSave.Margin = new System.Windows.Forms.Padding(6);
             this.button_NewSave.Name = "button_NewSave";
-            this.button_NewSave.Size = new System.Drawing.Size(150, 44);
+            this.button_NewSave.Size = new System.Drawing.Size(202, 73);
             this.button_NewSave.TabIndex = 33;
             this.button_NewSave.Text = "New Save file";
             this.button_NewSave.UseVisualStyleBackColor = false;
@@ -387,41 +399,30 @@
             // 
             this.textBox3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox3.Enabled = false;
             this.textBox3.ForeColor = System.Drawing.Color.Yellow;
             this.textBox3.Location = new System.Drawing.Point(314, 1260);
             this.textBox3.Margin = new System.Windows.Forms.Padding(6);
             this.textBox3.Name = "textBox3";
-            this.textBox3.ReadOnly = true;
             this.textBox3.Size = new System.Drawing.Size(308, 24);
             this.textBox3.TabIndex = 39;
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.ListBox_SaveNew);
-            this.panel1.Controls.Add(this.soldierTrackBar);
-            this.panel1.Controls.Add(this.label1);
             this.panel1.Controls.Add(this.button_NewSave);
             this.panel1.Controls.Add(this.textBox3);
             this.panel1.Controls.Add(this.textBox_SaveFileName);
-            this.panel1.Controls.Add(this.textBox1);
             this.panel1.Controls.Add(this.buttonx1000);
             this.panel1.Controls.Add(this.button_SaveGame);
             this.panel1.Controls.Add(this.pictureBox2);
             this.panel1.Controls.Add(this.button_back);
             this.panel1.Controls.Add(this.buttonx100);
             this.panel1.Controls.Add(this.button_options);
-            this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.button1);
             this.panel1.Controls.Add(this.button_exit);
             this.panel1.Controls.Add(this.buttonx10);
-            this.panel1.Controls.Add(this.textBox2);
             this.panel1.Controls.Add(this.buttonx1);
-            this.panel1.Controls.Add(this.buttonN);
-            this.panel1.Controls.Add(this.buttonE);
-            this.panel1.Controls.Add(this.buttonW);
-            this.panel1.Controls.Add(this.buttonS);
-            this.panel1.Controls.Add(this.newTurnButton);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Location = new System.Drawing.Point(1468, 40);
             this.panel1.Margin = new System.Windows.Forms.Padding(6);
@@ -429,25 +430,109 @@
             this.panel1.Size = new System.Drawing.Size(1445, 1678);
             this.panel1.TabIndex = 40;
             // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.tileIDtextbox);
+            this.panel2.Controls.Add(this.tileIDlabel);
+            this.panel2.Controls.Add(this.soldierTrackBar);
+            this.panel2.Controls.Add(this.newTurnButton);
+            this.panel2.Controls.Add(this.label1);
+            this.panel2.Controls.Add(this.buttonS);
+            this.panel2.Controls.Add(this.buttonW);
+            this.panel2.Controls.Add(this.buttonE);
+            this.panel2.Controls.Add(this.buttonN);
+            this.panel2.Controls.Add(this.textBox1);
+            this.panel2.Controls.Add(this.textBox2);
+            this.panel2.Controls.Add(this.label2);
+            this.panel2.Location = new System.Drawing.Point(243, 651);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(751, 585);
+            this.panel2.TabIndex = 42;
+            // 
+            // soldierTrackBar
+            // 
+            this.soldierTrackBar.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.soldierTrackBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.soldierTrackBar.Location = new System.Drawing.Point(259, 271);
+            this.soldierTrackBar.Margin = new System.Windows.Forms.Padding(6);
+            this.soldierTrackBar.Name = "soldierTrackBar";
+            this.soldierTrackBar.Size = new System.Drawing.Size(228, 90);
+            this.soldierTrackBar.TabIndex = 40;
+            // 
             // ListBox_SaveNew
             // 
             this.ListBox_SaveNew.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
             this.ListBox_SaveNew.FormattingEnabled = true;
             this.ListBox_SaveNew.ItemHeight = 25;
-            this.ListBox_SaveNew.Location = new System.Drawing.Point(553, 1367);
+            this.ListBox_SaveNew.Location = new System.Drawing.Point(553, 1242);
             this.ListBox_SaveNew.Name = "ListBox_SaveNew";
-            this.ListBox_SaveNew.Size = new System.Drawing.Size(200, 79);
+            this.ListBox_SaveNew.Size = new System.Drawing.Size(562, 204);
             this.ListBox_SaveNew.TabIndex = 41;
             this.ListBox_SaveNew.Visible = false;
             // 
-            // soldierTrackBar
+            // LogBook
             // 
-            this.soldierTrackBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
-            this.soldierTrackBar.Location = new System.Drawing.Point(527, 865);
-            this.soldierTrackBar.Margin = new System.Windows.Forms.Padding(6);
-            this.soldierTrackBar.Name = "soldierTrackBar";
-            this.soldierTrackBar.Size = new System.Drawing.Size(212, 90);
-            this.soldierTrackBar.TabIndex = 40;
+            this.LogBook.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.LogBook.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.LogBook.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.LogBook.ForeColor = System.Drawing.Color.Yellow;
+            this.LogBook.Location = new System.Drawing.Point(46, 1381);
+            this.LogBook.Name = "LogBook";
+            this.LogBook.ReadOnly = true;
+            this.LogBook.Size = new System.Drawing.Size(797, 312);
+            this.LogBook.TabIndex = 41;
+            this.LogBook.Text = "";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.Color.Transparent;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.label3.ForeColor = System.Drawing.Color.Yellow;
+            this.label3.Location = new System.Drawing.Point(914, 1381);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(181, 36);
+            this.label3.TabIndex = 42;
+            this.label3.Text = "Total Points:";
+            // 
+            // AllPointsTextBox
+            // 
+            this.AllPointsTextBox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.AllPointsTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.AllPointsTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.AllPointsTextBox.ForeColor = System.Drawing.Color.Yellow;
+            this.AllPointsTextBox.Location = new System.Drawing.Point(1168, 1378);
+            this.AllPointsTextBox.Name = "AllPointsTextBox";
+            this.AllPointsTextBox.ReadOnly = true;
+            this.AllPointsTextBox.Size = new System.Drawing.Size(240, 34);
+            this.AllPointsTextBox.TabIndex = 43;
+            this.AllPointsTextBox.Text = "100";
+            this.AllPointsTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // tileIDlabel
+            // 
+            this.tileIDlabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.tileIDlabel.AutoSize = true;
+            this.tileIDlabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.tileIDlabel.ForeColor = System.Drawing.Color.Yellow;
+            this.tileIDlabel.Location = new System.Drawing.Point(38, 132);
+            this.tileIDlabel.Name = "tileIDlabel";
+            this.tileIDlabel.Size = new System.Drawing.Size(108, 36);
+            this.tileIDlabel.TabIndex = 41;
+            this.tileIDlabel.Text = "Tile ID:";
+            // 
+            // tileIDtextbox
+            // 
+            this.tileIDtextbox.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.tileIDtextbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(64)))), ((int)(((byte)(0)))));
+            this.tileIDtextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.tileIDtextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.tileIDtextbox.ForeColor = System.Drawing.Color.Yellow;
+            this.tileIDtextbox.Location = new System.Drawing.Point(271, 134);
+            this.tileIDtextbox.Name = "tileIDtextbox";
+            this.tileIDtextbox.Size = new System.Drawing.Size(220, 34);
+            this.tileIDtextbox.TabIndex = 42;
+            this.tileIDtextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Form1
             // 
@@ -457,6 +542,9 @@
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(2884, 1759);
+            this.Controls.Add(this.AllPointsTextBox);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.LogBook);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox1);
             this.DoubleBuffered = true;
@@ -468,8 +556,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.soldierTrackBar)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -523,6 +614,12 @@
 
         internal System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.ListBox ListBox_SaveNew;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.RichTextBox LogBook;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox AllPointsTextBox;
+        private System.Windows.Forms.TextBox tileIDtextbox;
+        private System.Windows.Forms.Label tileIDlabel;
     }
 }
 
