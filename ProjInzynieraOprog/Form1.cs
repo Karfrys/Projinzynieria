@@ -351,9 +351,9 @@ namespace ProjInzynieraOprog
             if (ListBox_SaveNew.SelectedItem != null)
             {
                 string path = Path.Combine(Environment.CurrentDirectory, @"Data\",
-                    listBox_Save.SelectedItem.ToString());
+                    ListBox_SaveNew.SelectedItem.ToString());
                 M.write_save_file(path);
-                listBox_Save.SelectedItem = null;
+                ListBox_SaveNew.SelectedItem = null;
             }
         }
 

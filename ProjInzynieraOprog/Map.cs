@@ -216,7 +216,7 @@ namespace ProjInzynieraOprog
                     {
                         own = 0;
                     }
-                    sb.Append(pg.ToString()+"|"+type.ToString()+"|"+own.ToString()+"#");
+                    sb.Append(pg.ToString()+"|"+type.ToString()+"|"+own.ToString()+"|0#");
                 }
                 line = sb.ToString();
                 sw.WriteLine(line);
@@ -243,9 +243,9 @@ namespace ProjInzynieraOprog
                 iterator = 0;
                 for (int j = 0; j < mapsize; j++)
                 {
-                    Tiles[i, j] = lines[i].Substring(iterator, 6);
-                    iterator += 7;
-                       
+                    int index = lines[i].IndexOf('#',iterator);
+                    Tiles[i, j] = lines[i].Substring(iterator, index-iterator+1);
+                    iterator = index + 1;
                 }
             } 
             return Tiles;
@@ -268,6 +268,8 @@ namespace ProjInzynieraOprog
                         List_of_tiles[i, j].PointGain = int.Parse(tiles[i, j].Substring(0, 2));
                         List_of_tiles[i, j].Type = int.Parse(tiles[i, j].Substring(3, 1));
                         List_of_tiles[i, j].PlayerControllerId = int.Parse(tiles[i, j].Substring(5, 1));
+                        List_of_tiles[i, j].SoldiersOnTile = 
+                            int.Parse(tiles[i, j].Substring(7, tiles[i, j].IndexOf('#') - 7));
                     }
 
                     if (List_of_tiles[i, j].PlayerControllerId == 1)
@@ -327,7 +329,7 @@ namespace ProjInzynieraOprog
                     {
                         List_of_tiles[x, y].PointGain = 99;
                     }
-                    sb.Append(List_of_tiles[x,y].PointGain.ToString()+"|"+List_of_tiles[x,y].Type.ToString()+"|"+List_of_tiles[x,y].PlayerControllerId.ToString()+"#");
+                    sb.Append(List_of_tiles[x,y].PointGain.ToString()+"|"+List_of_tiles[x,y].Type.ToString()+"|"+List_of_tiles[x,y].PlayerControllerId.ToString()+"|"+List_of_tiles[x,y].SoldiersOnTile.ToString()+"#");
                 }
                 line = sb.ToString();
                 sw.WriteLine(line);
