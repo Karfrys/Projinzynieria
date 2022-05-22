@@ -84,6 +84,14 @@ namespace ProjInzynieraOprog
             int x = e.X / TS;
             int y = e.Y / TS;
             
+            if(M.attackMode == true && ((x == clickedX && (y >= clickedY-1 || y <= clickedY+1)) || (y == clickedY && (y >= clickedX-1 || y <= clickedX+1))))
+            {
+                M.TempAttackerId = M.List_of_tiles[clickedX, clickedY].Id;
+                M.TempDefenderId = M.List_of_tiles[x, y].Id;
+                add_Battle_To_List();
+                soldierTrackBar.Maximum -= soldierTrackBar.Value;
+            }
+            
             clickedX = x;
             clickedY = y;
             int clickX = e.X;
@@ -541,9 +549,22 @@ namespace ProjInzynieraOprog
         //funkcja do ulepszania pól, na click jakiegos buttona;
 
 
+        private void pictureBox1_DoubleClick(object sender, EventArgs e)
+        {
+            if (M.List_of_tiles[clickedX, clickedY].PlayerControllerId == 1)
+            {
+                DrawMap_OnPictrurebox();
 
+                M.Draw_Frame(clickedX, clickedY + 1);
+                M.Draw_Frame(clickedX, clickedY - 1);
+                M.Draw_Frame(clickedX - 1, clickedY);
+                M.Draw_Frame(clickedX + 1, clickedY);
 
+                pictureBox1.Refresh();
 
+                M.attackMode = true;
+            }
+        }
     }
 
 

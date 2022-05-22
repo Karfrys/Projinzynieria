@@ -29,9 +29,8 @@ namespace ProjInzynieraOprog
         Graphics g = Graphics.FromImage(bm);
         internal int temppointsbalance;
         List<string> LogString = new List<string>();
-        int turnNumber = 0;
-
-
+        private int turnNumber = 0;
+        internal bool attackMode;
 
 
 
