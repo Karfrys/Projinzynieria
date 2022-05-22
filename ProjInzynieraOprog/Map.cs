@@ -135,6 +135,42 @@ namespace ProjInzynieraOprog
             g.DrawImage(waterimg, x * tileSize + 1, y * tileSize + 1, tileSize - 1, tileSize - 1);
         }
 
+        internal void Draw_City(int x, int y) 
+        {
+            Draw_Grass(x, y);
+            string fileName = "CITY.png";
+            string path = Path.Combine(Environment.CurrentDirectory, @"Resources", fileName);
+            Image cityimg = new Bitmap(path);
+            g.DrawImage(cityimg, x * tileSize + 1, y * tileSize + 1, tileSize - 1, tileSize - 1);
+
+        }
+
+        internal void Draw_Lumberjack(int x, int y)
+        {
+            Draw_Grass(x, y);
+            string fileName = "LUMBERJACK.png";
+            string path = Path.Combine(Environment.CurrentDirectory, @"Resources", fileName);
+            Image lumberjackimg = new Bitmap(path);
+            g.DrawImage(lumberjackimg, x * tileSize + 1, y * tileSize + 1, tileSize - 1, tileSize - 1);
+
+        }
+
+        internal void Draw_Field(int x, int y)
+        {
+            Draw_Grass(x, y);
+            string fileName = "FIELD.png";
+            string path = Path.Combine(Environment.CurrentDirectory, @"Resources", fileName);
+            Image fieldimg = new Bitmap(path);
+            g.DrawImage(fieldimg, x * tileSize + 1, y * tileSize + 1, tileSize - 1, tileSize - 1);
+
+        }
+
+
+
+
+
+
+
         internal void soldiers_on_tile(int x, int y)
         {
             if (List_of_tiles[x, y].SoldiersOnTile > 0)
@@ -297,12 +333,34 @@ namespace ProjInzynieraOprog
                             List_of_tiles[i,j].Foresttype = ft.Next(1, 5);
                         }
 
-                        Draw_Forest(i, j);
+
+                        if (List_of_tiles[i, j].isUpgraded1)
+                        {
+                            Draw_Lumberjack(i, j);
+                        }
+                        else 
+                        {
+                            Draw_Forest(i, j);
+
+                        }
+
+                       
                     }
 
                     if (List_of_tiles[i, j].Type == 0)
                     {
                         Draw_Grass(i, j);
+
+                        if (List_of_tiles[i, j].isUpgraded1)
+                        {
+                            Draw_Field(i, j);
+                        }
+                        else
+                        {
+                            Draw_Grass(i, j);
+
+                        }
+
                     }
                     soldiers_on_tile(i,j);
                     g.DrawRectangle(Pens.Black, tileSize * i, tileSize * j, tileSize, tileSize);
@@ -338,6 +396,7 @@ namespace ProjInzynieraOprog
         public void First_Run()
         {
             firstRun = true;
+            
         }
         
         int get_soldier_num_by_id(int defid)
@@ -670,6 +729,27 @@ namespace ProjInzynieraOprog
 
 
         }
-        
+
+
+
+        public int totalPointGain_changed()
+        {
+            
+            int totpoi = 0;
+            foreach (Tile t in List_of_tiles)
+            {
+                if (t.PlayerControllerId == _playerHuman.PlayerId1)
+                {
+                    totpoi += t.PointGain;
+                }
+            };
+
+            return totpoi;
+
+        }
+
+
+
+
     }
 }

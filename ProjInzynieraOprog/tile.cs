@@ -54,5 +54,18 @@ namespace ProjInzynieraOprog
             set => isUpgraded = value;
         }
         public int Foresttype { get => foresttype; set => foresttype = value; }
+
+
+
+
+        public void UpgradeTile() 
+        {
+            pointGain = pointGain * 2;
+            isUpgraded = true;
+        }
+
+
+
+
     }
 }

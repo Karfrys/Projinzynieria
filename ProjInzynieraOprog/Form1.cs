@@ -53,14 +53,39 @@ namespace ProjInzynieraOprog
             this.BackgroundImage = M.load_resource_image("bg_texture.jpg");
             panel1.BackColor = Color.Transparent;
 
-            string fileName = "NEW_TURN.png";
-            string path = Path.Combine(Environment.CurrentDirectory, @"Resources", fileName);
-            Image new_turn = Image.FromFile(path);
-            newTurnButton.Image = new_turn;
+            string new_turn = "NEW_TURN.png";
+            string path_new_turn = Path.Combine(Environment.CurrentDirectory, @"Resources", new_turn);
+            Image new_turn_img = Image.FromFile(path_new_turn);
+            newTurnButton.Image = new_turn_img;
+
+
+
+            string upgrade = "UPGRADE.png";
+            string path_upgrade = Path.Combine(Environment.CurrentDirectory, @"Resources", upgrade);
+            Image upgrade_img = Image.FromFile(path_upgrade);
+            upgradeButton.Image = upgrade_img;
+
+
+
+
+
+            string recruit = "RECRUIT.png";
+            string path_recruit = Path.Combine(Environment.CurrentDirectory, @"Resources", recruit);
+            Image recruit_img = Image.FromFile(path_recruit);
+            buttonRecruit.Image = recruit_img;
+
+
+
+            TotalPointsTextBox.Text = M.totalPointGain_changed().ToString();
+
+
+
+
+
+
         }
 
-        private void
-            DrawMap_OnPictrurebox() //tu trzeba użyć lokalnej funkcji do rysowania, w której zawarta jest ta z klasy map XDDD
+        private void  DrawMap_OnPictrurebox() //tu trzeba użyć lokalnej funkcji do rysowania, w której zawarta jest ta z klasy map XDDD
         {
             pictureBox1.Image = null;
             pictureBox1.Size = new Size(Map.Mapsize * Map.TileSize, Map.Mapsize * Map.TileSize);
@@ -126,18 +151,18 @@ namespace ProjInzynieraOprog
 
            
 
-            switch (M.List_of_tiles[x, y].Type)
-            {
-                case 0:
-                    pictureBox2.Image = M.load_resource_image("plains-background.png");
-                    break;
-                case 1:
-                    pictureBox2.Image = M.load_resource_image("forest-background.png");
-                    break;
-                case 2:
-                    pictureBox2.Image = M.load_resource_image("lake-background.png");
-                    break;
-            }
+            //switch (M.List_of_tiles[x, y].Type)
+            //{
+            //    case 0:
+            //        pictureBox2.Image = M.load_resource_image("plains-background.png");
+            //        break;
+            //    case 1:
+            //        pictureBox2.Image = M.load_resource_image("forest-background.png");
+            //        break;
+            //    case 2:
+            //        pictureBox2.Image = M.load_resource_image("lake-background.png");
+            //        break;
+            //}
 
 
 
@@ -145,60 +170,104 @@ namespace ProjInzynieraOprog
 
             if (M.List_of_tiles[x, y].PlayerControllerId != 1)
             {
-                buttonS.Enabled = false;
-                buttonE.Enabled = false;
-                buttonW.Enabled = false;
-                buttonN.Enabled = false;
-                buttonx1.Visible = false;
-                buttonx10.Visible = false;
-                buttonx100.Visible = false;
-                buttonx1000.Visible = false;
+                //buttonS.Enabled = false;
+                //buttonE.Enabled = false;
+                //buttonW.Enabled = false;
+                //buttonN.Enabled = false;
+                //buttonx1.Visible = false;
+                //buttonx10.Visible = false;
+                //buttonx100.Visible = false;
+                //buttonx1000.Visible = false;
                 textBox3.Visible = false;
             }
             else
             {
-                if (clickX < TS)
-                {
-                    buttonW.Enabled = false;
-                }
-                else
-                {
-                    buttonW.Enabled = true;
-                }
+                //if (clickX < TS)
+                //{
+                //    buttonW.Enabled = false;
+                //}
+                //else
+                //{
+                //    buttonW.Enabled = true;
+                //}
 
-                if (clickY < TS)
-                {
-                    buttonN.Enabled = false;
-                }
-                else
-                {
-                    buttonN.Enabled = true;
-                }
+                //if (clickY < TS)
+                //{
+                //    buttonN.Enabled = false;
+                //}
+                //else
+                //{
+                //    buttonN.Enabled = true;
+                //}
 
-                if (clickX + TS > TS * MS)
-                {
-                    buttonE.Enabled = false;
-                }
-                else
-                {
-                    buttonE.Enabled = true;
-                }
+                //if (clickX + TS > TS * MS)
+                //{
+                //    buttonE.Enabled = false;
+                //}
+                //else
+                //{
+                //    buttonE.Enabled = true;
+                //}
 
-                if (clickY + TS > TS * MS)
-                {
-                    buttonS.Enabled = false;
-                }
-                else
-                {
-                    buttonS.Enabled = true;
-                }
-                buttonx1.Visible = true;
-                buttonx10.Visible = true;
-                buttonx100.Visible = true;
-                buttonx1000.Visible = true;
+                //if (clickY + TS > TS * MS)
+                //{
+                //    buttonS.Enabled = false;
+                //}
+                //else
+                //{
+                //    buttonS.Enabled = true;
+                //}
+                //buttonx1.Visible = true;
+                //buttonx10.Visible = true;
+                //buttonx100.Visible = true;
+                //buttonx1000.Visible = true;
                 textBox3.Visible = true;
             }
+
+            //jesli tile jest nasz
+            if (M.List_of_tiles[clickedX, clickedY].PlayerControllerId == _playerHuman.PlayerId1)
+            {
+                //jesli tile nie jest woda
+                if (M.List_of_tiles[clickedX, clickedY].Type != 2)
+                {
+                    if ((M.List_of_tiles[clickedX, clickedY].PointGain * 3) < int.Parse(AllPointsTextBox.Text))
+                    {
+                        upgradeButton.Visible = true;
+                        upgradecosttextbox.Visible = true;
+                        upgradecostlabel.Visible = true;
+                        upgradecosttextbox.Text = (M.List_of_tiles[clickedX, clickedY].PointGain * 3).ToString();
+                    }
+                    else
+                    {
+                        upgradeButton.Visible = false;
+                        upgradecosttextbox.Visible = false;
+                        upgradecostlabel.Visible = false;
+                    }
+
+                }
+                else
+                {
+                    upgradeButton.Visible = false;
+                    upgradecosttextbox.Visible = false;
+                    upgradecostlabel.Visible = false;
+                }
+            }
+            //jesli tile nie jest nasz
+            else 
+            {
+                upgradeButton.Visible = false;
+                upgradecosttextbox.Visible = false;
+                upgradecostlabel.Visible = false;
+
+            }
+
+           
+
+
+
         }
+
+     
 
 
         private void button_exit_Click(object sender, EventArgs e)
@@ -232,9 +301,15 @@ namespace ProjInzynieraOprog
 
             foreach (string s in M.LogString1)
             {
-                LogBook.Text += s + "\n";
+             
+               LogBook.Text += s + "\n";
             }
             M.TurnNumber += 1;
+
+            TotalPointsTextBox.Text = M.totalPointGain_changed().ToString();
+            LogBook.SelectionStart = LogBook.Text.Length;
+            LogBook.ScrollToCaret();
+
 
 
         }
@@ -293,12 +368,14 @@ namespace ProjInzynieraOprog
         private void button_options_Click(object sender, EventArgs e)
         {
             populate_listboxSave();
-            buttonE.Visible = false;
-            buttonN.Visible = false;
-            buttonW.Visible = false;
-            buttonS.Visible = false;
+            //buttonE.Visible = false;
+            //buttonN.Visible = false;
+            //buttonW.Visible = false;
+            //buttonS.Visible = false;
+            tileIDlabel.Visible = false;
+            tileIDtextbox.Visible = false;
             newTurnButton.Visible = false;
-            button2.Visible = false;
+            buttonRecruit.Visible = false;
             soldierTrackBar.Visible = false;
             textBox1.Visible = false;
             textBox2.Visible = false;
@@ -308,10 +385,10 @@ namespace ProjInzynieraOprog
             ListBox_SaveNew.Visible = true;
             textBox_SaveFileName.Visible = true;
             button_NewSave.Visible = true;
-            buttonx1.Visible = false;
-            buttonx10.Visible = false;
-            buttonx100.Visible = false;
-            buttonx1000.Visible = false;
+            //buttonx1.Visible = false;
+            //buttonx10.Visible = false;
+            //buttonx100.Visible = false;
+            //buttonx1000.Visible = false;
             textBox3.Visible = false;
             label1.Visible = false;
             label2.Visible = false; 
@@ -322,12 +399,14 @@ namespace ProjInzynieraOprog
 
         private void button_back_Click(object sender, EventArgs e)
         {
-            buttonE.Visible = true;
-            buttonN.Visible = true;
-            buttonW.Visible = true;
-            buttonS.Visible = true;
+            //buttonE.Visible = true;
+            //buttonN.Visible = true;
+            //buttonW.Visible = true;
+            //buttonS.Visible = true;
+            tileIDlabel.Visible = true;
+            tileIDtextbox.Visible  = true;
             newTurnButton.Visible = true;
-            button2.Visible = true;
+            buttonRecruit.Visible = true;
             soldierTrackBar.Visible = true;
             textBox1.Visible = true;
             textBox2.Visible =true;
@@ -339,10 +418,10 @@ namespace ProjInzynieraOprog
             ListBox_SaveNew.Visible = false;
             textBox_SaveFileName.Visible = false;
             button_NewSave.Visible = false;
-            buttonx1.Visible = true;
-            buttonx10.Visible = true;
-            buttonx100.Visible = true;
-            buttonx1000.Visible = true;
+            //buttonx1.Visible = true;
+            //buttonx10.Visible = true;
+            //buttonx100.Visible = true;
+            //buttonx1000.Visible = true;
             textBox3.Visible = true;
         }
 
@@ -368,41 +447,7 @@ namespace ProjInzynieraOprog
 
         void check_if_soldiers_sufficient()
         {
-            if (M.Temppointsbalance > 999)
-            {
-                buttonx1000.Enabled = true;
-                buttonx100.Enabled = true;
-                buttonx10.Enabled = true;
-                buttonx1.Enabled = true;
-            }
-            else if (M.Temppointsbalance > 99)
-            {
-                buttonx1000.Enabled = false;
-                buttonx100.Enabled = true;
-                buttonx10.Enabled = true;
-                buttonx1.Enabled = true;
-            }
-            else if (M.Temppointsbalance > 9)
-            {
-                buttonx1000.Enabled = false;
-                buttonx100.Enabled = false;
-                buttonx10.Enabled = true;
-                buttonx1.Enabled = true;
-            }
-            else if (M.Temppointsbalance > 0)
-            {
-                buttonx1000.Enabled = false;
-                buttonx100.Enabled = false;
-                buttonx10.Enabled = false;
-                buttonx1.Enabled = true;
-            }
-            else
-            {
-                buttonx1000.Enabled = false;
-                buttonx100.Enabled = false;
-                buttonx10.Enabled = false;
-                buttonx1.Enabled = false;
-            }
+            
         }
 
         private void button2_Click_1(object sender, EventArgs e)
@@ -420,6 +465,7 @@ namespace ProjInzynieraOprog
             {
                 LogBook.Text += s + "\n";
             }
+            AllPointsTextBox.Text = (int.Parse(AllPointsTextBox.Text) - selectedRecruiting).ToString() ;
             DrawMap_OnPictrurebox();
         }
 
@@ -523,31 +569,38 @@ namespace ProjInzynieraOprog
 
         private void Disable_if_enemy()
         {
-            buttonE.Visible = false;
-            buttonN.Visible = false;
-            buttonS.Visible = false;
-            buttonW.Visible = false;
-            button2.Visible = false;
+            //buttonE.Visible = false;
+            //buttonN.Visible = false;
+            //buttonS.Visible = false;
+            //buttonW.Visible = false;
+            //button2.Visible = false;
             soldierTrackBar.Visible = false;
         }
         
 
         void Enable_if_Friendly()
         {
-            buttonE.Visible = true;
-            buttonN.Visible = true;
-            buttonS.Visible = true;
-            buttonW.Visible = true;
-            button2.Visible = true;
+            //buttonE.Visible = true;
+            //buttonN.Visible = true;
+            //buttonS.Visible = true;
+            //buttonW.Visible = true;
+            buttonRecruit.Visible = true;
             soldierTrackBar.Visible = true;
         }
 
-        
+
 
 
 
         //funkcja do ulepszania pól, na click jakiegos buttona;
-
+        private void upgradeButton_Click(object sender, EventArgs e)
+        {
+            M._playerHuman.PointsBalance -= M.List_of_tiles[clickedX, clickedY].PointGain * 3;
+            AllPointsTextBox.Text = (int.Parse(AllPointsTextBox.Text) - M.List_of_tiles[clickedX, clickedY].PointGain * 3).ToString();
+            M.List_of_tiles[clickedX, clickedY].UpgradeTile();
+            upgradeButton.Visible = false;
+            DrawMap_OnPictrurebox();
+        }
 
         private void pictureBox1_DoubleClick(object sender, EventArgs e)
         {
@@ -565,9 +618,10 @@ namespace ProjInzynieraOprog
                 M.attackMode = true;
             }
         }
+
+       
     }
 
 
-
-
+ 
 }
