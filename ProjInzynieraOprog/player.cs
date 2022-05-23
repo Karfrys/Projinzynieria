@@ -1,11 +1,12 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace ProjInzynieraOprog
 {
     public class player
     {
         private SolidBrush PlayerColor;
-        private int pointsBalance=0;
+        private int pointsBalance=100;
         private int PlayerId;
 
         public player(int playerId)
@@ -32,5 +33,13 @@ namespace ProjInzynieraOprog
             get => PlayerColor;
             set => PlayerColor = value;
         }
+       
+        
     }
+    
+    
+   
+    
+    
+    
 }
