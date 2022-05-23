@@ -10,19 +10,11 @@ namespace ProjInzynieraOprog
     public partial class Form1 : Form
     {
         Map M = new Map();
-        internal player _playerHuman = new player(1);
-        readonly player _playerAi = new player(2);
+        //internal player _playerHuman = new player(1);
+        //readonly player _playerAi = new player(2);
         private int clickedX;
         private int clickedY;
         
-        
-        void UprgadeTile()
-        {
-            if (_playerHuman.PointsBalance >= 300)
-            {
-                M.Uprgade(clickedX , clickedY);
-            }
-        }
 
         private void GoFullscreen(bool fullscreen)
         {
@@ -74,11 +66,15 @@ namespace ProjInzynieraOprog
             Image recruit_img = Image.FromFile(path_recruit);
             buttonRecruit.Image = recruit_img;
 
-
+            pictureBarracks.Image = M.load_resource_image("BARRACKS.png");
+            pictureCastle.Image = M.load_resource_image("CASTLE.png");
+            pictureGarrison.Image = M.load_resource_image("GARRISON.png");
+            pictureTax.Image = M.load_resource_image("TAX_OFFICE.png");
 
             TotalPointsTextBox.Text = M.totalPointGain_changed().ToString();
-
-
+    
+            
+       
 
 
 
@@ -111,10 +107,16 @@ namespace ProjInzynieraOprog
             
             if(M.attackMode == true && ((x == clickedX && (y >= clickedY-1 || y <= clickedY+1)) || (y == clickedY && (y >= clickedX-1 || y <= clickedX+1))))
             {
-                M.TempAttackerId = M.List_of_tiles[clickedX, clickedY].Id;
-                M.TempDefenderId = M.List_of_tiles[x, y].Id;
-                add_Battle_To_List();
-                soldierTrackBar.Maximum -= soldierTrackBar.Value;
+                
+                    M.TempAttackerId = M.List_of_tiles[clickedX, clickedY].Id;
+                    M.TempDefenderId = M.List_of_tiles[x, y].Id;
+                    //M.battle_simulation_rt(soldierTrackBar.Value,M.List_of_tiles[clickedX, clickedY].Id, M.List_of_tiles[x, y].Id);
+                    add_Battle_To_List();
+                    M.List_of_tiles[clickedX, clickedY].SoldiersOnTile -= soldierTrackBar.Value;
+                    soldierTrackBar.Maximum -= soldierTrackBar.Value;
+                    DrawMap_OnPictrurebox();
+                
+               
             }
             
             clickedX = x;
@@ -149,7 +151,7 @@ namespace ProjInzynieraOprog
 
             M.tempAttackerId = M.List_of_tiles[x, y].Id;
 
-           
+            CheckForUpgradeButtons();
 
             //switch (M.List_of_tiles[x, y].Type)
             //{
@@ -225,10 +227,10 @@ namespace ProjInzynieraOprog
             }
 
             //jesli tile jest nasz
-            if (M.List_of_tiles[clickedX, clickedY].PlayerControllerId == _playerHuman.PlayerId1)
+            if (M.List_of_tiles[clickedX, clickedY].PlayerControllerId == M._playerHuman.PlayerId1)
             {
                 //jesli tile nie jest woda
-                if (M.List_of_tiles[clickedX, clickedY].Type != 2)
+                if (M.List_of_tiles[clickedX, clickedY].Type != 2 && M.List_of_tiles[clickedX,clickedY].Type !=4)
                 {
                     if ((M.List_of_tiles[clickedX, clickedY].PointGain * 3) < int.Parse(AllPointsTextBox.Text))
                     {
@@ -267,7 +269,30 @@ namespace ProjInzynieraOprog
 
         }
 
-     
+        private void CheckForUpgradeButtons()
+        {
+            LabelBarracks.Text = "Level " + M._playerHuman.City.BarracksLevel.ToString();
+            LabelCastle.Text = "Level " + M._playerHuman.City.CastleLevel.ToString();
+            LabelGarrison.Text = "Level " + M._playerHuman.City.GarrisonLevel.ToString();
+            LabelTax.Text = "Level " + M._playerHuman.City.TaxOfficeLevel.ToString();
+            
+            
+            if (M._playerHuman.PointsBalance < 600)
+            {
+                ButtonBarracks.Enabled = false;
+                ButtonCastle.Enabled = false;
+                ButtonGarrison.Enabled = false;
+                ButtonTax.Enabled = false;
+                
+            }
+            else
+            {
+                ButtonBarracks.Enabled = true;
+                ButtonCastle.Enabled = true;
+                ButtonGarrison.Enabled = true;
+                ButtonTax.Enabled = true;
+            }
+        }
 
 
         private void button_exit_Click(object sender, EventArgs e)
@@ -309,7 +334,7 @@ namespace ProjInzynieraOprog
             TotalPointsTextBox.Text = M.totalPointGain_changed().ToString();
             LogBook.SelectionStart = LogBook.Text.Length;
             LogBook.ScrollToCaret();
-
+            CheckForUpgradeButtons();
 
 
         }
@@ -453,20 +478,29 @@ namespace ProjInzynieraOprog
         private void button2_Click_1(object sender, EventArgs e)
         {
             int selectedRecruiting = Convert.ToInt32(textBox3.Text);
-            M.List_of_tiles[M.selectedProvince.X, M.selectedProvince.Y].SoldiersOnTile += selectedRecruiting;
-            M._playerHuman.PointsBalance -= selectedRecruiting;
-            textBox3.Text = "0";
-            soldierTrackBar.Maximum = M.List_of_tiles[M.selectedProvince.X, M.selectedProvince.Y].SoldiersOnTile;
-            textBox1.Refresh();
-            string dodanie = "You recruited " + selectedRecruiting.ToString() + " soldiers to the tile";
-            M.LogString1.Add(dodanie);
-            LogBook.Clear();
-            foreach (string s in M.LogString1) 
+            if(selectedRecruiting>M._playerHuman.PointsBalance)
             {
-                LogBook.Text += s + "\n";
+                MessageBox.Show("You do not have enough points to recruit this many soldiers");
             }
-            AllPointsTextBox.Text = (int.Parse(AllPointsTextBox.Text) - selectedRecruiting).ToString() ;
-            DrawMap_OnPictrurebox();
+            else
+            {
+                M.List_of_tiles[M.selectedProvince.X, M.selectedProvince.Y].SoldiersOnTile += selectedRecruiting;
+                M._playerHuman.PointsBalance -= selectedRecruiting;
+                textBox3.Text = "0";
+                soldierTrackBar.Maximum = M.List_of_tiles[M.selectedProvince.X, M.selectedProvince.Y].SoldiersOnTile;
+                textBox1.Refresh();
+                string dodanie = "You recruited " + selectedRecruiting.ToString() + " soldiers to the tile";
+                M.LogString1.Add(dodanie);
+                LogBook.Clear();
+                foreach (string s in M.LogString1) 
+                {
+                    LogBook.Text += s + "\n";
+                }
+                AllPointsTextBox.Text = (int.Parse(AllPointsTextBox.Text) - selectedRecruiting).ToString() ;
+                DrawMap_OnPictrurebox();
+            }
+            
+           
         }
 
         private void buttonx1_Click(object sender, EventArgs e)
@@ -614,12 +648,46 @@ namespace ProjInzynieraOprog
                 M.Draw_Frame(clickedX + 1, clickedY);
 
                 pictureBox1.Refresh();
-
+                
                 M.attackMode = true;
             }
         }
 
-       
+
+        private void ButtonTax_Click(object sender, EventArgs e)
+        {
+            M._playerHuman.City.TaxOfficeLevel++;
+            M._playerHuman.PointsBalance -= 600;
+            M.List_of_tiles[1, 1].PointGain += 100; 
+            AllPointsTextBox.Text = (int.Parse(AllPointsTextBox.Text) - 600).ToString();
+            textBox2.Text = (int.Parse(textBox2.Text) + 100).ToString();
+            CheckForUpgradeButtons();
+        }
+
+        private void ButtonCastle_Click(object sender, EventArgs e)
+        {
+            M._playerHuman.City.CastleLevel++;
+            M._playerHuman.PointsBalance -= 600;
+            M.List_of_tiles[1, 1].PointGain += 100;
+            AllPointsTextBox.Text = (int.Parse(AllPointsTextBox.Text) - 600).ToString();
+            CheckForUpgradeButtons();
+        }
+
+        private void ButtonGarrison_Click(object sender, EventArgs e)
+        {
+            M._playerHuman.City.GarrisonLevel++;
+            M._playerHuman.PointsBalance -= 600;
+            AllPointsTextBox.Text = (int.Parse(AllPointsTextBox.Text) - 600).ToString();
+            CheckForUpgradeButtons();
+        }
+
+        private void ButtonBarracks_Click(object sender, EventArgs e)
+        {
+            M._playerHuman.City.BarracksLevel++;
+            M._playerHuman.PointsBalance -= 600;
+            AllPointsTextBox.Text = (int.Parse(AllPointsTextBox.Text) - 600).ToString();
+            CheckForUpgradeButtons();
+        }
     }
 
 
