@@ -14,7 +14,13 @@ namespace ProjInzynieraOprog
         private int type;
         int foresttype;
         bool isUpgraded;
+        int level;
         
+        public int Level
+        {
+            get => level;
+            set => level = value;
+        }
         
 
         public int SoldiersOnTile

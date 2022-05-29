@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace ProjInzynieraOprog
@@ -10,11 +12,12 @@ namespace ProjInzynieraOprog
     public partial class Form1 : Form
     {
         Map M = new Map();
+
         //internal player _playerHuman = new player(1);
         //readonly player _playerAi = new player(2);
         private int clickedX;
         private int clickedY;
-        
+
 
         private void GoFullscreen(bool fullscreen)
         {
@@ -34,12 +37,12 @@ namespace ProjInzynieraOprog
 
         public Form1()
         {
-            
+
             M.CreateMaps(15, 1);
             M.CreateMaps(10, 2);
             M.CreateMaps(5, 3);
             InitializeComponent();
-            
+
             GoFullscreen(true);
             DrawMap_OnPictrurebox();
             this.BackgroundImage = M.load_resource_image("bg_texture.jpg");
@@ -52,19 +55,11 @@ namespace ProjInzynieraOprog
 
 
 
-            string upgrade = "UPGRADE.png";
-            string path_upgrade = Path.Combine(Environment.CurrentDirectory, @"Resources", upgrade);
-            Image upgrade_img = Image.FromFile(path_upgrade);
-            upgradeButton.Image = upgrade_img;
+        
 
 
 
 
-
-            string recruit = "RECRUIT.png";
-            string path_recruit = Path.Combine(Environment.CurrentDirectory, @"Resources", recruit);
-            Image recruit_img = Image.FromFile(path_recruit);
-            buttonRecruit.Image = recruit_img;
 
             pictureBarracks.Image = M.load_resource_image("BARRACKS.png");
             pictureCastle.Image = M.load_resource_image("CASTLE.png");
@@ -72,16 +67,17 @@ namespace ProjInzynieraOprog
             pictureTax.Image = M.load_resource_image("TAX_OFFICE.png");
 
             TotalPointsTextBox.Text = M.totalPointGain_changed().ToString();
-    
-            
-       
+
+
+
 
 
 
 
         }
 
-        private void  DrawMap_OnPictrurebox() //tu trzeba użyć lokalnej funkcji do rysowania, w której zawarta jest ta z klasy map XDDD
+        public void
+            DrawMap_OnPictrurebox() //tu trzeba użyć lokalnej funkcji do rysowania, w której zawarta jest ta z klasy map XDDD
         {
             pictureBox1.Image = null;
             pictureBox1.Size = new Size(Map.Mapsize * Map.TileSize, Map.Mapsize * Map.TileSize);
@@ -94,31 +90,45 @@ namespace ProjInzynieraOprog
             pictureBox1.Refresh();
         }
 
+        Button menuUpgradeButton;
+        Button menuRecruitButton;
+        Button OK;
+        Button Cancel;
+        TextBox soldierText;
+
         private void pictureBox1_MouseDown(object sender, MouseEventArgs e) //najcięższa robota
         {
-            
-            
+            if (menuRecruitButton != null || menuRecruitButton != null)
+            {
+                menuRecruitButton.Dispose();
+                menuUpgradeButton.Dispose();
+            }
+
             check_if_soldiers_sufficient();
             int TS = Map.tileSize;
             int MS = Map.Mapsize;
-           
+
             int x = e.X / TS;
             int y = e.Y / TS;
-            
-            if(M.attackMode == true && ((x == clickedX && (y >= clickedY-1 || y <= clickedY+1)) || (y == clickedY && (y >= clickedX-1 || y <= clickedX+1))))
+
+
+
+
+            if (M.attackMode == true && ((x == clickedX && (y >= clickedY - 1 || y <= clickedY + 1)) ||
+                                         (y == clickedY && (y >= clickedX - 1 || y <= clickedX + 1))))
             {
-                
-                    M.TempAttackerId = M.List_of_tiles[clickedX, clickedY].Id;
-                    M.TempDefenderId = M.List_of_tiles[x, y].Id;
-                    //M.battle_simulation_rt(soldierTrackBar.Value,M.List_of_tiles[clickedX, clickedY].Id, M.List_of_tiles[x, y].Id);
-                    add_Battle_To_List();
-                    M.List_of_tiles[clickedX, clickedY].SoldiersOnTile -= soldierTrackBar.Value;
-                    soldierTrackBar.Maximum -= soldierTrackBar.Value;
-                    DrawMap_OnPictrurebox();
-                
-               
+
+                M.TempAttackerId = M.List_of_tiles[clickedX, clickedY].Id;
+                M.TempDefenderId = M.List_of_tiles[x, y].Id;
+                //M.battle_simulation_rt(soldierTrackBar.Value,M.List_of_tiles[clickedX, clickedY].Id, M.List_of_tiles[x, y].Id);
+                add_Battle_To_List();
+                M.List_of_tiles[clickedX, clickedY].SoldiersOnTile -= soldierTrackBar.Value;
+                soldierTrackBar.Maximum -= soldierTrackBar.Value;
+                DrawMap_OnPictrurebox();
+
+
             }
-            
+
             clickedX = x;
             clickedY = y;
             int clickX = e.X;
@@ -153,95 +163,29 @@ namespace ProjInzynieraOprog
 
             CheckForUpgradeButtons();
 
-            //switch (M.List_of_tiles[x, y].Type)
-            //{
-            //    case 0:
-            //        pictureBox2.Image = M.load_resource_image("plains-background.png");
-            //        break;
-            //    case 1:
-            //        pictureBox2.Image = M.load_resource_image("forest-background.png");
-            //        break;
-            //    case 2:
-            //        pictureBox2.Image = M.load_resource_image("lake-background.png");
-            //        break;
-            //}
 
 
 
             //disabling attack control buttons if player dont clink on tile he owns or neigbouring tiles are non existent
 
-            if (M.List_of_tiles[x, y].PlayerControllerId != 1)
-            {
-                //buttonS.Enabled = false;
-                //buttonE.Enabled = false;
-                //buttonW.Enabled = false;
-                //buttonN.Enabled = false;
-                //buttonx1.Visible = false;
-                //buttonx10.Visible = false;
-                //buttonx100.Visible = false;
-                //buttonx1000.Visible = false;
-                textBox3.Visible = false;
-            }
-            else
-            {
-                //if (clickX < TS)
-                //{
-                //    buttonW.Enabled = false;
-                //}
-                //else
-                //{
-                //    buttonW.Enabled = true;
-                //}
 
-                //if (clickY < TS)
-                //{
-                //    buttonN.Enabled = false;
-                //}
-                //else
-                //{
-                //    buttonN.Enabled = true;
-                //}
-
-                //if (clickX + TS > TS * MS)
-                //{
-                //    buttonE.Enabled = false;
-                //}
-                //else
-                //{
-                //    buttonE.Enabled = true;
-                //}
-
-                //if (clickY + TS > TS * MS)
-                //{
-                //    buttonS.Enabled = false;
-                //}
-                //else
-                //{
-                //    buttonS.Enabled = true;
-                //}
-                //buttonx1.Visible = true;
-                //buttonx10.Visible = true;
-                //buttonx100.Visible = true;
-                //buttonx1000.Visible = true;
-                textBox3.Visible = true;
-            }
 
             //jesli tile jest nasz
             if (M.List_of_tiles[clickedX, clickedY].PlayerControllerId == M._playerHuman.PlayerId1)
             {
                 //jesli tile nie jest woda
-                if (M.List_of_tiles[clickedX, clickedY].Type != 2 && M.List_of_tiles[clickedX,clickedY].Type !=4)
+                if (M.List_of_tiles[clickedX, clickedY].Type != 2 && M.List_of_tiles[clickedX, clickedY].Type != 4)
                 {
                     if ((M.List_of_tiles[clickedX, clickedY].PointGain * 3) < int.Parse(AllPointsTextBox.Text))
                     {
-                        upgradeButton.Visible = true;
+                        //upgradeButton.Visible = true;
                         upgradecosttextbox.Visible = true;
                         upgradecostlabel.Visible = true;
                         upgradecosttextbox.Text = (M.List_of_tiles[clickedX, clickedY].PointGain * 3).ToString();
                     }
                     else
                     {
-                        upgradeButton.Visible = false;
+                        //upgradeButton.Visible = false;
                         upgradecosttextbox.Visible = false;
                         upgradecostlabel.Visible = false;
                     }
@@ -249,21 +193,95 @@ namespace ProjInzynieraOprog
                 }
                 else
                 {
-                    upgradeButton.Visible = false;
+                    //upgradeButton.Visible = false;
                     upgradecosttextbox.Visible = false;
                     upgradecostlabel.Visible = false;
                 }
             }
             //jesli tile nie jest nasz
-            else 
+            else
             {
-                upgradeButton.Visible = false;
+                //upgradeButton.Visible = false;
                 upgradecosttextbox.Visible = false;
                 upgradecostlabel.Visible = false;
 
             }
 
-           
+
+            if (((e.Button & MouseButtons.Right) != 0))
+            {
+
+
+
+                string fileName = "MENU.UPGRADE.png";
+                string path = Path.Combine(Environment.CurrentDirectory, @"Resources", fileName);
+                Image menuUpgrade = Image.FromFile(path);
+
+                string fileName2 = "MENU.RECRUIT.png";
+                string path2 = Path.Combine(Environment.CurrentDirectory, @"Resources", fileName2);
+                Image menuRecruit = Image.FromFile(path2);
+
+
+                menuUpgradeButton = new Button();
+                menuUpgradeButton.Size = new Size(menuUpgrade.Width, menuUpgrade.Height);
+                menuUpgradeButton.Location = new Point(e.X, e.Y);
+                menuUpgradeButton.Image = menuUpgrade;
+                menuUpgradeButton.FlatStyle = FlatStyle.Flat;
+                pictureBox1.Controls.Add(menuUpgradeButton);
+                menuUpgradeButton.Click += new EventHandler(menuUpgrade_Click);
+
+
+
+
+
+                menuRecruitButton = new Button();
+                menuRecruitButton.Size = new Size(menuRecruit.Width, menuRecruit.Height);
+                menuRecruitButton.Location = new Point(e.X, e.Y + menuRecruitButton.Height);
+                menuRecruitButton.Image = menuRecruit;
+                pictureBox1.Controls.Add(menuRecruitButton);
+                menuRecruitButton.FlatStyle = FlatStyle.Flat;
+                menuRecruitButton.Click += new EventHandler(menuRecruit_Click);
+
+                if (M.List_of_tiles[clickedX, clickedY].PointGain * 3 > M._playerHuman.PointsBalance ||
+                    M.List_of_tiles[clickedX, clickedY].Type == 2)
+                {
+                    menuUpgradeButton.Enabled = false;
+                }
+                else
+                {
+                    menuUpgradeButton.Enabled = true;
+                }
+
+
+                pictureBox1.Refresh();
+                pictureBox1.Refresh();
+
+
+            }
+            else
+            {
+                if (menuUpgradeButton != null && menuRecruitButton != null)
+                {
+                    menuUpgradeButton.Dispose();
+                    menuRecruitButton.Dispose();
+                    pictureBox1.Controls.Remove(menuUpgradeButton);
+                    pictureBox1.Controls.Remove(menuRecruitButton);
+                }
+
+                if (OK != null && Cancel != null)
+                {
+                    OK.Dispose();
+                    Cancel.Dispose();
+                    soldierText.Dispose();
+                    pictureBox1.Controls.Remove(OK);
+                    pictureBox1.Controls.Remove(Cancel);
+                    pictureBox1.Controls.Remove(soldierText);
+                }
+
+
+            }
+
+
 
 
 
@@ -275,15 +293,15 @@ namespace ProjInzynieraOprog
             LabelCastle.Text = "Level " + M._playerHuman.City.CastleLevel.ToString();
             LabelGarrison.Text = "Level " + M._playerHuman.City.GarrisonLevel.ToString();
             LabelTax.Text = "Level " + M._playerHuman.City.TaxOfficeLevel.ToString();
-            
-            
+
+
             if (M._playerHuman.PointsBalance < 600)
             {
                 ButtonBarracks.Enabled = false;
                 ButtonCastle.Enabled = false;
                 ButtonGarrison.Enabled = false;
                 ButtonTax.Enabled = false;
-                
+
             }
             else
             {
@@ -291,6 +309,7 @@ namespace ProjInzynieraOprog
                 ButtonCastle.Enabled = true;
                 ButtonGarrison.Enabled = true;
                 ButtonTax.Enabled = true;
+
             }
         }
 
@@ -315,20 +334,37 @@ namespace ProjInzynieraOprog
 
         private void newTurnButton_Click(object sender, EventArgs e)
         {
+            if (M.List_of_tiles[1, 1].PlayerControllerId != M._playerHuman.PlayerId1)
+            {
+                MessageBox.Show("Loser and noob");
+            }
+            
+            
             LogBook.Text = "";
             M.playerAiController();
             M.battle_simulation();
+
+
             DrawMap_OnPictrurebox();
+            foreach (var flash in M.flashes)
+            {
+                M.DrawFrameTileTaken(flash.x, flash.y);
+                pictureBox1.Refresh();
+
+            }
+
+            M.flashes.Clear();
             AllPointsTextBox.Text = M._playerHuman.PointsBalance.ToString();
             int tmp = M.TurnNumber + 1;
-           string temp = "Turn: " + tmp.ToString() + "\n";
+            string temp = "Turn: " + tmp.ToString() + "\n";
             M.LogString1.Add(temp);
 
             foreach (string s in M.LogString1)
             {
-             
-               LogBook.Text += s + "\n";
+
+                LogBook.Text += s + "\n";
             }
+
             M.TurnNumber += 1;
 
             TotalPointsTextBox.Text = M.totalPointGain_changed().ToString();
@@ -340,38 +376,6 @@ namespace ProjInzynieraOprog
         }
         //event handler for trackbar value change
 
-        private void soldierTrackBar_ValueChanged(object sender, System.EventArgs e)
-        {
-            textBox1.Text = soldierTrackBar.Value.ToString();
-        }
-
-        private void buttonN_Click(object sender, EventArgs e)
-        {
-            M.TempDefenderId = M.TempAttackerId - 1;
-            add_Battle_To_List();
-            soldierTrackBar.Maximum -= soldierTrackBar.Value;
-        }
-
-        private void buttonW_Click(object sender, EventArgs e)
-        {
-            M.TempDefenderId = M.TempAttackerId - Map.Mapsize;
-            add_Battle_To_List();
-            soldierTrackBar.Maximum -= soldierTrackBar.Value;
-        }
-
-        private void buttonS_Click(object sender, EventArgs e)
-        {
-            M.TempDefenderId = M.TempAttackerId + 1;
-            add_Battle_To_List();
-            soldierTrackBar.Maximum -= soldierTrackBar.Value;
-        }
-
-        private void buttonE_Click(object sender, EventArgs e)
-        {
-            M.TempDefenderId = M.TempAttackerId + Map.Mapsize;
-            add_Battle_To_List();
-            soldierTrackBar.Maximum -= soldierTrackBar.Value;
-        }
 
         private void add_Battle_To_List()
         {
@@ -393,14 +397,11 @@ namespace ProjInzynieraOprog
         private void button_options_Click(object sender, EventArgs e)
         {
             populate_listboxSave();
-            //buttonE.Visible = false;
-            //buttonN.Visible = false;
-            //buttonW.Visible = false;
-            //buttonS.Visible = false;
+            
             tileIDlabel.Visible = false;
             tileIDtextbox.Visible = false;
             newTurnButton.Visible = false;
-            buttonRecruit.Visible = false;
+          
             soldierTrackBar.Visible = false;
             textBox1.Visible = false;
             textBox2.Visible = false;
@@ -410,13 +411,9 @@ namespace ProjInzynieraOprog
             ListBox_SaveNew.Visible = true;
             textBox_SaveFileName.Visible = true;
             button_NewSave.Visible = true;
-            //buttonx1.Visible = false;
-            //buttonx10.Visible = false;
-            //buttonx100.Visible = false;
-            //buttonx1000.Visible = false;
-            textBox3.Visible = false;
+        
             label1.Visible = false;
-            label2.Visible = false; 
+            label2.Visible = false;
 
 
             //populate_listboxSave();
@@ -424,40 +421,33 @@ namespace ProjInzynieraOprog
 
         private void button_back_Click(object sender, EventArgs e)
         {
-            //buttonE.Visible = true;
-            //buttonN.Visible = true;
-            //buttonW.Visible = true;
-            //buttonS.Visible = true;
+            
             tileIDlabel.Visible = true;
-            tileIDtextbox.Visible  = true;
+            tileIDtextbox.Visible = true;
             newTurnButton.Visible = true;
-            buttonRecruit.Visible = true;
+          
             soldierTrackBar.Visible = true;
             textBox1.Visible = true;
-            textBox2.Visible =true;
-            label1.Visible=true;
-            label2.Visible=true;
+            textBox2.Visible = true;
+            label1.Visible = true;
+            label2.Visible = true;
             button_back.Visible = false;
             button1.Visible = false;
             button_SaveGame.Visible = false;
             ListBox_SaveNew.Visible = false;
             textBox_SaveFileName.Visible = false;
             button_NewSave.Visible = false;
-            //buttonx1.Visible = true;
-            //buttonx10.Visible = true;
-            //buttonx100.Visible = true;
-            //buttonx1000.Visible = true;
-            textBox3.Visible = true;
+           
         }
 
         private void button_SaveGame_Click(object sender, EventArgs e)
         {
             if (ListBox_SaveNew.SelectedItem != null)
             {
-                string path = Path.Combine(Environment.CurrentDirectory, @"Data\",
-                    listBox_Save.SelectedItem.ToString());
+                string path = Path.Combine(Environment.CurrentDirectory, @"Data",
+                    ListBox_SaveNew.SelectedItem.ToString());
                 M.write_save_file(path);
-                listBox_Save.SelectedItem = null;
+                ListBox_SaveNew.SelectedItem = null;
             }
         }
 
@@ -472,118 +462,10 @@ namespace ProjInzynieraOprog
 
         void check_if_soldiers_sufficient()
         {
-            
+
         }
-
-        private void button2_Click_1(object sender, EventArgs e)
-        {
-            int selectedRecruiting = Convert.ToInt32(textBox3.Text);
-            if(selectedRecruiting>M._playerHuman.PointsBalance)
-            {
-                MessageBox.Show("You do not have enough points to recruit this many soldiers");
-            }
-            else
-            {
-                M.List_of_tiles[M.selectedProvince.X, M.selectedProvince.Y].SoldiersOnTile += selectedRecruiting;
-                M._playerHuman.PointsBalance -= selectedRecruiting;
-                textBox3.Text = "0";
-                soldierTrackBar.Maximum = M.List_of_tiles[M.selectedProvince.X, M.selectedProvince.Y].SoldiersOnTile;
-                textBox1.Refresh();
-                string dodanie = "You recruited " + selectedRecruiting.ToString() + " soldiers to the tile";
-                M.LogString1.Add(dodanie);
-                LogBook.Clear();
-                foreach (string s in M.LogString1) 
-                {
-                    LogBook.Text += s + "\n";
-                }
-                AllPointsTextBox.Text = (int.Parse(AllPointsTextBox.Text) - selectedRecruiting).ToString() ;
-                DrawMap_OnPictrurebox();
-            }
-            
-           
-        }
-
-        private void buttonx1_Click(object sender, EventArgs e)
-        {
-            if (textBox3.Text != "")
-            {
-                int textToInt = Convert.ToInt32(textBox3.Text);
-                M.Temppointsbalance -= textToInt;
-                textToInt += 1;
-                textBox3.Text = textToInt.ToString();
-            }
-            else
-            {
-                int textToInt = 0;
-                M.Temppointsbalance -= textToInt;
-                textToInt += 1;
-                textBox3.Text = textToInt.ToString();
-            }
-
-            check_if_soldiers_sufficient();
-        }
-
-        private void buttonx10_Click(object sender, EventArgs e)
-        {
-            if (textBox3.Text != "")
-            {
-                int textToInt = Convert.ToInt32(textBox3.Text);
-                M.Temppointsbalance -= textToInt;
-                textToInt += 10;
-                textBox3.Text = textToInt.ToString();
-            }
-            else
-            {
-                int textToInt = 0;
-                M.Temppointsbalance -= textToInt;
-                textToInt += 10;
-                textBox3.Text = textToInt.ToString();
-            }
-
-            check_if_soldiers_sufficient();
-        }
-
-        private void buttonx100_Click(object sender, EventArgs e)
-        {
-            if (textBox3.Text != "")
-            {
-                int textToInt = Convert.ToInt32(textBox3.Text);
-                M.Temppointsbalance -= textToInt;
-                textToInt += 10;
-                textBox3.Text = textToInt.ToString();
-            }
-            else
-            {
-                int textToInt = 0;
-                M.Temppointsbalance -= textToInt;
-                textToInt += 100;
-                textBox3.Text = textToInt.ToString();
-            }
-
-            check_if_soldiers_sufficient();
-        }
-
-        private void buttonx1000_Click(object sender, EventArgs e)
-        {
-            if (textBox3.Text != "")
-            {
-                int textToInt = Convert.ToInt32(textBox3.Text);
-                M.Temppointsbalance -= textToInt;
-                textToInt += 10;
-                textBox3.Text = textToInt.ToString();
-            }
-            else
-            {
-                int textToInt = 0;
-                M.Temppointsbalance -= textToInt;
-                textToInt += 1000;
-                textBox3.Text = textToInt.ToString();
-            }
-
-            check_if_soldiers_sufficient();
-        }
-
-         public  string Get_SaveFile()
+        
+        public string Get_SaveFile()
         {
             if (ListBox_SaveNew.SelectedItem != null)
             {
@@ -603,22 +485,13 @@ namespace ProjInzynieraOprog
 
         private void Disable_if_enemy()
         {
-            //buttonE.Visible = false;
-            //buttonN.Visible = false;
-            //buttonS.Visible = false;
-            //buttonW.Visible = false;
-            //button2.Visible = false;
+          
             soldierTrackBar.Visible = false;
         }
-        
+
 
         void Enable_if_Friendly()
         {
-            //buttonE.Visible = true;
-            //buttonN.Visible = true;
-            //buttonS.Visible = true;
-            //buttonW.Visible = true;
-            buttonRecruit.Visible = true;
             soldierTrackBar.Visible = true;
         }
 
@@ -630,9 +503,10 @@ namespace ProjInzynieraOprog
         private void upgradeButton_Click(object sender, EventArgs e)
         {
             M._playerHuman.PointsBalance -= M.List_of_tiles[clickedX, clickedY].PointGain * 3;
-            AllPointsTextBox.Text = (int.Parse(AllPointsTextBox.Text) - M.List_of_tiles[clickedX, clickedY].PointGain * 3).ToString();
+            AllPointsTextBox.Text =
+                (int.Parse(AllPointsTextBox.Text) - M.List_of_tiles[clickedX, clickedY].PointGain * 3).ToString();
             M.List_of_tiles[clickedX, clickedY].UpgradeTile();
-            upgradeButton.Visible = false;
+           
             DrawMap_OnPictrurebox();
         }
 
@@ -648,7 +522,7 @@ namespace ProjInzynieraOprog
                 M.Draw_Frame(clickedX + 1, clickedY);
 
                 pictureBox1.Refresh();
-                
+
                 M.attackMode = true;
             }
         }
@@ -658,7 +532,7 @@ namespace ProjInzynieraOprog
         {
             M._playerHuman.City.TaxOfficeLevel++;
             M._playerHuman.PointsBalance -= 600;
-            M.List_of_tiles[1, 1].PointGain += 100; 
+            M.List_of_tiles[1, 1].PointGain += 100;
             AllPointsTextBox.Text = (int.Parse(AllPointsTextBox.Text) - 600).ToString();
             textBox2.Text = (int.Parse(textBox2.Text) + 100).ToString();
             CheckForUpgradeButtons();
@@ -688,8 +562,117 @@ namespace ProjInzynieraOprog
             AllPointsTextBox.Text = (int.Parse(AllPointsTextBox.Text) - 600).ToString();
             CheckForUpgradeButtons();
         }
+
+
+
+        public void menuUpgrade_Click(object sender, EventArgs e)
+        {
+
+
+            upgradeButton_Click(sender, e);
+            menuUpgradeButton.Dispose();
+            menuRecruitButton.Dispose();
+
+
+        }
+
+        public void menuRecruit_Click(object sender, EventArgs e)
+        {
+
+
+            soldierText = new TextBox();
+            soldierText.Location = new Point(menuRecruitButton.Location.X + 25, menuRecruitButton.Location.Y + 25);
+            soldierText.Size = new Size(80, 20);
+            soldierText.BackColor = Color.FromArgb(158, 103, 12);
+            soldierText.ForeColor = Color.Yellow;
+            soldierText.Font = new Font("Javanese Text", 12);
+            
+            pictureBox1.Controls.Add(soldierText);
+
+            OK = new Button();
+            OK.Location = new Point(soldierText.Location.X + 100, soldierText.Location.Y);
+            OK.Size = new Size(50, 35);
+            OK.BackColor = Color.FromArgb(158, 103, 12);
+            OK.ForeColor = Color.Yellow;
+            OK.Font = new Font("Javanese Text", 12);
+            OK.Text = "OK";
+            OK.FlatStyle = FlatStyle.Flat;
+            pictureBox1.Controls.Add(OK);
+
+
+            Cancel = new Button();
+            Cancel.Location = new Point(OK.Location.X, soldierText.Location.Y + 40);
+            Cancel.Size = new Size(100, 35);
+            Cancel.BackColor = Color.FromArgb(158, 103, 12);
+            Cancel.ForeColor = Color.Yellow;
+            Cancel.Font = new Font("Javanese Text", 12);
+            Cancel.Text = "Cancel";
+            Cancel.FlatStyle = FlatStyle.Flat;
+            pictureBox1.Controls.Add(Cancel);
+
+            OK.Click += new EventHandler(OK_Click);
+            Cancel.Click += new EventHandler(Cancel_Click);
+
+
+
+
+
+
+
+            menuRecruitButton.Dispose();
+            menuUpgradeButton.Dispose();
+
+
+        }
+
+        private void Cancel_Click(object sender, EventArgs e)
+        {
+            OK.Dispose();
+            Cancel.Dispose();
+            menuUpgradeButton.Dispose();
+            menuRecruitButton.Dispose();
+            soldierText.Dispose();
+            pictureBox1.Controls.Remove(menuUpgradeButton);
+            pictureBox1.Controls.Remove(menuRecruitButton);
+            pictureBox1.Controls.Remove(soldierText);
+            pictureBox1.Controls.Remove(OK);
+            pictureBox1.Controls.Remove(Cancel);
+        }
+
+        private void OK_Click(object sender, EventArgs e)
+        {
+            int soldiers = int.Parse(soldierText.Text);
+            if (soldiers < M._playerHuman.PointsBalance)
+            {
+
+                M.List_of_tiles[clickedX, clickedY].SoldiersOnTile += soldiers;
+                M._playerHuman.PointsBalance -= soldiers;
+                AllPointsTextBox.Text = (int.Parse(AllPointsTextBox.Text) - soldiers).ToString();
+            }
+
+            else
+            {
+                MessageBox.Show("You don't have enough points to recruit this many soldiers!");
+            }
+
+
+            OK.Dispose();
+            Cancel.Dispose();
+            menuUpgradeButton.Dispose();
+            menuRecruitButton.Dispose();
+            soldierText.Dispose();
+            pictureBox1.Controls.Remove(menuUpgradeButton);
+            pictureBox1.Controls.Remove(menuRecruitButton);
+            pictureBox1.Controls.Remove(soldierText);
+            pictureBox1.Controls.Remove(OK);
+            pictureBox1.Controls.Remove(Cancel);
+            pictureBox1.Refresh();
+            DrawMap_OnPictrurebox();
+
+
+        }
+
     }
 
 
- 
 }

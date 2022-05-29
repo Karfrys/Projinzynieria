@@ -214,24 +214,29 @@ namespace ProjInzynieraOprog
             string path = Path.Combine(Environment.CurrentDirectory, @"Resources", filename);
             return  Image.FromFile(path);
         }
-        
+
+        public void DrawFrameTileTaken(int x, int y)
+        { g.DrawRectangle(Pens.Red, tileSize * x, tileSize * y, tileSize, tileSize);
+        g.DrawRectangle(Pens.Red, tileSize * x + 1, tileSize * y + 1, tileSize - 2, tileSize - 2);
+        g.DrawRectangle(Pens.Red, tileSize * x + 2, tileSize * y + 2, tileSize - 4, tileSize - 4);
+        }
         internal void Draw_Frame(int x, int y)
         {
-            g.DrawRectangle(Pens.MediumVioletRed, tileSize * x, tileSize * y, tileSize, tileSize);
-            g.DrawRectangle(Pens.MediumVioletRed, tileSize * x + 1, tileSize * y + 1, tileSize - 2, tileSize - 2);
-            g.DrawRectangle(Pens.MediumVioletRed, tileSize * x + 2, tileSize * y + 2, tileSize - 4, tileSize - 4);
+            g.DrawRectangle(Pens.MediumBlue, tileSize * x, tileSize * y, tileSize, tileSize);
+            g.DrawRectangle(Pens.MediumBlue, tileSize * x + 1, tileSize * y + 1, tileSize - 2, tileSize - 2);
+            g.DrawRectangle(Pens.MediumBlue, tileSize * x + 2, tileSize * y + 2, tileSize - 4, tileSize - 4);
         }
         
         internal void CreateMaps(int size,int map)
         {
             string name = "map" + map.ToString() + ".txt";
-            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", name);
+            string path = Path.Combine(Environment.CurrentDirectory, @"Data", name);
             StreamWriter sw;
             sw = new StreamWriter(path, false);
             Random r = new Random();
             string line;
             int pg; //assigning random pointgain for each tile// 
-            int type;//0-clearing , 1-forest, 2-water //
+            int type;//0-clearing , 1-forest, 2-water   4- city//
             int own; //ownership //
             for (int i = 0; i < size; i++)
             {
@@ -240,7 +245,7 @@ namespace ProjInzynieraOprog
                 {
                     pg = r.Next(10, 30);
                     type = r.Next(0, 3);
-                   
+
                     if (i < 2 && j < 2)
                     {
                         own = 1;
@@ -253,7 +258,7 @@ namespace ProjInzynieraOprog
                     {
                         own = 0;
                     }
-                    
+
                     if(i==1 && j==1)
                     {
                         type=4;
@@ -262,8 +267,8 @@ namespace ProjInzynieraOprog
                     {
                         type=4;
                     }
-                    
-                    sb.Append(pg.ToString()+"|"+type.ToString()+"|"+own.ToString()+"#");
+
+                    sb.Append(pg.ToString()+"|"+type.ToString()+"|"+own.ToString()+"|0|0|0#");
                 }
                 line = sb.ToString();
                 sw.WriteLine(line);
@@ -274,7 +279,7 @@ namespace ProjInzynieraOprog
         internal string [,] GetMapSize(Form1 form)
         {
             int iterator = 0;
-            string path = Path.Combine(Environment.CurrentDirectory, @"Data\", "map1.txt");;
+            string path = Path.Combine(Environment.CurrentDirectory, @"Data", "map1.txt");;
             mapsize = 15;
             if (form.Get_SaveFile() != null)
             {
@@ -290,13 +295,14 @@ namespace ProjInzynieraOprog
                 iterator = 0;
                 for (int j = 0; j < mapsize; j++)
                 {
-                    Tiles[i, j] = lines[i].Substring(iterator, 6);
-                    iterator += 7;
-                       
+                    int index = lines[i].IndexOf('#',iterator);
+                    Tiles[i, j] = lines[i].Substring(iterator, index-iterator+1);
+                    iterator = index + 1;
                 }
             } 
             return Tiles;
         }
+
 
         internal Bitmap DrawMap(Form1 form)
         {
@@ -315,6 +321,10 @@ namespace ProjInzynieraOprog
                         List_of_tiles[i, j].PointGain = int.Parse(tiles[i, j].Substring(0, 2));
                         List_of_tiles[i, j].Type = int.Parse(tiles[i, j].Substring(3, 1));
                         List_of_tiles[i, j].PlayerControllerId = int.Parse(tiles[i, j].Substring(5, 1));
+                        List_of_tiles[i, j].isUpgraded1 = Convert.ToBoolean(int.Parse(tiles[i,j].Substring(7,1)));
+                        List_of_tiles[i, j].Level = int.Parse(tiles[i, j].Substring(9, 1));
+                        List_of_tiles[i, j].SoldiersOnTile = 
+                            int.Parse(tiles[i, j].Substring(11, tiles[i, j].IndexOf('#') - 11));
                     }
 
                     if (List_of_tiles[i, j].PlayerControllerId == 1)
@@ -390,7 +400,7 @@ namespace ProjInzynieraOprog
         {
             StreamWriter sw;
             string line;
-            
+
             sw = new StreamWriter(path, false);
             for (int x = 0; x < mapsize; x++)
             {
@@ -401,7 +411,8 @@ namespace ProjInzynieraOprog
                     {
                         List_of_tiles[x, y].PointGain = 99;
                     }
-                    sb.Append(List_of_tiles[x,y].PointGain.ToString()+"|"+List_of_tiles[x,y].Type.ToString()+"|"+List_of_tiles[x,y].PlayerControllerId.ToString()+"#");
+                    sb.Append(List_of_tiles[x,y].PointGain.ToString()+"|"+List_of_tiles[x,y].Type.ToString()+"|"+List_of_tiles[x,y].PlayerControllerId.ToString()+"|"+Convert.ToInt32(List_of_tiles[x,y].isUpgraded1)+
+                              "|"+List_of_tiles[x,y].Level.ToString()+"|"+List_of_tiles[x,y].SoldiersOnTile.ToString()+"#");
                 }
                 line = sb.ToString();
                 sw.WriteLine(line);
@@ -432,11 +443,21 @@ namespace ProjInzynieraOprog
             return 0;
         }
 
-
+        public struct Flash
+        {
+            public int x;
+            public int y;
+        }
+         public List<Flash> flashes = new List<Flash>();
 
         public void battle_simulation()
         {
             string adding = null;
+            int defenderX = 0;
+            int defenderY = 0;
+            int attackerX = 0;
+            int attackerY = 0;
+
 
             for (int i = 0; i < mapsize; i++)
             {
@@ -467,6 +488,8 @@ namespace ProjInzynieraOprog
                         if (battlesToDetermine[k].AttackerProvinceId == List_of_tiles[i, j].Id)
                         {
                             attackerID = List_of_tiles[i, j].PlayerControllerId;
+                            attackerX = i;
+                            attackerY = j;
                             break;
                         }
                     }
@@ -479,133 +502,90 @@ namespace ProjInzynieraOprog
                         if (battlesToDetermine[k].DefenderProvinceId == List_of_tiles[i, j].Id)
                         {
                             defenderID = List_of_tiles[i, j].PlayerControllerId;
+                            defenderX = i;
+                            defenderY = j;
                             break;
                         }
                     }
                 }
 
+
+
+
                 if (defenderID == attackerID)
                 {
-                    for (int i = 0; i < mapsize; i++)
-                    {
-                        for (int j = 0; j < mapsize; j++)
-                        {
-                            if (List_of_tiles[i, j].Id == battlesToDetermine[k].AttackerProvinceId)
-                            {
-                                List_of_tiles[i, j].SoldiersOnTile -= battlesToDetermine[k].SoldierNum;
-                                for (int y = 0; y < mapsize; y++)
-                                {
-                                    for (int z = 0; z < mapsize; z++)
-                                    {
-                                        if (List_of_tiles[y, z].Id == battlesToDetermine[k].DefenderProvinceId)
-                                        {
-                                            List_of_tiles[y, z].SoldiersOnTile += battlesToDetermine[k].SoldierNum;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+                    List_of_tiles[defenderX, defenderY].SoldiersOnTile += battlesToDetermine[k].SoldierNum;
                 }
                 else
                 {
+                    
                     if (attackerID == _playerHuman.PlayerId1)
                     {
                         adding = "You attacked field " + battlesToDetermine[k].AttackerProvinceId +
-                                          " and lost ";
+                                 " and lost ";
                     }
                     else if (defenderID == _playerHuman.PlayerId1)
                     {
                         adding = "You had been attacked at field" + battlesToDetermine[k].DefenderProvinceId +
-                                         " and lost ";
+                                 " and lost ";
                     }
 
-
-
-                    for (int i = 0; i < mapsize; i++)
+                    if (List_of_tiles[defenderX, defenderY].SoldiersOnTile > battlesToDetermine[k].SoldierNum)
                     {
-                        for (int j = 0; j < mapsize; j++)
+                        int temp = List_of_tiles[attackerX, attackerY].SoldiersOnTile - battlesToDetermine[k].SoldierNum;
+                        List_of_tiles[attackerX, attackerY].SoldiersOnTile -= battlesToDetermine[k].SoldierNum;
+                        if (attackerID == _playerHuman.PlayerId1)
                         {
-                            if (List_of_tiles[i, j].Id == battlesToDetermine[k].DefenderProvinceId)
-                            {
-                                if (List_of_tiles[i, j].SoldiersOnTile > battlesToDetermine[k].SoldierNum)
-                                {
-                                    for (int z = 0; z < mapsize; z++)
-                                    {
-                                        for (int y = 0; y < mapsize; y++)
-                                        {
-                                            if (List_of_tiles[z, y].Id == battlesToDetermine[k].AttackerProvinceId)
-                                            {
-                                                int temp = List_of_tiles[z, y].SoldiersOnTile - battlesToDetermine[k].SoldierNum;
-                                                if (attackerID == _playerHuman.PlayerId1)
-                                                {
-                                                    adding += " all soldiers and LOST the battle";
-                                                    LogString1.Add(adding);
-                                                }
-                                                else if (defenderID == _playerHuman.PlayerId1)
-                                                {
-                                                    adding += temp + " soldiers, you WON the battle ";
-                                                    LogString1.Add(adding);
-                                                }
-
-                                                List_of_tiles[z, y].SoldiersOnTile -= battlesToDetermine[k].SoldierNum;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    //z,y = attacker
-                                    for (int z = 0; z < mapsize; z++)
-                                    {
-                                        for (int y = 0; y < mapsize; y++)
-                                        {
-                                            if (List_of_tiles[z, y].Id == battlesToDetermine[k].AttackerProvinceId)
-                                            {
-                                                int lost_soldiers;
-                                                int temp;
-                                                //List_of_tiles[z, y].SoldiersOnTile -= battlesToDetermine[k].SoldierNum;
-                                                temp = battlesToDetermine[k].SoldierNum - List_of_tiles[i, j].SoldiersOnTile;
-                                                lost_soldiers = battlesToDetermine[k].SoldierNum - temp;
-                                                List_of_tiles[i, j].SoldiersOnTile = temp;
-                                                List_of_tiles[i, j].PlayerControllerId = attackerID;
-
-                                                if (attackerID == _playerHuman.PlayerId1)
-                                                {
-                                                    adding += lost_soldiers + " soldiers and WON the battle";
-                                                    LogString1.Add(adding);
-                                                }
-                                                else if (defenderID == _playerHuman.PlayerId1)
-                                                {
-                                                    adding += " all soldiers, tile has been lost";
-                                                    LogString1.Add(adding);
-                                                }
-                                                break;
-                                            }
-                                        }
-                                    }
-
-                                }
-                            }
-
-
-
-
+                            adding += " all soldiers and LOST the battle";
+                            LogString1.Add(adding);
                         }
+                        else if (defenderID == _playerHuman.PlayerId1)
+                        {
+                            adding += temp + " soldiers, you WON the battle ";
+                            LogString1.Add(adding);
+                        }
+                        
                     }
-              
-                
-                }
-               
-                
+                    else
+                    {
+                        if (attackerID == _playerAi.PlayerId1)
+                        {
+                            Flash f = new Flash();
+                            f.x = defenderX;
+                            f.y = defenderY;
+                            flashes.Add(f);
+                        }
+                        int lost_soldiers;
+                        int temp;
+                        //List_of_tiles[z, y].SoldiersOnTile -= battlesToDetermine[k].SoldierNum;
+                        temp = battlesToDetermine[k].SoldierNum - List_of_tiles[defenderX, defenderY].SoldiersOnTile;
+                        lost_soldiers = battlesToDetermine[k].SoldierNum - temp;
+                        List_of_tiles[defenderX, defenderY].SoldiersOnTile = temp;
+                        List_of_tiles[defenderX, defenderY].PlayerControllerId = attackerID;
 
+                        if (attackerID == _playerHuman.PlayerId1)
+                        {
+                            adding += lost_soldiers + " soldiers and WON the battle";
+                            LogString1.Add(adding);
+                        }
+                        else if (defenderID == _playerHuman.PlayerId1)
+                        {
+                            adding += " all soldiers, tile has been lost";
+                            LogString1.Add(adding);
+                        }
+
+                    }
+                }
             }
 
+           
 
+            
+            
             battlesToDetermine.Clear();
         }
+
+        
 
 
         public void Uprgade(int clickedX, int clickedY)
@@ -620,9 +600,74 @@ namespace ProjInzynieraOprog
           public int soldiers;
         }
 
+        void AiUpgrade()
+        {
+            if (_playerAi.SavedPoints > 100)
+            {
+                for (var i = mapsize; i-- > 0;)
+                {
+                    for (var j =mapsize;  j-- > 0;)
+                    {
+                        if (List_of_tiles[i, j].PlayerControllerId == _playerAi.PlayerId1)
+                        {
+                            if (List_of_tiles[i, j].PointGain * 3 < _playerAi.SavedPoints)
+                            {
+                                if (List_of_tiles[i, j].Type != 4 && List_of_tiles[i, j].Type != 2 && List_of_tiles[i,j].isUpgraded1==false)
+                                {
+                                    _playerAi.PointsBalance -= List_of_tiles[i, j].PointGain * 3;
+                                    _playerAi.SavedPoints -= List_of_tiles[i, j].PointGain * 3;
+                                    List_of_tiles[i, j].UpgradeTile();
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        void AiUpgradeReversed()
+        {
+            if (_playerAi.SavedPoints > 100)
+            {
+                for (var j = mapsize; j-- > 0;)
+                {
+                    for (var i =mapsize;  i-- > 0;)
+                    {
+                        if (List_of_tiles[i, j].PlayerControllerId == _playerAi.PlayerId1)
+                        {
+                            if (List_of_tiles[i, j].PointGain * 3 < _playerAi.SavedPoints)
+                            {
+                                if (List_of_tiles[i, j].Type != 4 && List_of_tiles[i, j].Type != 2 && List_of_tiles[i,j].isUpgraded1==false)
+                                {
+                                    _playerAi.PointsBalance -= List_of_tiles[i, j].PointGain * 3;
+                                    _playerAi.SavedPoints -= List_of_tiles[i, j].PointGain * 3;
+                                    List_of_tiles[i, j].UpgradeTile();
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        private bool a= false;
+        
+        
        public void playerAiController()
         {
-            
+            if (a == false)
+            {
+                AiUpgrade();
+                a = true;
+            }
+            else
+            {
+                AiUpgradeReversed();
+                a = false;
+            }
+
             List<Provinces> provinces = new List<Provinces>();
 
             int iterator = 0;
@@ -636,6 +681,7 @@ namespace ProjInzynieraOprog
                 {
                     if (List_of_tiles[i, j].PlayerControllerId == 2)
                     {
+                        
                         if (i != 0)
                         {
                             if(List_of_tiles[i-1,j].PlayerControllerId !=2)
@@ -644,6 +690,7 @@ namespace ProjInzynieraOprog
                                 p.attacker_id = List_of_tiles[i, j].Id;
                                 p.defender_id = List_of_tiles[i - 1, j].Id;
                                 provinces.Add(p);
+                                counter++;
                             }
                         }
 
@@ -656,10 +703,9 @@ namespace ProjInzynieraOprog
                                 p.defender_id = List_of_tiles[i + 1, j].Id;
                                 provinces.Add(p);
                                 counter++;
+                                
                             }
                         }
-                            
-                        
                         if (j != 0)
                         {
                             if(List_of_tiles[i,j-1].PlayerControllerId !=2)
@@ -686,9 +732,21 @@ namespace ProjInzynieraOprog
                 }
             }
             
-            Double pointsToSpend = _playerAi.PointsBalance/counter;
+            int overallPoints = _playerAi.PointsBalance;
+            int pointToSave;
+            double pointsToSpend;
+
+            pointsToSpend = overallPoints*0.7;
+            int temp = (int)pointsToSpend;
+            pointsToSpend/=counter;
             pointsToSpend  = Math.Floor(pointsToSpend);
             int points = Convert.ToInt32(pointsToSpend);
+            pointToSave = overallPoints - temp;
+            _playerAi.SavedPoints += pointToSave;
+          
+       
+            
+            
             
             //rekrutuje wojska na prowincjach graniczacych z neutralnymi/wrogimi
             
@@ -702,32 +760,36 @@ namespace ProjInzynieraOprog
                         {
                             if(List_of_tiles[i-1,j].PlayerControllerId !=2)
                             {
+                                List_of_tiles[i,j].SoldiersOnTile=0;
                                 _playerAi.PointsBalance -= points;
-                                List_of_tiles[i,j].SoldiersOnTile += points;
+                                //List_of_tiles[i,j].SoldiersOnTile += points;
                             }
                         }
                         
                         if(i!=mapsize-1)
                             if(List_of_tiles[i+1,j].PlayerControllerId !=2)
                             {
+                                List_of_tiles[i,j].SoldiersOnTile=0;
                                 _playerAi.PointsBalance -= points;
-                                List_of_tiles[i,j].SoldiersOnTile += points;                            
+                                //List_of_tiles[i,j].SoldiersOnTile += points;                            
                             }
                         
                         if (j != 0)
                         {
                             if(List_of_tiles[i,j-1].PlayerControllerId !=2)
                             {
+                                List_of_tiles[i,j].SoldiersOnTile=0;
                                 _playerAi.PointsBalance -= points;
-                                List_of_tiles[i,j].SoldiersOnTile += points;
+                               // List_of_tiles[i,j].SoldiersOnTile += points;
                             }
                         }
                         if (j != mapsize-1)
                         {
                             if(List_of_tiles[i,j+1].PlayerControllerId !=2)
                             {
+                                List_of_tiles[i,j].SoldiersOnTile=0;
                                 _playerAi.PointsBalance -= points;
-                                List_of_tiles[i,j].SoldiersOnTile += points;
+                                //List_of_tiles[i,j].SoldiersOnTile += points;
                             }
                         }
                     }
@@ -766,150 +828,5 @@ namespace ProjInzynieraOprog
  
         
         
-        public void battle_simulation_rt(int soldiers, int attacker, int defender)
-        {
-            string adding = null;
-
-            
-            //basic battle simulation
-
-
-            int attackerID = 0;
-            int defenderID = 0;
-
-           
-                for (int i = 0; i < mapsize; i++)
-                {
-                    for (int j = 0; j < mapsize; j++)
-                    {
-                        if (attacker== List_of_tiles[i, j].Id)
-                        {
-                            attackerID = List_of_tiles[i, j].PlayerControllerId;
-                            break;
-                        }
-                    }
-                }
-
-                for (int i = 0; i < mapsize; i++)
-                {
-                    for (int j = 0; j < mapsize; j++)
-                    {
-                        if (defender == List_of_tiles[i, j].Id)
-                        {
-                            defenderID = List_of_tiles[i, j].PlayerControllerId;
-                            break;
-                        }
-                    }
-                }
-
-                if (defenderID == attackerID)
-                {
-                    for (int i = 0; i < mapsize; i++)
-                    {
-                        for (int j = 0; j < mapsize; j++)
-                        {
-                            if (List_of_tiles[i, j].Id == attacker)
-                            {
-                                List_of_tiles[i, j].SoldiersOnTile -= soldiers;
-                                for (int y = 0; y < mapsize; y++)
-                                {
-                                    for (int z = 0; z < mapsize; z++)
-                                    {
-                                        if (List_of_tiles[y, z].Id == defender)
-                                        {
-                                            List_of_tiles[y, z].SoldiersOnTile += soldiers;
-                                            break;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    if (attackerID == _playerHuman.PlayerId1)
-                    {
-                        adding = "You attacked field " + attacker +
-                                          " and lost ";
-                    }
-                    else if (defenderID == _playerHuman.PlayerId1)
-                    {
-                        adding = "You had been attacked at field" + defender +
-                                         " and lost ";
-                    }
-
-
-
-                    for (int i = 0; i < mapsize; i++)
-                    {
-                        for (int j = 0; j < mapsize; j++)
-                        {
-                            if (List_of_tiles[i, j].Id == defender)
-                            {
-                                if (List_of_tiles[i, j].SoldiersOnTile > soldiers)
-                                {
-                                    for (int z = 0; z < mapsize; z++)
-                                    {
-                                        for (int y = 0; y < mapsize; y++)
-                                        {
-                                            
-                                            if (List_of_tiles[z, y].Id == attacker)
-                                            {
-                                                int temp = List_of_tiles[z, y].SoldiersOnTile - soldiers;
-                                                if (attackerID == _playerHuman.PlayerId1)
-                                                {
-                                                    adding += " all soldiers and LOST the battle";
-                                                    LogString1.Add(adding);
-                                                }
-                                                else if (defenderID == _playerHuman.PlayerId1)
-                                                {
-                                                    adding += temp + " soldiers, you WON the battle";
-                                                    LogString1.Add(adding);
-                                                }
-
-                                                List_of_tiles[z, y].SoldiersOnTile -= soldiers;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    //z,y = attacker
-                                    for (int z = 0; z < mapsize; z++)
-                                    {
-                                        for (int y = 0; y < mapsize; y++)
-                                        {
-                                            if (List_of_tiles[z, y].Id == attacker)
-                                            {
-                                                int lostSoldiers=0;
-                                                int temp=0;
-                                                List_of_tiles[z, y].SoldiersOnTile -= soldiers;
-                                                temp = soldiers - List_of_tiles[i, j].SoldiersOnTile;
-                                                lostSoldiers = soldiers - temp;
-                                                List_of_tiles[i, j].SoldiersOnTile = temp;
-                                                List_of_tiles[i, j].PlayerControllerId = attackerID;
-
-                                                if (attackerID == _playerHuman.PlayerId1)
-                                                {
-                                                    adding += lostSoldiers + " soldiers and WON the battle";
-                                                    LogString1.Add(adding);
-                                                }
-                                                else if (defenderID == _playerHuman.PlayerId1)
-                                                {
-                                                    adding += " all soldiers, tile has been lost";
-                                                    LogString1.Add(adding);
-                                                }
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-        }
     }
 }

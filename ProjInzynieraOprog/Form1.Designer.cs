@@ -38,7 +38,6 @@
             this.button_SaveGame = new System.Windows.Forms.Button();
             this.textBox_SaveFileName = new System.Windows.Forms.TextBox();
             this.button_NewSave = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -62,7 +61,6 @@
             this.ButtonBarracks = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.upgradecosttextbox = new System.Windows.Forms.TextBox();
-            this.upgradeButton = new System.Windows.Forms.Button();
             this.upgradecostlabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tileIDtextbox = new System.Windows.Forms.TextBox();
@@ -72,7 +70,6 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.buttonRecruit = new System.Windows.Forms.Button();
             this.ListBox_SaveNew = new System.Windows.Forms.ListBox();
             this.soldierTrackBar = new System.Windows.Forms.TrackBar();
             this.LogBook = new System.Windows.Forms.RichTextBox();
@@ -207,26 +204,14 @@
             this.button_NewSave.Visible = false;
             this.button_NewSave.Click += new System.EventHandler(this.button_NewSave_Click);
             // 
-            // textBox3
-            // 
-            this.textBox3.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (128)))), ((int) (((byte) (64)))), ((int) (((byte) (0)))));
-            this.textBox3.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.textBox3.ForeColor = System.Drawing.Color.Yellow;
-            this.textBox3.Location = new System.Drawing.Point(214, 246);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(110, 17);
-            this.textBox3.TabIndex = 39;
-            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.flowLayoutPanel1);
-            this.panel1.Controls.Add(this.upgradecosttextbox);
-            this.panel1.Controls.Add(this.upgradeButton);
-            this.panel1.Controls.Add(this.upgradecostlabel);
             this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.ListBox_SaveNew);
             this.panel1.Controls.Add(this.button_NewSave);
+            this.panel1.Controls.Add(this.soldierTrackBar);
+            this.panel1.Controls.Add(this.newTurnButton);
             this.panel1.Controls.Add(this.textBox_SaveFileName);
             this.panel1.Controls.Add(this.button_SaveGame);
             this.panel1.Controls.Add(this.button_back);
@@ -244,7 +229,7 @@
             this.flowLayoutPanel1.Controls.Add(this.panel3);
             this.flowLayoutPanel1.Controls.Add(this.panel5);
             this.flowLayoutPanel1.Controls.Add(this.panel6);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(21, 424);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(10, 217);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.Size = new System.Drawing.Size(426, 225);
             this.flowLayoutPanel1.TabIndex = 45;
@@ -464,26 +449,12 @@
             this.upgradecosttextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.upgradecosttextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.upgradecosttextbox.ForeColor = System.Drawing.Color.Yellow;
-            this.upgradecosttextbox.Location = new System.Drawing.Point(320, 76);
+            this.upgradecosttextbox.Location = new System.Drawing.Point(227, 34);
             this.upgradecosttextbox.Margin = new System.Windows.Forms.Padding(2);
             this.upgradecosttextbox.Name = "upgradecosttextbox";
             this.upgradecosttextbox.Size = new System.Drawing.Size(110, 17);
             this.upgradecosttextbox.TabIndex = 44;
             this.upgradecosttextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // upgradeButton
-            // 
-            this.upgradeButton.AutoSize = true;
-            this.upgradeButton.BackColor = System.Drawing.Color.Transparent;
-            this.upgradeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.upgradeButton.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.upgradeButton.Location = new System.Drawing.Point(2, 20);
-            this.upgradeButton.Margin = new System.Windows.Forms.Padding(0);
-            this.upgradeButton.Name = "upgradeButton";
-            this.upgradeButton.Size = new System.Drawing.Size(205, 68);
-            this.upgradeButton.TabIndex = 43;
-            this.upgradeButton.UseVisualStyleBackColor = false;
-            this.upgradeButton.Click += new System.EventHandler(this.upgradeButton_Click);
             // 
             // upgradecostlabel
             // 
@@ -491,7 +462,7 @@
             this.upgradecostlabel.AutoSize = true;
             this.upgradecostlabel.Font = new System.Drawing.Font("Javanese Text", 11F);
             this.upgradecostlabel.ForeColor = System.Drawing.Color.Yellow;
-            this.upgradecostlabel.Location = new System.Drawing.Point(209, 71);
+            this.upgradecostlabel.Location = new System.Drawing.Point(33, 30);
             this.upgradecostlabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.upgradecostlabel.Name = "upgradecostlabel";
             this.upgradecostlabel.Size = new System.Drawing.Size(106, 34);
@@ -501,18 +472,17 @@
             // panel2
             // 
             this.panel2.Controls.Add(this.tileIDtextbox);
+            this.panel2.Controls.Add(this.upgradecosttextbox);
+            this.panel2.Controls.Add(this.upgradecostlabel);
             this.panel2.Controls.Add(this.tileIDlabel);
-            this.panel2.Controls.Add(this.newTurnButton);
             this.panel2.Controls.Add(this.label1);
             this.panel2.Controls.Add(this.textBox1);
             this.panel2.Controls.Add(this.textBox2);
             this.panel2.Controls.Add(this.label2);
-            this.panel2.Controls.Add(this.textBox3);
-            this.panel2.Controls.Add(this.buttonRecruit);
-            this.panel2.Location = new System.Drawing.Point(2, 98);
+            this.panel2.Location = new System.Drawing.Point(10, 17);
             this.panel2.Margin = new System.Windows.Forms.Padding(2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(376, 304);
+            this.panel2.Size = new System.Drawing.Size(376, 183);
             this.panel2.TabIndex = 42;
             // 
             // tileIDtextbox
@@ -522,7 +492,7 @@
             this.tileIDtextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.tileIDtextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.tileIDtextbox.ForeColor = System.Drawing.Color.Yellow;
-            this.tileIDtextbox.Location = new System.Drawing.Point(214, 70);
+            this.tileIDtextbox.Location = new System.Drawing.Point(228, 122);
             this.tileIDtextbox.Margin = new System.Windows.Forms.Padding(2);
             this.tileIDtextbox.Name = "tileIDtextbox";
             this.tileIDtextbox.Size = new System.Drawing.Size(110, 17);
@@ -535,7 +505,7 @@
             this.tileIDlabel.AutoSize = true;
             this.tileIDlabel.Font = new System.Drawing.Font("Javanese Text", 11F);
             this.tileIDlabel.ForeColor = System.Drawing.Color.Yellow;
-            this.tileIDlabel.Location = new System.Drawing.Point(19, 66);
+            this.tileIDlabel.Location = new System.Drawing.Point(33, 118);
             this.tileIDlabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.tileIDlabel.Name = "tileIDlabel";
             this.tileIDlabel.Size = new System.Drawing.Size(64, 34);
@@ -547,7 +517,7 @@
             this.newTurnButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.newTurnButton.BackColor = System.Drawing.Color.Black;
             this.newTurnButton.InitialImage = null;
-            this.newTurnButton.Location = new System.Drawing.Point(2, 103);
+            this.newTurnButton.Location = new System.Drawing.Point(238, 456);
             this.newTurnButton.Margin = new System.Windows.Forms.Padding(2);
             this.newTurnButton.Name = "newTurnButton";
             this.newTurnButton.Size = new System.Drawing.Size(205, 68);
@@ -560,7 +530,7 @@
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label1.Font = new System.Drawing.Font("Javanese Text", 11F);
             this.label1.ForeColor = System.Drawing.Color.Yellow;
-            this.label1.Location = new System.Drawing.Point(19, 40);
+            this.label1.Location = new System.Drawing.Point(33, 92);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(105, 28);
             this.label1.TabIndex = 25;
@@ -573,7 +543,7 @@
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.textBox1.ForeColor = System.Drawing.Color.Yellow;
-            this.textBox1.Location = new System.Drawing.Point(213, 17);
+            this.textBox1.Location = new System.Drawing.Point(227, 69);
             this.textBox1.Margin = new System.Windows.Forms.Padding(2);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
@@ -588,7 +558,7 @@
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
             this.textBox2.ForeColor = System.Drawing.Color.Yellow;
-            this.textBox2.Location = new System.Drawing.Point(214, 45);
+            this.textBox2.Location = new System.Drawing.Point(228, 97);
             this.textBox2.Name = "textBox2";
             this.textBox2.ReadOnly = true;
             this.textBox2.Size = new System.Drawing.Size(110, 17);
@@ -600,25 +570,11 @@
             this.label2.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.label2.Font = new System.Drawing.Font("Javanese Text", 11F);
             this.label2.ForeColor = System.Drawing.Color.Yellow;
-            this.label2.Location = new System.Drawing.Point(19, 12);
+            this.label2.Location = new System.Drawing.Point(33, 64);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(131, 24);
             this.label2.TabIndex = 26;
             this.label2.Text = "Soldiers on tile:";
-            // 
-            // buttonRecruit
-            // 
-            this.buttonRecruit.AutoSize = true;
-            this.buttonRecruit.BackColor = System.Drawing.Color.Transparent;
-            this.buttonRecruit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonRecruit.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.buttonRecruit.Location = new System.Drawing.Point(2, 195);
-            this.buttonRecruit.Margin = new System.Windows.Forms.Padding(0);
-            this.buttonRecruit.Name = "buttonRecruit";
-            this.buttonRecruit.Size = new System.Drawing.Size(205, 68);
-            this.buttonRecruit.TabIndex = 22;
-            this.buttonRecruit.UseVisualStyleBackColor = false;
-            this.buttonRecruit.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // ListBox_SaveNew
             // 
@@ -637,7 +593,7 @@
             // 
             this.soldierTrackBar.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.soldierTrackBar.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (128)))), ((int) (((byte) (64)))), ((int) (((byte) (0)))));
-            this.soldierTrackBar.Location = new System.Drawing.Point(628, 798);
+            this.soldierTrackBar.Location = new System.Drawing.Point(28, 470);
             this.soldierTrackBar.Name = "soldierTrackBar";
             this.soldierTrackBar.Size = new System.Drawing.Size(102, 45);
             this.soldierTrackBar.TabIndex = 40;
@@ -722,7 +678,6 @@
             this.Controls.Add(this.TotalPointGain);
             this.Controls.Add(this.AllPointsTextBox);
             this.Controls.Add(this.TotalPointsLabel);
-            this.Controls.Add(this.soldierTrackBar);
             this.Controls.Add(this.LogBook);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pictureBox1);
@@ -781,8 +736,6 @@
 
         private System.Windows.Forms.Panel panel1;
 
-        private System.Windows.Forms.TextBox textBox3;
-
         private System.Windows.Forms.Button button_NewSave;
 
         private System.Windows.Forms.TextBox textBox_SaveFileName;
@@ -808,7 +761,6 @@
         private System.Windows.Forms.TextBox AllPointsTextBox;
         private System.Windows.Forms.Label TotalPointGain;
         private System.Windows.Forms.TextBox TotalPointsTextBox;
-        private System.Windows.Forms.Button upgradeButton;
         private System.Windows.Forms.TextBox upgradecosttextbox;
         private System.Windows.Forms.Label upgradecostlabel;
         private System.Windows.Forms.Panel panel2;
@@ -819,7 +771,6 @@
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Button buttonRecruit;
     }
 }
 

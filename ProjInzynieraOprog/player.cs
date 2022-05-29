@@ -9,6 +9,13 @@ namespace ProjInzynieraOprog
         private int pointsBalance=100;
         private int PlayerId;
         city city;
+        private int savedPoints;
+
+        public int SavedPoints
+        {
+            get => savedPoints;
+            set => savedPoints = value;
+        }
 
         public city City
         {
