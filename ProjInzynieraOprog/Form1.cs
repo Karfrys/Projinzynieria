@@ -94,10 +94,7 @@ namespace ProjInzynieraOprog
             pictureBox1.Refresh();
         }
 
-        internal void Refresh_Picturebox()
-        {
-            pictureBox1.Refresh();
-        }
+
 
         Button menuUpgradeButton;
         Button menuRecruitButton;
@@ -252,14 +249,30 @@ namespace ProjInzynieraOprog
                 menuRecruitButton.Click += new EventHandler(menuRecruit_Click);
 
                 if (M.List_of_tiles[clickedX, clickedY].PointGain * 3 > M._playerHuman.PointsBalance ||
-                    M.List_of_tiles[clickedX, clickedY].Type == 2)
+                    M.List_of_tiles[clickedX, clickedY].Type == 2 || M.List_of_tiles[clickedX, clickedY].PlayerControllerId != M._playerHuman.PlayerId1
+                    || M.List_of_tiles[clickedX, clickedY].Type == 4)
                 {
                     menuUpgradeButton.Enabled = false;
                 }
                 else
                 {
-                    menuUpgradeButton.Enabled = true;
+                   
+                        menuUpgradeButton.Enabled = true;
+                    
+                   
                 }
+
+                if (M.List_of_tiles[clickedX, clickedY].PlayerControllerId != M._playerHuman.PlayerId1)
+                {
+                    menuRecruitButton.Enabled = false;
+                }
+                else
+                {
+                    menuRecruitButton.Enabled = true;
+                }
+                
+                
+               
 
 
                 pictureBox1.Refresh();
