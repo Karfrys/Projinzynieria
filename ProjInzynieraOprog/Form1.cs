@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.IO;
+using System.Media;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
@@ -17,7 +19,8 @@ namespace ProjInzynieraOprog
         //readonly player _playerAi = new player(2);
         private int clickedX;
         private int clickedY;
-
+        [DllImport("winmm.dll")]
+        static extern Int32 mciSendString(string command, StringBuilder buffer, int bufferSize, IntPtr hwndCallback);
 
         private void GoFullscreen(bool fullscreen)
         {
@@ -53,12 +56,18 @@ namespace ProjInzynieraOprog
             Image new_turn_img = Image.FromFile(path_new_turn);
             newTurnButton.Image = new_turn_img;
 
-
-
+            mciSendString(@"open Resources\Sound01.wav type waveaudio alias soundtrack", null, 0, IntPtr.Zero);
+            mciSendString(@"play soundtrack", null, 0, IntPtr.Zero);
+         
+            
+           // SoundPlayer simpleSound = new SoundPlayer(@"Resources\Sound01.wav");
+          
+            //simpleSound.PlayLooping();
+            
+            
         
 
-
-
+      
 
 
             pictureBarracks.Image = M.load_resource_image("BARRACKS.png");
@@ -334,6 +343,15 @@ namespace ProjInzynieraOprog
 
         private void newTurnButton_Click(object sender, EventArgs e)
         {
+            
+            new Thread(() => {
+                var c = new SoundPlayer(@"Resources\newTurnSound.wav");
+                c.Play();
+            }).Start();
+            
+          
+
+           
             if (M.List_of_tiles[1, 1].PlayerControllerId != M._playerHuman.PlayerId1)
             {
                 MessageBox.Show("Loser and noob");

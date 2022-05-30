@@ -60,18 +60,18 @@
             this.LabelBarracks = new System.Windows.Forms.Label();
             this.ButtonBarracks = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
-            this.upgradecosttextbox = new System.Windows.Forms.TextBox();
-            this.upgradecostlabel = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tileIDtextbox = new System.Windows.Forms.TextBox();
+            this.upgradecosttextbox = new System.Windows.Forms.TextBox();
+            this.upgradecostlabel = new System.Windows.Forms.Label();
             this.tileIDlabel = new System.Windows.Forms.Label();
-            this.newTurnButton = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.ListBox_SaveNew = new System.Windows.Forms.ListBox();
             this.soldierTrackBar = new System.Windows.Forms.TrackBar();
+            this.newTurnButton = new System.Windows.Forms.PictureBox();
             this.LogBook = new System.Windows.Forms.RichTextBox();
             this.TotalPointsLabel = new System.Windows.Forms.Label();
             this.AllPointsTextBox = new System.Windows.Forms.TextBox();
@@ -89,8 +89,8 @@
             this.panel6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize) (this.pictureBarracks)).BeginInit();
             this.panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.newTurnButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize) (this.soldierTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize) (this.newTurnButton)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox1
@@ -442,33 +442,6 @@
             this.label6.TabIndex = 3;
             this.label6.Text = "Barracks";
             // 
-            // upgradecosttextbox
-            // 
-            this.upgradecosttextbox.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.upgradecosttextbox.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (128)))), ((int) (((byte) (64)))), ((int) (((byte) (0)))));
-            this.upgradecosttextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.upgradecosttextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
-            this.upgradecosttextbox.ForeColor = System.Drawing.Color.Yellow;
-            this.upgradecosttextbox.Location = new System.Drawing.Point(227, 34);
-            this.upgradecosttextbox.Margin = new System.Windows.Forms.Padding(2);
-            this.upgradecosttextbox.Name = "upgradecosttextbox";
-            this.upgradecosttextbox.Size = new System.Drawing.Size(110, 17);
-            this.upgradecosttextbox.TabIndex = 44;
-            this.upgradecosttextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
-            // upgradecostlabel
-            // 
-            this.upgradecostlabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.upgradecostlabel.AutoSize = true;
-            this.upgradecostlabel.Font = new System.Drawing.Font("Javanese Text", 11F);
-            this.upgradecostlabel.ForeColor = System.Drawing.Color.Yellow;
-            this.upgradecostlabel.Location = new System.Drawing.Point(33, 30);
-            this.upgradecostlabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.upgradecostlabel.Name = "upgradecostlabel";
-            this.upgradecostlabel.Size = new System.Drawing.Size(106, 34);
-            this.upgradecostlabel.TabIndex = 43;
-            this.upgradecostlabel.Text = "Upgrade Cost:";
-            // 
             // panel2
             // 
             this.panel2.Controls.Add(this.tileIDtextbox);
@@ -499,6 +472,33 @@
             this.tileIDtextbox.TabIndex = 42;
             this.tileIDtextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
+            // upgradecosttextbox
+            // 
+            this.upgradecosttextbox.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.upgradecosttextbox.BackColor = System.Drawing.Color.FromArgb(((int) (((byte) (128)))), ((int) (((byte) (64)))), ((int) (((byte) (0)))));
+            this.upgradecosttextbox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.upgradecosttextbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F);
+            this.upgradecosttextbox.ForeColor = System.Drawing.Color.Yellow;
+            this.upgradecosttextbox.Location = new System.Drawing.Point(227, 34);
+            this.upgradecosttextbox.Margin = new System.Windows.Forms.Padding(2);
+            this.upgradecosttextbox.Name = "upgradecosttextbox";
+            this.upgradecosttextbox.Size = new System.Drawing.Size(110, 17);
+            this.upgradecosttextbox.TabIndex = 44;
+            this.upgradecosttextbox.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
+            // upgradecostlabel
+            // 
+            this.upgradecostlabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.upgradecostlabel.AutoSize = true;
+            this.upgradecostlabel.Font = new System.Drawing.Font("Javanese Text", 11F);
+            this.upgradecostlabel.ForeColor = System.Drawing.Color.Yellow;
+            this.upgradecostlabel.Location = new System.Drawing.Point(33, 30);
+            this.upgradecostlabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.upgradecostlabel.Name = "upgradecostlabel";
+            this.upgradecostlabel.Size = new System.Drawing.Size(106, 34);
+            this.upgradecostlabel.TabIndex = 43;
+            this.upgradecostlabel.Text = "Upgrade Cost:";
+            // 
             // tileIDlabel
             // 
             this.tileIDlabel.Anchor = System.Windows.Forms.AnchorStyles.Right;
@@ -511,19 +511,6 @@
             this.tileIDlabel.Size = new System.Drawing.Size(64, 34);
             this.tileIDlabel.TabIndex = 41;
             this.tileIDlabel.Text = "Tile ID:";
-            // 
-            // newTurnButton
-            // 
-            this.newTurnButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.newTurnButton.BackColor = System.Drawing.Color.Black;
-            this.newTurnButton.InitialImage = null;
-            this.newTurnButton.Location = new System.Drawing.Point(238, 456);
-            this.newTurnButton.Margin = new System.Windows.Forms.Padding(2);
-            this.newTurnButton.Name = "newTurnButton";
-            this.newTurnButton.Size = new System.Drawing.Size(205, 68);
-            this.newTurnButton.TabIndex = 12;
-            this.newTurnButton.TabStop = false;
-            this.newTurnButton.Click += new System.EventHandler(this.newTurnButton_Click);
             // 
             // label1
             // 
@@ -597,6 +584,19 @@
             this.soldierTrackBar.Name = "soldierTrackBar";
             this.soldierTrackBar.Size = new System.Drawing.Size(102, 45);
             this.soldierTrackBar.TabIndex = 40;
+            // 
+            // newTurnButton
+            // 
+            this.newTurnButton.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.newTurnButton.BackColor = System.Drawing.Color.Black;
+            this.newTurnButton.InitialImage = null;
+            this.newTurnButton.Location = new System.Drawing.Point(238, 456);
+            this.newTurnButton.Margin = new System.Windows.Forms.Padding(2);
+            this.newTurnButton.Name = "newTurnButton";
+            this.newTurnButton.Size = new System.Drawing.Size(205, 68);
+            this.newTurnButton.TabIndex = 12;
+            this.newTurnButton.TabStop = false;
+            this.newTurnButton.Click += new System.EventHandler(this.newTurnButton_Click);
             // 
             // LogBook
             // 
@@ -699,8 +699,8 @@
             ((System.ComponentModel.ISupportInitialize) (this.pictureBarracks)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.newTurnButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize) (this.soldierTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize) (this.newTurnButton)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
         }
